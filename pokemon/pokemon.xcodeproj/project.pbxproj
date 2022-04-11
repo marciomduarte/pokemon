@@ -10,7 +10,6 @@
 		2D0A26322804A05F00F18C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0A26312804A05F00F18C77 /* AppDelegate.swift */; };
 		2D0A26342804A05F00F18C77 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0A26332804A05F00F18C77 /* SceneDelegate.swift */; };
 		2D0A26362804A05F00F18C77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0A26352804A05F00F18C77 /* ViewController.swift */; };
-		2D0A26392804A05F00F18C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D0A26372804A05F00F18C77 /* Main.storyboard */; };
 		2D0A263B2804A06000F18C77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D0A263A2804A06000F18C77 /* Assets.xcassets */; };
 		2D0A263E2804A06000F18C77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D0A263C2804A06000F18C77 /* LaunchScreen.storyboard */; };
 		2D0A26492804A06000F18C77 /* pokemonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0A26482804A06000F18C77 /* pokemonTests.swift */; };
@@ -40,7 +39,6 @@
 		2D0A26312804A05F00F18C77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D0A26332804A05F00F18C77 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2D0A26352804A05F00F18C77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		2D0A26382804A05F00F18C77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2D0A263A2804A06000F18C77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D0A263D2804A06000F18C77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D0A263F2804A06000F18C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,13 +97,13 @@
 		2D0A26302804A05F00F18C77 /* pokemon */ = {
 			isa = PBXGroup;
 			children = (
+				2D0A266A2804A66E00F18C77 /* Utilities */,
+				2D0A26642804A5D800F18C77 /* AppConfigs */,
+				2D0A26652804A60F00F18C77 /* Resources */,
+				2D0A26612804A59300F18C77 /* APIServices */,
+				2D0A26662804A61B00F18C77 /* Classes */,
 				2D0A26312804A05F00F18C77 /* AppDelegate.swift */,
 				2D0A26332804A05F00F18C77 /* SceneDelegate.swift */,
-				2D0A26352804A05F00F18C77 /* ViewController.swift */,
-				2D0A26372804A05F00F18C77 /* Main.storyboard */,
-				2D0A263A2804A06000F18C77 /* Assets.xcassets */,
-				2D0A263C2804A06000F18C77 /* LaunchScreen.storyboard */,
-				2D0A263F2804A06000F18C77 /* Info.plist */,
 			);
 			path = pokemon;
 			sourceTree = "<group>";
@@ -125,6 +123,77 @@
 				2D0A26542804A06000F18C77 /* pokemonUITestsLaunchTests.swift */,
 			);
 			path = pokemonUITests;
+			sourceTree = "<group>";
+		};
+		2D0A26612804A59300F18C77 /* APIServices */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = APIServices;
+			sourceTree = "<group>";
+		};
+		2D0A26632804A5B100F18C77 /* Plists */ = {
+			isa = PBXGroup;
+			children = (
+				2D0A263F2804A06000F18C77 /* Info.plist */,
+			);
+			path = Plists;
+			sourceTree = "<group>";
+		};
+		2D0A26642804A5D800F18C77 /* AppConfigs */ = {
+			isa = PBXGroup;
+			children = (
+				2D0A26632804A5B100F18C77 /* Plists */,
+				2D0A263C2804A06000F18C77 /* LaunchScreen.storyboard */,
+			);
+			path = AppConfigs;
+			sourceTree = "<group>";
+		};
+		2D0A26652804A60F00F18C77 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2D0A263A2804A06000F18C77 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2D0A26662804A61B00F18C77 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2D0A26352804A05F00F18C77 /* ViewController.swift */,
+				2D0A26672804A62300F18C77 /* Models */,
+				2D0A26692804A63900F18C77 /* ViewModels */,
+				2D0A26682804A62A00F18C77 /* Views */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		2D0A26672804A62300F18C77 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2D0A26682804A62A00F18C77 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2D0A26692804A63900F18C77 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		2D0A266A2804A66E00F18C77 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +302,6 @@
 			files = (
 				2D0A263E2804A06000F18C77 /* LaunchScreen.storyboard in Resources */,
 				2D0A263B2804A06000F18C77 /* Assets.xcassets in Resources */,
-				2D0A26392804A05F00F18C77 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +365,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		2D0A26372804A05F00F18C77 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2D0A26382804A05F00F18C77 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2D0A263C2804A06000F18C77 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -367,7 +427,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,7 +482,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -440,10 +500,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = pokemon/Info.plist;
+				INFOPLIST_FILE = pokemon/AppConfigs/Plists/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -452,7 +511,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "marcioduarte-itsector.pokemon";
+				PRODUCT_BUNDLE_IDENTIFIER = marcioduarteitsector.pokemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -468,10 +527,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = pokemon/Info.plist;
+				INFOPLIST_FILE = pokemon/AppConfigs/Plists/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -480,7 +538,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "marcioduarte-itsector.pokemon";
+				PRODUCT_BUNDLE_IDENTIFIER = marcioduarteitsector.pokemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
