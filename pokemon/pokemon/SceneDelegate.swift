@@ -58,7 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func setRootViewController() -> UIViewController {
         //TabBarController
 
-        let vc = ViewController()
+        let vc = PokemonListViewController()
         return vc
     }
 
