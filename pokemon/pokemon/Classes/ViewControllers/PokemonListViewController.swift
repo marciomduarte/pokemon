@@ -10,6 +10,8 @@ import UIKit
 class PokemonListViewController: UIViewController {
 
     // MARK: - IBOutlet
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var pokemonSearchBar: UISearchBar!
     @IBOutlet private weak var pokemonCollectionView: UICollectionView!
 
     // MARK: - Private vars
@@ -30,7 +32,18 @@ class PokemonListViewController: UIViewController {
     }
 
     private func setupUI() {
+
+        // Define Title label
+        self.titleLabel.text = NSLocalizedString("pokemon.app.name", comment: "")
+        self.titleLabel.pokemonListTitleLabelStyle()
+
+        // Define backgroundColor
         self.view.backgroundColor = UIColor.pokemonListBackGroundColor
+
+        // Define and config searchBar
+        self.pokemonSearchBar.barTintColor = UIColor.pokemonListBackGroundColor
+        self.pokemonSearchBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
+
 
         // Config collectionView
         self.pokemonCollectionView.backgroundColor = UIColor.clear
@@ -40,7 +53,7 @@ class PokemonListViewController: UIViewController {
         self.pokemonsListUpdateDataSource()
     }
 
-    // Populate PokemonCollectionView with pokemon list
+    // Populate PokemonCollectionView
     private func pokemonsListUpdateDataSource() {
         if self.pokemonsList == nil || self.pokemonsList?.results.count == 0 {
             return

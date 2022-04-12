@@ -12,6 +12,7 @@ class PokemonCell: UICollectionViewCell {
     // MARK: - IBOutlet
     @IBOutlet weak var contentViewCell: UIView!
     @IBOutlet weak var pokemonIdLabel: UILabel!
+    @IBOutlet weak var pokemonTypeLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonImageView: PokemonImageView!
@@ -28,7 +29,13 @@ class PokemonCell: UICollectionViewCell {
     private func setupUI() {
         self.contentViewCell.layer.cornerRadius = 16.0
         self.contentViewCell.backgroundColor = UIColor.pokemonCellBackgroundColor.withAlphaComponent(0.5)
-        self.titleLabel.text = "Name"
+
+        self.titleLabel.text = NSLocalizedString("pokemon.cell.name.label", comment: "")
+        self.titleLabel.pokemonCellNameTitleLabelStyle()
+
+        self.pokemonIdLabel.pokemonCellNumberTitleLabelStyle()
+        self.pokemonTypeLabel.pokemonCellTypeLabelStyle()
+        self.pokemonNameLabel.pokemonCellNameLabelStyle()
     }
 
     override func prepareForReuse() {
@@ -42,9 +49,11 @@ class PokemonCell: UICollectionViewCell {
         if let id = pokemon.id {
             self.pokemonIdLabel.text = "#\(String(describing: id))"
         }
-        self.pokemonNameLabel.text = pokemon.name
+
+        self.pokemonNameLabel.text = pokemon.name?.capitalized
         self.pokemonImageView.loadImage(withURLString: pokemon.sprites?.front_default ?? "")
         if let type: String = pokemon.types?.first?.type?.name {
+            self.pokemonTypeLabel.text = type.capitalized
             self.contentViewCell.backgroundColor = UIColor.pokemonColorsDict[type]
         }
     }

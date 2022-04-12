@@ -21,5 +21,10 @@
 		<key>UIStatusBarStyle</key>
 		<string>UIStatusBarStyleDarkContent</string>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Ketchum.ttf</string>
+		<string>KetchumItalic.ttf</string>
+	</array>
 </dict>
 </plist>

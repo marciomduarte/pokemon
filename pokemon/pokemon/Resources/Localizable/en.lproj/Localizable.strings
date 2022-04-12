@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  pokemon
+
+  Created by Márcio Duarte on 12/04/2022.
+  
+*/
+
+"pokemon.app.name" = "PokemonDemo App";
+
+// MARK: - Pokemon Cells
+"pokemon.cell.name.label" = "Name:";
