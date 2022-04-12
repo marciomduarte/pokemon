@@ -7,14 +7,10 @@
 
 import Foundation
 
+struct Pokemon: Decodable, Equatable, Identifiable {
 
-class Pokemon: Codable {
+    let id: Int?
+    let name: String
+    let url: String
 
-    var id: Int
-    var name: String
-
-    init(withId id: Int, andName name: String) {
-        self.id = id
-        self.name = name
-    }
 }

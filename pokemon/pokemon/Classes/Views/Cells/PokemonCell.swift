@@ -16,6 +16,9 @@ class PokemonCell: UICollectionViewCell {
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonImageView: UIImageView!
 
+    // MARK: - Public vars
+    static let identifier = "PokemonCell"
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -24,12 +27,8 @@ class PokemonCell: UICollectionViewCell {
 
     private func setupUI() {
         self.contentViewCell.layer.cornerRadius = 2.0
+        self.contentViewCell.backgroundColor = .yellow
         self.titleLabel.text = "Name"
-    }
-
-    public func configPokemon(withPokemon pokemon: Pokemon) {
-        self.pokemonIdLabel.text = "#\(pokemon.id)"
-        self.pokemonNameLabel.text = pokemon.name
     }
 
     override func prepareForReuse() {
