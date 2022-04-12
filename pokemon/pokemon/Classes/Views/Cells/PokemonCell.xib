@@ -33,13 +33,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqp-nq-MHV">
-                                <rect key="frame" x="74" y="72" width="199" height="17"/>
+                                <rect key="frame" x="78" y="72" width="195" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="IN5-MQ-C7l">
-                                <rect key="frame" x="74" y="93" width="199" height="21"/>
+                                <rect key="frame" x="78" y="93" width="195" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -65,7 +65,7 @@
                             <constraint firstAttribute="trailing" secondItem="nRj-8e-QIx" secondAttribute="trailing" constant="18" id="UyM-KM-7MA"/>
                             <constraint firstItem="Kz1-g1-V3s" firstAttribute="leading" secondItem="mDe-lw-tEF" secondAttribute="leading" constant="10" id="fVg-kt-o25"/>
                             <constraint firstItem="nRj-8e-QIx" firstAttribute="top" secondItem="mDe-lw-tEF" secondAttribute="top" constant="4" id="hch-ib-6PR"/>
-                            <constraint firstItem="Kz1-g1-V3s" firstAttribute="trailing" secondItem="jqp-nq-MHV" secondAttribute="leading" constant="4" id="lQx-9d-UiH"/>
+                            <constraint firstItem="Kz1-g1-V3s" firstAttribute="trailing" secondItem="jqp-nq-MHV" secondAttribute="leading" id="lQx-9d-UiH"/>
                             <constraint firstItem="IN5-MQ-C7l" firstAttribute="leading" secondItem="jqp-nq-MHV" secondAttribute="leading" id="zxJ-tG-pHP"/>
                         </constraints>
                     </view>
