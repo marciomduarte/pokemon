@@ -17,22 +17,30 @@ extension UILabel {
 
     // MARK: - Pokemon cell styles
     public func pokemonCellTypeLabelStyle() {
-        self.font = UIFont.customItalicFont(withSize: 16)
-        self.textColor = .black
+        self.font = UIFont.customItalicFont(withSize: 18)
+        self.textColor = UIColor.pokemonListBackGroundColor
+        self.shadowColor = .black
+        self.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
 
     public func pokemonCellNumberTitleLabelStyle() {
-        self.font = UIFont.customItalicFont(withSize: 16)
-        self.textColor = .black
+        self.font = UIFont.customItalicFont(withSize: 18)
+        self.textColor = UIColor.pokemonListBackGroundColor
+        self.shadowColor = .black
+        self.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
 
     public func pokemonCellNameTitleLabelStyle() {
-        self.font = UIFont.customItalicFont(withSize: 16)
-        self.textColor = .black
+        self.font = UIFont.customItalicFont(withSize: 18)
+        self.textColor = UIColor.pokemonListBackGroundColor
+        self.shadowColor = .black
+        self.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
 
     public func pokemonCellNameLabelStyle() {
-        self.font = UIFont.customRegularFont(withSize: 16)
-        self.textColor = .black
+        self.font = UIFont.customRegularFont(withSize: 20)
+        self.textColor = UIColor.pokemonListBackGroundColor
+        self.shadowColor = .black
+        self.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
 }
