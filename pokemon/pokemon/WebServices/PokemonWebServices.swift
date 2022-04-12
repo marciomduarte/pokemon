@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum PokemonsError: Error {
     case InvalidURL
@@ -26,21 +27,24 @@ struct PokemonWebServices {
 
         let (data, _) = try! await urlSession.data(from: url)
 
-        return try! JSONDecoder().decode(PokemonList.self, from: data)
+        return try? JSONDecoder().decode(PokemonList.self, from: data)
     }
-}
 
-extension URLSession {
-    func data(from url: URL) async throws -> (Data, URLResponse){
-        try await withCheckedContinuation({ continuation in
-            self.dataTask(with: url) { data, response, error in
-                guard let data = data, let response = response else {
-                    let error = error ?? URLError(.unknown)
-                    return continuation.resume(throwing: error as! Never)
-                }
+    // Get additional information of pokemon
+    static func getAdditionalInformation(withURLString urlString: String) async -> Pokemon {
 
-                continuation.resume(returning: (data, response))
-            }.resume()
-        })
+        let url = URL(string: urlString) ?? URL(string: "")
+        let (data, _) = try! await urlSession.data(from: url!)
+
+        return try! JSONDecoder().decode(Pokemon.self, from: data)
+    }
+
+    static func getImage(withURLString urlString: String) async -> Data? {
+        guard let urlImage = URL(string: urlString) else {
+            return nil
+        }
+
+        let (data, _) = try! await URLSession.shared.data(from: urlImage)
+        return data
     }
 }

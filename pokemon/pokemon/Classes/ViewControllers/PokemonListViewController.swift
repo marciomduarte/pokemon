@@ -13,14 +13,15 @@ class PokemonListViewController: UIViewController {
     @IBOutlet private weak var pokemonCollectionView: UICollectionView!
 
     // MARK: - Private vars
-    private var pokemons: PokemonList? {
-        didSet {
-            self.pokemonsListUpdateDataSource()
-        }
-    }
     private var pokemonsDataSource: PokemonListDataSource<PokemonCell, [Pokemon]>!
+    private var kCollectionPadding: CGFloat = 16.0
+    private var kCollectionCellHeight: CGFloat = 120.0
+    private var kCollectionCellMinWidth: CGFloat = 140.0
+    private var kMinimunLineSpacing: CGFloat = 8.0
+    private var kMinimumInteritemSpacing: CGFloat = 8.0
 
     // MARK: - Public vars
+    public var pokemonsList: PokemonList?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,27 +30,43 @@ class PokemonListViewController: UIViewController {
     }
 
     private func setupUI() {
-        // Config collectionView
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 0.0, right: 20)
-        layout.itemSize = CGSize(width: 120.0, height: 100.0)
-        self.pokemonCollectionView.collectionViewLayout = layout
+        self.view.backgroundColor = UIColor.pokemonListBackGroundColor
 
+        // Config collectionView
+        self.pokemonCollectionView.backgroundColor = UIColor.clear
+        self.pokemonCollectionView.collectionViewLayout = self.getFlowLayout()
         self.pokemonCollectionView.register(UINib.init(nibName: String(describing: PokemonCell.self), bundle: nil), forCellWithReuseIdentifier: PokemonCell.identifier)
 
-        Task {
-            self.pokemons = await PokemonWebServices.getPokemonList(withNewPage: 0)
-        }
+        self.pokemonsListUpdateDataSource()
     }
 
+    // Populate PokemonCollectionView with pokemon list
     private func pokemonsListUpdateDataSource() {
-        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.pokemons!.results, andCellConfig: { (cell, item) in
+        if self.pokemonsList == nil || self.pokemonsList?.results.count == 0 {
+            return
+        }
+
+        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.pokemonsList!.results, andCellConfig: { (cell, item) in
             if let pokemon = item as? Pokemon {
-                cell.pokemonNameLabel.text = pokemon.name
+                cell.configCell(withPokemon: pokemon)
             }
         })
 
         self.pokemonCollectionView.dataSource = self.pokemonsDataSource
         self.pokemonCollectionView.reloadData()
+    }
+
+    // Create CollectionFlowLayout
+    private func getFlowLayout() -> UICollectionViewFlowLayout {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: kCollectionPadding, left: kCollectionPadding, bottom: kCollectionPadding, right: kCollectionPadding)
+        layout.minimumLineSpacing = kMinimunLineSpacing
+        layout.minimumInteritemSpacing = kMinimumInteritemSpacing
+        let collectionWidth: CGFloat = UIScreen.main.bounds.width - (kCollectionPadding * 2)
+        let numberOfCellsInLine: CGFloat = (collectionWidth / kCollectionCellMinWidth).rounded(.down)
+        let cellWidth: CGFloat = (collectionWidth - (kMinimumInteritemSpacing * numberOfCellsInLine)) / numberOfCellsInLine
+        layout.itemSize = CGSize(width: cellWidth, height: kCollectionCellHeight)
+
+        return layout
     }
 }
