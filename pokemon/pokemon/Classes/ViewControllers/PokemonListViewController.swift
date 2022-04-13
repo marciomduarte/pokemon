@@ -32,15 +32,19 @@ class PokemonListViewController: UIViewController {
         self.pokemonSearchBar.barTintColor = UIColor.pokemonListBackGroundColor
         self.pokemonSearchBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
 
-        self.pokemonListView.seeMorePokemonDetails = { pokemon in
-            self.goToPokemonDetail(withPokemon: pokemon)
+        self.pokemonListView.seeMorePokemonDetails = { pokemonId in
+            self.goToPokemonDetail(withPokemonId: pokemonId)
         }
     }
 
-    private func goToPokemonDetail(withPokemon pokemon: Pokemon) {
+    private func goToPokemonDetail(withPokemonId pokemonId: Int) {
+        if pokemonId == 0{
+            return
+        }
+        
         let pokemonDetailsVC: PokemonDetailsViewController = PokemonDetailsViewController()
-        pokemonDetailsVC.pokemon = pokemon
-        self.navigationController?.pushViewController(pokemonDetailsVC, animated: true)
+        pokemonDetailsVC.pokemonId = pokemonId
+        self.present(pokemonDetailsVC, animated: true, completion: nil)
     }
 
 }

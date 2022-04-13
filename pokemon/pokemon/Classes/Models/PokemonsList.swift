@@ -11,7 +11,7 @@ struct PokemonList: Decodable {
 
     var count: Int?
     var next: String?
-    var previous: Int?
+    var previous: String?
     var results: [Pokemon]
 
 }

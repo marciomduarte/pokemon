@@ -16,7 +16,8 @@ class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollect
 
     // MARK: - Public vars
     var configureCell: (CELL, Pokemon) -> () = {_,_ in}
-    var seeMoreWasClicked:((Pokemon) -> Void)? = nil
+    var getMorePokemons:((Int) -> Void)? = nil
+    var seeMoreWasClicked:((Int) -> Void)? = nil
 
     override init() {
         super.init()
@@ -37,12 +38,20 @@ class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollect
         let pokemon = self.pokemons?[indexPath.row]
 
         self.configureCell(cell, pokemon!)
+
+        if (self.pokemons?.count ?? 0) - 1 == indexPath.row  {
+            self.getMorePokemons?(self.pokemons?.count ?? 0)
+        }
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+    }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let pokemonsUnwrapper = self.pokemons {
-            self.seeMoreWasClicked?(pokemonsUnwrapper[indexPath.row])
+        if let pokemon = self.pokemons?[indexPath.row - 1] {
+            self.seeMoreWasClicked?(pokemon.id ?? 0)
         }
     }
 

@@ -14,29 +14,42 @@ enum PokemonsError: Error {
 }
 
 struct PokemonWebServices {
-    static let numberOfElementsInPage: Int = 120
-
     static var urlSession = URLSession.shared
 
     /// Get list of pokemons
-    static func getPokemonList(withoffSet offSet: Int) async -> PokemonList? {
+    static func getPokemonList(withNumberOfElements numberOfElements: Int, withOffSet offSet: Int) async throws -> PokemonList? {
 
-        guard let url = URL(string: PokemonEndpoints.getListOfPokemons(withLimit: numberOfElementsInPage, andOffSet: offSet)) else {
+        guard let url = URL(string: PokemonEndpoints.getListOfPokemons(withLimit: numberOfElements, andOffSet: offSet)) else {
             return nil
         }
 
-        let (data, _) = try! await urlSession.data(from: url)
+        let (data, _) = try await urlSession.data(from: url)
 
-        return try? JSONDecoder().decode(PokemonList.self, from: data)
+        return try JSONDecoder().decode(PokemonList.self, from: data)
     }
 
-    // Get additional information of pokemon
-    static func getAdditionalInformation(withURLString urlString: String) async -> Pokemon {
+    // Get additional information of pokemon by urlString
+    static func getAdditionalInformation(withURLString urlString: String) async throws -> Pokemon? {
 
-        let url = URL(string: urlString) ?? URL(string: "")
-        let (data, _) = try! await urlSession.data(from: url!)
+        guard let url = URL(string: urlString) ?? URL(string: "") else {
+            return nil
+        }
 
-        return try! JSONDecoder().decode(Pokemon.self, from: data)
+        let (data, _) = try await urlSession.data(from: url)
+
+        return try JSONDecoder().decode(Pokemon.self, from: data)
+    }
+
+    // Get additional information of pokemon by id
+    static func getAdditionalInformation(withPokemonId pokemonId: Int) async throws -> Pokemon? {
+
+        guard let url = URL(string: PokemonEndpoints.getPokemonById(withPokemonId: pokemonId)) else {
+            return nil
+        }
+
+        let (data, _) = try await urlSession.data(from: url)
+
+        return try JSONDecoder().decode(Pokemon.self, from: data)
     }
 
     static func getImage(withURLString urlString: String) async -> Data? {

@@ -19,14 +19,14 @@ class PokemonListView: UIView {
 
     // MARK: - Public vars
     public var pokemonsDataSource: PokemonListDataSource<PokemonCell, [Pokemon]>!
-    public var pokemonsList: PokemonList? {
+    public var pokemonsList: [Pokemon]? {
         didSet {
             DispatchQueue.main.async {
                 self.pokemonsListUpdateDataSource()
             }
         }
     }
-    public var seeMorePokemonDetails : ((_ pokemon: Pokemon) -> ()) = {_ in}
+    public var seeMorePokemonDetails : ((_ pokemonId: Int) -> ()) = {_ in}
 
     // MARK: - Constants
     private var kCollectionPadding: CGFloat = 16.0
@@ -61,6 +61,7 @@ class PokemonListView: UIView {
         self.pokemonCollectionView.register(UINib.init(nibName: String(describing: PokemonCell.self), bundle: nil), forCellWithReuseIdentifier: PokemonCell.identifier)
 
         self.pokemonListViewModel = PokemonListViewModel()
+        self.pokemonListViewModel.numberOfElementsOnScreen = self.numberOfVisibelCell()
         self.pokemonListViewModel.bindPokemonsList = { pokemonsListFetched in
             self.pokemonsList = pokemonsListFetched
         }
@@ -68,22 +69,34 @@ class PokemonListView: UIView {
 
     // Populate PokemonCollectionView
     private func pokemonsListUpdateDataSource() {
-        if self.pokemonsList == nil || self.pokemonsList?.results.count == 0 {
+        if self.pokemonsList == nil || self.pokemonsList?.count == 0 {
             return
         }
 
-        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.pokemonsList!.results, andCellConfig: { (cell, item) in
+        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.pokemonsList!, andCellConfig: { (cell, item) in
             if let pokemon = item as? Pokemon {
                 cell.configCell(withPokemon: pokemon)
             }
         })
 
-        self.pokemonsDataSource.seeMoreWasClicked = { pokemon in
-            self.seeMorePokemonDetails(pokemon)
+        self.pokemonsDataSource.seeMoreWasClicked = { pokemonId in
+            self.seeMorePokemonDetails(pokemonId)
         }
+
+        self.pokemonsDataSource.getMorePokemons = { offSet in
+            self.pokemonListViewModel.getPokemonList(withOffSet: offSet)
+        }
+
         self.pokemonCollectionView.dataSource = self.pokemonsDataSource
         self.pokemonCollectionView.delegate = self.pokemonsDataSource
         self.pokemonCollectionView.reloadData()
+    }
+
+    private func numberOfVisibelCell() -> Int {
+        let collectionHeightWithoutPadding: CGFloat = self.frame.height - (kCollectionPadding * 2)
+        let numberOfElements: CGFloat = (collectionHeightWithoutPadding / kCollectionCellHeight).rounded(.down)
+
+        return Int(numberOfElements) * 2
     }
 
     // Create CollectionFlowLayout

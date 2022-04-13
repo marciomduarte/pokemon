@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct Pokemon: Decodable {
-
+struct Pokemon: Decodable, Hashable {
     let id: Int?
     let name: String?
     let url: String?
@@ -16,6 +15,15 @@ struct Pokemon: Decodable {
     let height: Int?
     let sprites: Sprites?
     let types: [Types]?
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(name)
+    }
+    
+    static func == (lhs: Pokemon, rhs: Pokemon) -> Bool {
+        return lhs.id == rhs.id && lhs.name == rhs.name
+    }
 
 }
 

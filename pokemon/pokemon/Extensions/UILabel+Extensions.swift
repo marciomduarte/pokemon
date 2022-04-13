@@ -43,4 +43,11 @@ extension UILabel {
         self.shadowColor = .black
         self.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
+
+    public func pokemonDetailPokemonLabelStyle() {
+        self.font = UIFont.customItalicFont(withSize: 50)
+        self.textColor = UIColor.white
+        self.shadowColor = .black
+        self.shadowOffset = CGSize(width: 0.0, height: 1.0)
+    }
 }

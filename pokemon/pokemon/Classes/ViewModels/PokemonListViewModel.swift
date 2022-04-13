@@ -8,50 +8,63 @@
 import UIKit
 
 class PokemonListViewModel: NSObject {
+
     // MARK: - Private vars
-    private(set) var pokemonsList: PokemonList! {
+    private(set) var pokemons: [Pokemon]! = [] {
         didSet {
-            self.bindPokemonsList(self.pokemonsList)
+            self.bindPokemonsList(self.pokemons)
         }
     }
 
+    private var numberOfPokemonsFetched: Int = 0
     private var offSet: Int = 0
-    private var nextPage: Bool = true
+    private var hasNextPage: Bool = true
 
-    // MARK: - Pubic vars
-    var bindPokemonsList: ((_ pokemonList: PokemonList) -> ()) = {_ in}
+    // MARK: - Public vars
+    var numberOfElementsOnScreen: Int? {
+        willSet {
+            self.numberOfPokemonsFetched = (newValue ?? 0) * 2
+            self.getPokemonList(withOffSet: self.offSet)
+        }
+    }
+    var bindPokemonsList: ((_ pokemons: [Pokemon]) -> ()) = {_ in}
 
     override init() {
         super.init()
-
-        self.getPokemonList(withOffSet: self.offSet)
     }
 
     public func getPokemonList(withOffSet offSet: Int) {
-        Task {
-            var pokemonsList = await PokemonWebServices.getPokemonList(withoffSet: offSet)
+        self.fetchPokemons(withOffSet: offSet)
+    }
 
-            let pokemons: [Pokemon] = pokemonsList?.results ?? []
-            var newPokemons: [Pokemon] = []
-            for var pokemon: Pokemon in pokemons {
-                pokemon = await PokemonWebServices.getAdditionalInformation(withURLString: pokemon.url!)
-                newPokemons.append(pokemon)
+    private func fetchPokemons(withOffSet offSet: Int) {
+        if !self.hasNextPage {
+            return
+        }
+
+        Task { [weak self] in
+            guard let self = self else {
+                return
             }
 
-            pokemonsList?.results = newPokemons
-            self.pokemonsList = pokemonsList
+            do {
+                let pokemonsList = try await PokemonWebServices.getPokemonList(withNumberOfElements: self.numberOfPokemonsFetched, withOffSet: offSet)
 
-            self.configServiceVars(withOffSet: offSet, andNextPokemons: self.pokemonsList.next ?? nil)
+                let pokemonResult: [Pokemon] = pokemonsList?.results ?? []
+                var newPokemons: [Pokemon] = []
+                for var pokemonObject: Pokemon? in pokemonResult {
+                    pokemonObject = try await PokemonWebServices.getAdditionalInformation(withURLString: pokemonObject?.url ?? "")
+                    if let newPokemonObject = pokemonObject {
+                        newPokemons.append(newPokemonObject)
+                    }
+                }
+                self.pokemons.append(contentsOf: newPokemons)
+
+                self.offSet += self.numberOfPokemonsFetched
+                self.hasNextPage = offSet < (pokemonsList?.count ?? 0)
+            } catch {
+                print("error")
+            }
         }
     }
-
-    public func getMorePokemon(withOffset offSet: Int) {
-
-    }
-
-    private func configServiceVars(withOffSet offSet: Int, andNextPokemons nextPokemons: String?) {
-        self.nextPage = nextPokemons?.count != nil ? true : false
-        self.offSet += offSet
-    }
-
 }
