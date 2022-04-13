@@ -12,18 +12,7 @@ class PokemonListViewController: UIViewController {
     // MARK: - IBOutlet
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var pokemonSearchBar: UISearchBar!
-    @IBOutlet private weak var pokemonCollectionView: UICollectionView!
-
-    // MARK: - Private vars
-    private var pokemonsDataSource: PokemonListDataSource<PokemonCell, [Pokemon]>!
-    private var kCollectionPadding: CGFloat = 16.0
-    private var kCollectionCellHeight: CGFloat = 120.0
-    private var kCollectionCellMinWidth: CGFloat = 140.0
-    private var kMinimunLineSpacing: CGFloat = 8.0
-    private var kMinimumInteritemSpacing: CGFloat = 8.0
-
-    // MARK: - Public vars
-    public var pokemonsList: PokemonList?
+    @IBOutlet private weak var pokemonListView: PokemonListView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,54 +21,26 @@ class PokemonListViewController: UIViewController {
     }
 
     private func setupUI() {
+        // Define backgroundColor
+        self.view.backgroundColor = UIColor.pokemonListBackGroundColor
 
         // Define Title label
         self.titleLabel.text = NSLocalizedString("pokemon.app.name", comment: "")
         self.titleLabel.pokemonListTitleLabelStyle()
 
-        // Define backgroundColor
-        self.view.backgroundColor = UIColor.pokemonListBackGroundColor
-
         // Define and config searchBar
         self.pokemonSearchBar.barTintColor = UIColor.pokemonListBackGroundColor
         self.pokemonSearchBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
 
-
-        // Config collectionView
-        self.pokemonCollectionView.backgroundColor = UIColor.clear
-        self.pokemonCollectionView.collectionViewLayout = self.getFlowLayout()
-        self.pokemonCollectionView.register(UINib.init(nibName: String(describing: PokemonCell.self), bundle: nil), forCellWithReuseIdentifier: PokemonCell.identifier)
-
-        self.pokemonsListUpdateDataSource()
-    }
-
-    // Populate PokemonCollectionView
-    private func pokemonsListUpdateDataSource() {
-        if self.pokemonsList == nil || self.pokemonsList?.results.count == 0 {
-            return
+        self.pokemonListView.seeMorePokemonDetails = { pokemon in
+            self.goToPokemonDetail(withPokemon: pokemon)
         }
-
-        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.pokemonsList!.results, andCellConfig: { (cell, item) in
-            if let pokemon = item as? Pokemon {
-                cell.configCell(withPokemon: pokemon)
-            }
-        })
-
-        self.pokemonCollectionView.dataSource = self.pokemonsDataSource
-        self.pokemonCollectionView.reloadData()
     }
 
-    // Create CollectionFlowLayout
-    private func getFlowLayout() -> UICollectionViewFlowLayout {
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: kCollectionPadding, left: kCollectionPadding, bottom: kCollectionPadding, right: kCollectionPadding)
-        layout.minimumLineSpacing = kMinimunLineSpacing
-        layout.minimumInteritemSpacing = kMinimumInteritemSpacing
-        let collectionWidth: CGFloat = UIScreen.main.bounds.width - (kCollectionPadding * 2)
-        let numberOfCellsInLine: CGFloat = (collectionWidth / kCollectionCellMinWidth).rounded(.down)
-        let cellWidth: CGFloat = (collectionWidth - (kMinimumInteritemSpacing * numberOfCellsInLine)) / numberOfCellsInLine
-        layout.itemSize = CGSize(width: cellWidth, height: kCollectionCellHeight)
-
-        return layout
+    private func goToPokemonDetail(withPokemon pokemon: Pokemon) {
+        let pokemonDetailsVC: PokemonDetailsViewController = PokemonDetailsViewController()
+        pokemonDetailsVC.pokemon = pokemon
+        self.navigationController?.pushViewController(pokemonDetailsVC, animated: true)
     }
+
 }

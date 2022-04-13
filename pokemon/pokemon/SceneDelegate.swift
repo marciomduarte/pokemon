@@ -57,7 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func setRootViewController() -> UINavigationController {
         //TabBarController
 
-        let vc: PokemonFakeSplashScreenViewController = PokemonFakeSplashScreenViewController()
+        let vc: PokemonListViewController = PokemonListViewController()
         let navigationController: UINavigationController = UINavigationController(rootViewController: vc)
         return navigationController
     }

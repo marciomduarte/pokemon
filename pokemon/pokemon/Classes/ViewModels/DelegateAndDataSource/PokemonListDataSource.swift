@@ -10,9 +10,13 @@ import UIKit
 
 class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    // MARK: - Private vars
     private var cellIdentifier: String!
     private var pokemons: [Pokemon]?
+
+    // MARK: - Public vars
     var configureCell: (CELL, Pokemon) -> () = {_,_ in}
+    var seeMoreWasClicked:((Pokemon) -> Void)? = nil
 
     override init() {
         super.init()
@@ -36,5 +40,10 @@ class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollect
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let pokemonsUnwrapper = self.pokemons {
+            self.seeMoreWasClicked?(pokemonsUnwrapper[indexPath.row])
+        }
+    }
 
 }

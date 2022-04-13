@@ -27,7 +27,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRj-8e-QIx">
-                                <rect key="frame" x="263" y="4" width="0.0" height="14"/>
+                                <rect key="frame" x="271" y="8" width="0.0" height="10"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="0.0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -62,9 +62,9 @@
                             <constraint firstItem="Kz1-g1-V3s" firstAttribute="centerY" secondItem="mDe-lw-tEF" secondAttribute="centerY" constant="10" id="U2c-PL-Fit"/>
                             <constraint firstAttribute="trailing" secondItem="jqp-nq-MHV" secondAttribute="trailing" constant="8" id="ULt-9z-eIV"/>
                             <constraint firstItem="Kz1-g1-V3s" firstAttribute="centerY" secondItem="jqp-nq-MHV" secondAttribute="centerY" constant="10" id="Upx-hA-y8u"/>
-                            <constraint firstAttribute="trailing" secondItem="nRj-8e-QIx" secondAttribute="trailing" constant="18" id="UyM-KM-7MA"/>
+                            <constraint firstAttribute="trailing" secondItem="nRj-8e-QIx" secondAttribute="trailing" constant="10" id="UyM-KM-7MA"/>
                             <constraint firstItem="Kz1-g1-V3s" firstAttribute="leading" secondItem="mDe-lw-tEF" secondAttribute="leading" constant="10" id="fVg-kt-o25"/>
-                            <constraint firstItem="nRj-8e-QIx" firstAttribute="top" secondItem="mDe-lw-tEF" secondAttribute="top" constant="4" id="hch-ib-6PR"/>
+                            <constraint firstItem="nRj-8e-QIx" firstAttribute="top" secondItem="mDe-lw-tEF" secondAttribute="top" constant="8" id="hch-ib-6PR"/>
                             <constraint firstItem="Kz1-g1-V3s" firstAttribute="trailing" secondItem="jqp-nq-MHV" secondAttribute="leading" id="lQx-9d-UiH"/>
                             <constraint firstItem="IN5-MQ-C7l" firstAttribute="leading" secondItem="jqp-nq-MHV" secondAttribute="leading" id="zxJ-tG-pHP"/>
                         </constraints>

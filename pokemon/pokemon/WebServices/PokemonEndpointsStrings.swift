@@ -12,11 +12,8 @@ struct PokemonEndpoints {
     //Endpoint
     static var baseUrl: String = "https://pokeapi.co/api/v2/"
 
-    //getListOfPokemons
-    static var listOfPokemons: String = "pokemon?limit=%@&offset=%@"
-
     static func getListOfPokemons(withLimit limit: Int, andOffSet offSet: Int) -> String {
-        let endpointString = baseUrl + "pokemon?limit=\(limit)&offset=\(offSet)" //String(format: listOfPokemons, limit, offSet)
+        let endpointString = baseUrl + "pokemon?limit=\(limit)&offset=\(offSet)"
         return endpointString
     }
 }

@@ -19,9 +19,9 @@ struct PokemonWebServices {
     static var urlSession = URLSession.shared
 
     /// Get list of pokemons
-    static func getPokemonList(withNewPage newPage: Int) async -> PokemonList? {
+    static func getPokemonList(withoffSet offSet: Int) async -> PokemonList? {
 
-        guard let url = URL(string: PokemonEndpoints.getListOfPokemons(withLimit: numberOfElementsInPage, andOffSet: newPage)) else {
+        guard let url = URL(string: PokemonEndpoints.getListOfPokemons(withLimit: numberOfElementsInPage, andOffSet: offSet)) else {
             return nil
         }
 

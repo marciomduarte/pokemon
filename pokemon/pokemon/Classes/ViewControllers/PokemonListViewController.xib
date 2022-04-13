@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PokemonListViewController" customModule="pokemon" customModuleProvider="target">
             <connections>
-                <outlet property="pokemonCollectionView" destination="OUI-5B-RBv" id="uUb-28-a5y"/>
+                <outlet property="pokemonListView" destination="Jpk-i1-17Q" id="5G6-eN-s3c"/>
                 <outlet property="pokemonSearchBar" destination="ky6-na-QSu" id="EHd-fe-vnW"/>
                 <outlet property="titleLabel" destination="3H3-8L-mrG" id="FVt-n7-qFe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -33,28 +33,22 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="OUI-5B-RBv">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jpk-i1-17Q" customClass="PokemonListView" customModule="pokemon" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="156" width="414" height="740"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zWu-TJ-8CR">
-                        <size key="itemSize" width="128" height="128"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                </collectionView>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="ky6-na-QSu" firstAttribute="top" secondItem="3H3-8L-mrG" secondAttribute="bottom" constant="32" id="CzL-F2-opI"/>
                 <constraint firstItem="ky6-na-QSu" firstAttribute="leading" secondItem="3H3-8L-mrG" secondAttribute="leading" id="Gf1-oo-owx"/>
+                <constraint firstAttribute="bottom" secondItem="Jpk-i1-17Q" secondAttribute="bottom" id="MeZ-6g-XfF"/>
                 <constraint firstItem="3H3-8L-mrG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="-8" id="QBC-vE-ubm"/>
-                <constraint firstAttribute="bottom" secondItem="OUI-5B-RBv" secondAttribute="bottom" id="b2A-2U-7J0"/>
-                <constraint firstItem="OUI-5B-RBv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="iAY-zO-lbq"/>
+                <constraint firstItem="Jpk-i1-17Q" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Xco-2b-feu"/>
+                <constraint firstItem="Jpk-i1-17Q" firstAttribute="top" secondItem="ky6-na-QSu" secondAttribute="bottom" id="bIe-Nl-FeA"/>
                 <constraint firstItem="3H3-8L-mrG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="iR9-tn-7DN"/>
-                <constraint firstItem="OUI-5B-RBv" firstAttribute="top" secondItem="ky6-na-QSu" secondAttribute="bottom" id="lDs-it-9s4"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="OUI-5B-RBv" secondAttribute="trailing" id="tw1-AQ-klJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Jpk-i1-17Q" secondAttribute="trailing" id="uh7-J6-e2Z"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3H3-8L-mrG" secondAttribute="trailing" constant="24" id="xTf-uj-Lhn"/>
                 <constraint firstItem="ky6-na-QSu" firstAttribute="trailing" secondItem="3H3-8L-mrG" secondAttribute="trailing" id="yEg-jj-Jz0"/>
             </constraints>
