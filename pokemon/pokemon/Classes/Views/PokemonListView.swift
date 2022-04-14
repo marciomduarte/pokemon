@@ -69,6 +69,8 @@ class PokemonListView: UIView {
 
     // Populate PokemonCollectionView
     private func pokemonsListUpdateDataSource() {
+        UIApplication.shared.topMostViewController()?.hideActivityIndicator()
+
         if self.pokemonsList == nil || self.pokemonsList?.count == 0 {
             return
         }

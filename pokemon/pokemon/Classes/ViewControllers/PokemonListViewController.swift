@@ -16,6 +16,7 @@ class PokemonListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showActivityIndicator()
 
         self.setupUI()
     }

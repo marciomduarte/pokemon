@@ -22,12 +22,19 @@ public class PokemonWebServices: PokemonServiceProtocol {
     func getPokemonList(withNumberOfElements numberOfElements: Int, withOffSet offSet: Int) async throws -> PokemonList? {
 
         guard let url = URL(string: PokemonEndpoints.getListOfPokemons(withLimit: numberOfElements, andOffSet: offSet)) else {
-            return nil
+            throw PokemonsError.GeneralError
         }
 
         let (data, _) = try await PokemonWebServices.urlSession.data(from: url)
 
-        return try JSONDecoder().decode(PokemonList.self, from: data)
+        var pokemonDecoded: PokemonList?
+        do {
+           pokemonDecoded = try JSONDecoder().decode(PokemonList.self, from: data)
+        } catch {
+            print(error)
+        }
+
+        return pokemonDecoded
     }
 
     /// Get additional information of pokemon by urlString

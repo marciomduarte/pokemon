@@ -10,3 +10,9 @@
 
 // MARK: - Pokemon Cells
 "pokemon.cell.name.label" = "Name:";
+
+
+// MARK: - Error Messages
+"pokemon.alert.error.title" = "🫥 \nSomething wrong happens.";
+"pokemon.alert.error.message.MissingData" = "We cannot carry out this operation right now.";
+"pokemon.alert.error.message.GeneralError" = "Please, try again later.";

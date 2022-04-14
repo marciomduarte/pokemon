@@ -76,18 +76,18 @@ class PokemonDetailsBottomView: UIView {
 
     @objc func changeImageGesture(_ sender: UIGestureRecognizer) {
         if let swipeGesture = sender as? UISwipeGestureRecognizer {
-            self.pokemonImageView.alpha = 0.0
-
             var newPokemonImage: String = ""
 
             switch swipeGesture.direction {
             case .right:
                 if shownFrontPokemonVisivel {
+                    self.pokemonImageView.alpha = 0.0
                     newPokemonImage = self.pokemon.sprites?.front_default ?? ""
                     self.shownFrontPokemonVisivel = !self.shownFrontPokemonVisivel
                 }
             case .left:
                 if !shownFrontPokemonVisivel {
+                    self.pokemonImageView.alpha = 0.0
                     newPokemonImage = self.pokemon.sprites?.back_default ?? ""
 
                     self.shownFrontPokemonVisivel = !self.shownFrontPokemonVisivel

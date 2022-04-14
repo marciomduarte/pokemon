@@ -72,7 +72,7 @@ class PokemonListViewModel: NSObject {
                 self.offSet += self.numberOfPokemonsFetched
                 self.hasNextPage = offSet < (pokemonsList?.count ?? 0)
             } catch {
-                print("error")
+                print(error)
             }
         }
     }
