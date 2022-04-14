@@ -77,7 +77,7 @@ class PokemonListView: UIView {
 
     // Populate PokemonCollectionView
     private func pokemonsListUpdateDataSource() {
-        self.pokemonCollectionView.backgroundView = nil
+        self.pokemonEmptyListView.isHidden = true
 
         UIApplication.shared.topMostViewController()?.hideActivityIndicator()
 
