@@ -50,7 +50,7 @@ class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollect
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let pokemon = self.pokemons?[indexPath.row - 1] {
+        if let pokemon = self.pokemons?[indexPath.row] {
             self.seeMoreWasClicked?(pokemon.id ?? 0)
         }
     }

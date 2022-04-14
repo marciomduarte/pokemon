@@ -15,6 +15,7 @@ struct Pokemon: Decodable, Hashable {
     let height: Int?
     let sprites: Sprites?
     let types: [Types]?
+    let pokemonImageData: Data?
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -24,14 +25,14 @@ struct Pokemon: Decodable, Hashable {
     static func == (lhs: Pokemon, rhs: Pokemon) -> Bool {
         return lhs.id == rhs.id && lhs.name == rhs.name
     }
-
 }
 
 struct Sprites: Decodable {
 
     let front_default: String?
+    var front_default_data: Data?
     let back_default: String?
-
+    var back_defaultData: Data?
 }
 
 struct Types: Decodable {

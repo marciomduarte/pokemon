@@ -16,8 +16,15 @@ class PokemonListViewModel: NSObject {
         }
     }
 
+    private var pokemonServiceAPI: PokemonServiceProtocol
+
+    /// Number of pokemons
     private var numberOfPokemonsFetched: Int = 0
+
+    /// Offset of next pokemons
     private var offSet: Int = 0
+
+    /// Used to check if we have more pokemons
     private var hasNextPage: Bool = true
 
     // MARK: - Public vars
@@ -27,10 +34,12 @@ class PokemonListViewModel: NSObject {
             self.getPokemonList(withOffSet: self.offSet)
         }
     }
+
     var bindPokemonsList: ((_ pokemons: [Pokemon]) -> ()) = {_ in}
 
-    override init() {
-        super.init()
+    // MARK: - Life Cycle
+    init (pokemonAPI: PokemonServiceProtocol = PokemonWebServices()) {
+        self.pokemonServiceAPI = pokemonAPI
     }
 
     public func getPokemonList(withOffSet offSet: Int) {
@@ -48,12 +57,12 @@ class PokemonListViewModel: NSObject {
             }
 
             do {
-                let pokemonsList = try await PokemonWebServices.getPokemonList(withNumberOfElements: self.numberOfPokemonsFetched, withOffSet: offSet)
+                let pokemonsList = try await self.pokemonServiceAPI.getPokemonList(withNumberOfElements: self.numberOfPokemonsFetched, withOffSet: offSet)
 
                 let pokemonResult: [Pokemon] = pokemonsList?.results ?? []
                 var newPokemons: [Pokemon] = []
                 for var pokemonObject: Pokemon? in pokemonResult {
-                    pokemonObject = try await PokemonWebServices.getAdditionalInformation(withURLString: pokemonObject?.url ?? "")
+                    pokemonObject = try await self.pokemonServiceAPI.getAdditionalInformation(withURLString: pokemonObject?.url ?? "")
                     if let newPokemonObject = pokemonObject {
                         newPokemons.append(newPokemonObject)
                     }

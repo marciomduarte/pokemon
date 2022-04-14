@@ -7,6 +7,13 @@
 
 import Foundation
 
+// Enums
+enum PokemonsError: Error {
+    case InvalidURL
+    case MissingData
+    case DecodeJsonError
+    case GeneralError
+}
 
 class PokemonUtils: NSObject {
     

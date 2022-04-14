@@ -16,6 +16,8 @@ class PokemonDetailsViewModel: NSObject {
         }
     }
 
+    private var pokemonServiceAPI: PokemonServiceProtocol
+
     // MARK: - Public vars
     var bindPokemonDetail: ((_ pokemons: Pokemon) -> ()) = {_ in}
     var pokemonId: Int = -1 {
@@ -24,8 +26,9 @@ class PokemonDetailsViewModel: NSObject {
         }
     }
 
-    override init() {
-        super.init()
+    // MARK: - Life Cycles
+    init (pokemonAPI: PokemonServiceProtocol = PokemonWebServices()) {
+        self.pokemonServiceAPI = pokemonAPI
     }
 
     public func getPokemonDetails(withPokemonId pokemonId: Int) {
@@ -35,7 +38,7 @@ class PokemonDetailsViewModel: NSObject {
             }
 
             do {
-                self.pokemon = try await PokemonWebServices.getAdditionalInformation(withPokemonId: self.pokemonId)
+                self.pokemon = try await self.pokemonServiceAPI.getAdditionalInformation(withPokemonId: self.pokemonId)
             } catch {
                 print("error")
             }

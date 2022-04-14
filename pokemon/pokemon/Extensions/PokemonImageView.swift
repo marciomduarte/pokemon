@@ -10,9 +10,11 @@ import UIKit
 
 class PokemonImageView: UIImageView {
 
+    private var pokemonServiceAPI: PokemonServiceProtocol = PokemonWebServices()
+
     func loadImage(withURLString urlString: String) {
         Task {
-            if let imageData: Data = await PokemonWebServices.getImage(withURLString: urlString) {
+            if let imageData: Data = try await self.pokemonServiceAPI.getImage(withURLString: urlString) {
                 self.image = UIImage(data: imageData)
             }
         }
