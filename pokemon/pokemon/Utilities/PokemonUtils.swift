@@ -14,7 +14,6 @@ enum PokemonsError: Error {
     case GeneralError
 }
 
-
 extension UIViewController {
     static var activityView: UIView?
     static var activityViewIndicator: UIActivityIndicatorView?

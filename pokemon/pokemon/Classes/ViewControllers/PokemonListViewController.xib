@@ -29,19 +29,19 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ky6-na-QSu">
-                    <rect key="frame" x="24" y="105" width="366" height="51"/>
+                    <rect key="frame" x="24" y="91" width="366" height="51"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jpk-i1-17Q" customClass="PokemonListView" customModule="pokemon" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="156" width="414" height="740"/>
+                    <rect key="frame" x="0.0" y="142" width="414" height="754"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="ky6-na-QSu" firstAttribute="top" secondItem="3H3-8L-mrG" secondAttribute="bottom" constant="32" id="CzL-F2-opI"/>
+                <constraint firstItem="ky6-na-QSu" firstAttribute="top" secondItem="3H3-8L-mrG" secondAttribute="bottom" constant="18" id="CzL-F2-opI"/>
                 <constraint firstItem="ky6-na-QSu" firstAttribute="leading" secondItem="3H3-8L-mrG" secondAttribute="leading" id="Gf1-oo-owx"/>
                 <constraint firstAttribute="bottom" secondItem="Jpk-i1-17Q" secondAttribute="bottom" id="MeZ-6g-XfF"/>
                 <constraint firstItem="3H3-8L-mrG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="-8" id="QBC-vE-ubm"/>

@@ -8,9 +8,11 @@
 
 "pokemon.app.name" = "PokemonDemo App";
 
+// MARK: - Pokemon list
+"pokemon.empty.list" = "We couldn't catch any pokemon to present";
+
 // MARK: - Pokemon Cells
 "pokemon.cell.name.label" = "Name:";
-
 
 // MARK: - Error Messages
 "pokemon.alert.error.title" = "🫥 \nSomething wrong happens.";

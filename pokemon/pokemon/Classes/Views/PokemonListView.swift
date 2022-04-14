@@ -15,10 +15,13 @@ class PokemonListView: UIView {
     @IBOutlet var contentView: UIView!
 
     // MARK: - Private vars
+    private var pokemonEmptyListView: UIView = UIView()
+
     private var pokemonListViewModel: PokemonListViewModel!
 
     // MARK: - Public vars
     public var pokemonsDataSource: PokemonListDataSource<PokemonCell, [Pokemon]>!
+
     public var pokemonsList: [Pokemon]? {
         didSet {
             DispatchQueue.main.async {
@@ -26,6 +29,7 @@ class PokemonListView: UIView {
             }
         }
     }
+
     public var seeMorePokemonDetails : ((_ pokemonId: Int) -> ()) = {_ in}
 
     // MARK: - Constants
@@ -60,6 +64,10 @@ class PokemonListView: UIView {
         self.pokemonCollectionView.collectionViewLayout = self.getFlowLayout()
         self.pokemonCollectionView.register(UINib.init(nibName: String(describing: PokemonCell.self), bundle: nil), forCellWithReuseIdentifier: PokemonCell.identifier)
 
+        // Add Pokemon empty list view
+        self.getPokemonEmptyListView()
+        self.pokemonCollectionView.addSubview(self.pokemonEmptyListView)
+
         self.pokemonListViewModel = PokemonListViewModel()
         self.pokemonListViewModel.numberOfElementsOnScreen = self.numberOfVisibelCell()
         self.pokemonListViewModel.bindPokemonsList = { pokemonsListFetched in
@@ -69,6 +77,8 @@ class PokemonListView: UIView {
 
     // Populate PokemonCollectionView
     private func pokemonsListUpdateDataSource() {
+        self.pokemonCollectionView.backgroundView = nil
+
         UIApplication.shared.topMostViewController()?.hideActivityIndicator()
 
         if self.pokemonsList == nil || self.pokemonsList?.count == 0 {
@@ -101,7 +111,42 @@ class PokemonListView: UIView {
         return Int(numberOfElements) * 2
     }
 
-    // Create CollectionFlowLayout
+    /// Get collectionView empty view
+    private func getPokemonEmptyListView() {
+        let paddingTop: CGFloat = 8.0
+        let imageViewWidth: CGFloat = 80.0
+        let imageViewHeight: CGFloat = 80.0
+
+        self.pokemonEmptyListView = UIView(frame: .zero)
+        let xPos: CGFloat = (UIScreen.main.bounds.width / 2) - (imageViewWidth / 2)
+
+        let imageView: UIImageView = UIImageView(frame: CGRect(x: xPos, y: self.pokemonCollectionView.frame.minY + imageViewWidth, width: imageViewWidth, height: imageViewHeight))
+        imageView.image = UIImage(named: "outline_warning_black")
+        imageView.tintColor = UIColor.pokemonRedColor
+        self.pokemonEmptyListView.addSubview(imageView)
+
+        let errorLabelWidth: CGFloat = UIScreen.main.bounds.width - (24 * 2)
+        let errorLabel = UILabel(frame: CGRect(x: 24, y: imageView.frame.maxY + (paddingTop * 2), width: errorLabelWidth, height: 30.0))
+        errorLabel.text = NSLocalizedString("pokemon.empty.list", comment: "")
+        errorLabel.pokemonListEmptyStateStyle()
+        errorLabel.numberOfLines = 0
+        errorLabel.textAlignment = .center
+        errorLabel.sizeToFit()
+
+        var errorLabelFrame: CGRect = errorLabel.frame
+        errorLabelFrame.size.width = errorLabelWidth;
+        errorLabel.frame = errorLabelFrame
+
+        self.pokemonEmptyListView.addSubview(errorLabel)
+
+        var imageViewFrame: CGRect = self.pokemonEmptyListView.frame
+        imageViewFrame.size.width = UIScreen.main.bounds.width
+        imageViewFrame.size.height = imageViewWidth + (paddingTop * 2) + errorLabel.frame.height
+        self.pokemonEmptyListView.frame = imageViewFrame
+    }
+
+    /// Create a Custom Flow layout
+    /// Used to set pokemon list in grid
     private func getFlowLayout() -> UICollectionViewFlowLayout {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: kCollectionPadding, left: kCollectionPadding, bottom: kCollectionPadding, right: kCollectionPadding)

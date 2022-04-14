@@ -50,4 +50,12 @@ extension UILabel {
         self.shadowColor = .black
         self.shadowOffset = CGSize(width: 0.0, height: 1.0)
     }
+
+    public func pokemonListEmptyStateStyle() {
+        self.font = UIFont.customRegularFont(withSize: 30)
+        self.textColor = UIColor.pokemonRedColor.withAlphaComponent(0.6)
+        self.shadowColor = .black
+        self.shadowOffset = CGSize(width: 0.0, height: 1.0)
+    }
+
 }
