@@ -63,7 +63,8 @@ class PokemonListViewModel: NSObject {
                 var newPokemons: [Pokemon] = []
                 for var pokemonObject: Pokemon? in pokemonResult {
                     pokemonObject = try await self.pokemonServiceAPI.getAdditionalInformation(withURLString: pokemonObject?.url ?? "")
-                    if let newPokemonObject = pokemonObject {
+                    if var newPokemonObject: Pokemon = pokemonObject {
+                    newPokemonObject = await self.getPokemonImages(withPokemon: newPokemonObject)
                         newPokemons.append(newPokemonObject)
                     }
                 }
@@ -75,5 +76,23 @@ class PokemonListViewModel: NSObject {
                 print(error)
             }
         }
+    }
+
+    private func getPokemonImages(withPokemon pokemon: Pokemon) async -> Pokemon {
+        var newPokemon = pokemon
+        var frontPokemonImageData: Data? = nil
+        var backPokemonImageData: Data? = nil
+
+        if let frontImageUrl = pokemon.sprites?.front_default, let frontImageData: Data = try? await self.pokemonServiceAPI.getImage(withURLString: frontImageUrl) {
+            frontPokemonImageData = frontImageData
+        }
+
+        if let backImageUrl = pokemon.sprites?.front_default, let backImageData: Data = try? await self.pokemonServiceAPI.getImage(withURLString: backImageUrl) {
+            backPokemonImageData = backImageData
+        }
+
+        newPokemon.setFrontAndBackPokemonImage(withFrontImage: frontPokemonImageData, andBackImage: backPokemonImageData)
+
+        return newPokemon
     }
 }

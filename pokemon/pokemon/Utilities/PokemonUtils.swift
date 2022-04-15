@@ -14,6 +14,18 @@ enum PokemonsError: Error {
     case GeneralError
 }
 
+class PokemonsUtils: NSObject {
+    private var pokemonServiceAPI: PokemonServiceProtocol = PokemonWebServices()
+
+    func loadImage(withURLString urlString: String) async throws -> Data? {
+        guard let imageData = try await self.pokemonServiceAPI.getImage(withURLString: urlString) else {
+            return nil
+        }
+
+        return imageData
+    }
+}
+
 extension UIViewController {
     static var activityView: UIView?
     static var activityViewIndicator: UIActivityIndicatorView?

@@ -12,7 +12,7 @@
                 <outlet property="bottomView" destination="eIe-Me-1ly" id="kyu-MJ-gpI"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="HiB-wJ-PjM"/>
                 <outlet property="imageViewContainer" destination="a5C-ix-qmI" id="Sut-v2-2La"/>
-                <outlet property="pokemonImageView" destination="Gkb-iF-DN6" id="7vP-jz-DZR"/>
+                <outlet property="pokemonImageView" destination="Gkb-iF-DN6" id="bRy-6Q-mYr"/>
                 <outlet property="pokemonNameLabel" destination="aoE-Zc-qGX" id="Lsa-6v-fC8"/>
                 <outlet property="pokemonView" destination="Moy-6X-PTI" id="izB-zq-Tij"/>
             </connections>

@@ -42,7 +42,6 @@
 		2DDD17AF2804C4B8009691EE /* PokemonEndpointsStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD17AE2804C4B8009691EE /* PokemonEndpointsStrings.swift */; };
 		2DDD17B12804C535009691EE /* PokemonWebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD17B02804C535009691EE /* PokemonWebServices.swift */; };
 		2DE62121280605D6007270BE /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE62120280605D6007270BE /* URLSession+Extensions.swift */; };
-		2DE62123280612D4007270BE /* PokemonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE62122280612D4007270BE /* PokemonImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,7 +101,6 @@
 		2DDD17AE2804C4B8009691EE /* PokemonEndpointsStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonEndpointsStrings.swift; sourceTree = "<group>"; };
 		2DDD17B02804C535009691EE /* PokemonWebServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonWebServices.swift; sourceTree = "<group>"; };
 		2DE62120280605D6007270BE /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
-		2DE62122280612D4007270BE /* PokemonImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,7 +320,6 @@
 				2DE62120280605D6007270BE /* URLSession+Extensions.swift */,
 				2D8A43502806391F007B2DE0 /* UIFont+CustomFont.swift */,
 				2D8A435B28063C32007B2DE0 /* UILabel+Extensions.swift */,
-				2DE62122280612D4007270BE /* PokemonImageView.swift */,
 				2DDB63862807698100C7C356 /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
@@ -482,7 +479,6 @@
 				2D647E272806B82200576843 /* PokemonListView.swift in Sources */,
 				2DDB63892807783B00C7C356 /* PokemonDetailsViewModel.swift in Sources */,
 				2D0A26342804A05F00F18C77 /* SceneDelegate.swift in Sources */,
-				2DE62123280612D4007270BE /* PokemonImageView.swift in Sources */,
 				2DDD17AF2804C4B8009691EE /* PokemonEndpointsStrings.swift in Sources */,
 				2D647E212806A6EB00576843 /* PokemonUtils.swift in Sources */,
 				2DDD17B12804C535009691EE /* PokemonWebServices.swift in Sources */,

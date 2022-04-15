@@ -81,7 +81,7 @@
             <connections>
                 <outlet property="contentViewCell" destination="mDe-lw-tEF" id="DR1-g6-mPb"/>
                 <outlet property="pokemonIdLabel" destination="nRj-8e-QIx" id="wxQ-4d-Seh"/>
-                <outlet property="pokemonImageView" destination="Kz1-g1-V3s" id="wfn-mu-Vb8"/>
+                <outlet property="pokemonImageView" destination="Kz1-g1-V3s" id="U58-PL-1T3"/>
                 <outlet property="pokemonNameLabel" destination="IN5-MQ-C7l" id="lDS-g2-KL1"/>
                 <outlet property="pokemonTypeLabel" destination="FRA-0f-ryD" id="diZ-Im-jb0"/>
                 <outlet property="titleLabel" destination="jqp-nq-MHV" id="KhN-fM-MSK"/>

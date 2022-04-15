@@ -14,7 +14,7 @@ class PokemonDetailsBottomView: UIView {
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var imageViewContainer: UIView!
     @IBOutlet weak var pokemonView: UIView!
-    @IBOutlet weak var pokemonImageView: PokemonImageView!
+    @IBOutlet weak var pokemonImageView: UIImageView!
     @IBOutlet weak var pokemonNameLabel: UILabel!
 
     // MARK: - Private vars
@@ -52,7 +52,9 @@ class PokemonDetailsBottomView: UIView {
         self.pokemonView.layer.cornerRadius = self.pokemonView.frame.height / 2
         self.pokemonView.setShadow()
 
-        self.pokemonImageView.loadImage(withURLString: self.pokemon.sprites?.front_default ?? "")
+        if let frontImageData = self.pokemon.sprites?.frontDefaultData {
+            self.pokemonImageView.image = UIImage(data: frontImageData)
+        }
         self.imageViewContainer.backgroundColor = UIColor.white
         self.imageViewContainer.backgroundColor = UIColor.pokemonColorsDict[self.pokemon.types?.first?.type?.name ?? ""]
         self.bottomView.backgroundColor = UIColor.pokemonColorsDict[self.pokemon.types?.first?.type?.name ?? ""]
@@ -96,7 +98,7 @@ class PokemonDetailsBottomView: UIView {
                 break
             }
 
-            self.pokemonImageView.loadImage(withURLString: newPokemonImage)
+//            self.pokemonImageView.loadImage(withURLString: newPokemonImage)
             UIView.animate(withDuration: 1.0, delay: 0.2, options: .curveEaseInOut, animations: {
                 self.pokemonImageView.alpha = 1.0
             }, completion: nil)

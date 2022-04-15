@@ -30,23 +30,29 @@ class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollect
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.pokemons?.count ?? 0
+        return self.pokemons?.count ?? 0 //+ 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokemonCell.identifier, for: indexPath) as! CELL
         let pokemon = self.pokemons?[indexPath.row]
 
-        self.configureCell(cell, pokemon!)
+//        if (self.pokemons?.count ?? 0) == indexPath.row {
+//            // Display loading more pokemon cell
+//            cell.isUserInteractionEnabled = false
+//
+//        } else {
+            // Display pokemon cell
+            self.configureCell(cell, pokemon!)
+//        }
 
-        if (self.pokemons?.count ?? 0) - 1 == indexPath.row  {
-            self.getMorePokemons?(self.pokemons?.count ?? 0)
-        }
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
+        if (self.pokemons?.count ?? 0) - 10 == indexPath.row - 1  {
+            self.getMorePokemons?(indexPath.row + 1)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

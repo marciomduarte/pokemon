@@ -15,7 +15,7 @@ class PokemonCell: UICollectionViewCell {
     @IBOutlet weak var pokemonTypeLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var pokemonNameLabel: UILabel!
-    @IBOutlet weak var pokemonImageView: PokemonImageView!
+    @IBOutlet weak var pokemonImageView: UIImageView!
 
     // MARK: - Public vars
     static let identifier = "PokemonCell"
@@ -51,7 +51,10 @@ class PokemonCell: UICollectionViewCell {
         }
 
         self.pokemonNameLabel.text = pokemon.name?.capitalized
-        self.pokemonImageView.loadImage(withURLString: pokemon.sprites?.front_default ?? "")
+        if let frontImageData = pokemon.sprites?.frontDefaultData {
+            self.pokemonImageView.image = UIImage(data: frontImageData)
+        }
+
         if let type: String = pokemon.types?.first?.type?.name {
             self.pokemonTypeLabel.text = type.capitalized
             self.contentViewCell.backgroundColor = UIColor.pokemonColorsDict[type]

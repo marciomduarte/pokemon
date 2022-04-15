@@ -22,6 +22,7 @@ class PokemonDetailsViewController: UIViewController {
 
     // MARK: Public vars
     public var pokemonId: Int = -1
+    public var lisOfPokemons: [Pokemon]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
