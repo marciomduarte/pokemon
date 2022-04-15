@@ -11,12 +11,6 @@ class PokemonDetailsTopViewModel: NSObject {
 
     // MARK: - Private vars
     static var kAppLanguageDefault: String = "en"
-    static var kHp: Int = 255
-    static var kAttack: Int = 190
-    static var kDefence: Int = 230
-    static var kSpecialAttack: Int = 194
-    static var kSpecial: Int = 230
-    static var kSpeed: Int = 180
 
     private(set) var pokemonDetails: [PokemonDetails]! {
         didSet {

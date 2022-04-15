@@ -51,7 +51,11 @@ class PokemonListViewModel: NSObject {
             return
         }
 
-        Task {
+        Task { [weak self] in
+            guard let self = self else {
+                return
+            }
+
             do {
                 let pokemonsList = try await self.pokemonServiceAPI.getPokemonList(withNumberOfElements: self.numberOfPokemonsFetched, withOffSet: offSet)
 
