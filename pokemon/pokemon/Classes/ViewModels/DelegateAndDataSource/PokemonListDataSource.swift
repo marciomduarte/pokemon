@@ -37,14 +37,7 @@ class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollect
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokemonCell.identifier, for: indexPath) as! CELL
         let pokemon = self.pokemons?[indexPath.row]
 
-//        if (self.pokemons?.count ?? 0) == indexPath.row {
-//            // Display loading more pokemon cell
-//            cell.isUserInteractionEnabled = false
-//
-//        } else {
-            // Display pokemon cell
-            self.configureCell(cell, pokemon!)
-//        }
+        self.configureCell(cell, pokemon!)
 
         return cell
     }

@@ -12,6 +12,7 @@ protocol PokemonServiceProtocol {
     func getPokemonList(withNumberOfElements numberOfElements: Int, withOffSet offSet: Int) async throws -> PokemonList?
     func getAdditionalInformation(withURLString urlString: String) async throws -> Pokemon?
     func getAdditionalInformation(withPokemonId pokemonId: Int) async throws -> Pokemon?
+    func getPokemonAbilities(withURLString urlString: String) async throws -> Ability?
     func getImage(withURLString urlString: String) async throws -> Data?
 }
 
@@ -29,7 +30,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
 
         var pokemonDecoded: PokemonList?
         do {
-           pokemonDecoded = try JSONDecoder().decode(PokemonList.self, from: data)
+            pokemonDecoded = try JSONDecoder().decode(PokemonList.self, from: data)
         } catch {
             print(error)
         }
@@ -59,6 +60,24 @@ public class PokemonWebServices: PokemonServiceProtocol {
         let (data, _) = try await PokemonWebServices.urlSession.data(from: url)
 
         return try JSONDecoder().decode(Pokemon.self, from: data)
+    }
+
+    /// Get pokemon abilities
+    func getPokemonAbilities(withURLString urlString: String) async throws -> Ability? {
+        guard let url = URL(string: urlString) ?? URL(string: "") else {
+            return nil
+        }
+
+        let (data, _) = try await PokemonWebServices.urlSession.data(from: url)
+
+        var abilityDecoded: Ability?
+        do {
+            abilityDecoded = try JSONDecoder().decode(Ability.self, from: data)
+        } catch {
+            print(error)
+        }
+
+        return abilityDecoded
     }
 
     /// Get pokemon image data

@@ -11,6 +11,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PokemonDetailsViewController" customModule="pokemon" customModuleProvider="target">
             <connections>
                 <outlet property="pokemonDetailsBottomView" destination="0iH-cs-htA" id="lPY-Rg-b0U"/>
+                <outlet property="pokemonDetailsBottomViewHeightConstraint" destination="NKC-c6-qxL" id="aGT-mP-r37"/>
+                <outlet property="pokemonDetailsTopView" destination="haE-S5-7FH" id="Trf-AM-AAs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,7 +23,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="haE-S5-7FH" customClass="PokemonDetailsTopView" customModule="pokemon" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="666"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0iH-cs-htA" customClass="PokemonDetailsBottomView" customModule="pokemon" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="666" width="414" height="230"/>

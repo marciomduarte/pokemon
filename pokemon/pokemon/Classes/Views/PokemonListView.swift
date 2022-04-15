@@ -30,7 +30,7 @@ class PokemonListView: UIView {
         }
     }
 
-    public var seeMorePokemonDetails : ((_ pokemonId: Int) -> ()) = {_ in}
+    public var seeMorePokemonDetails : ((_ pokemonId: Int, _ pokemonList: [Pokemon]?) -> ()) = {_, _ in}
 
     // MARK: - Constants
     private var kCollectionPadding: CGFloat = 16.0
@@ -87,12 +87,17 @@ class PokemonListView: UIView {
 
         self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.pokemonsList!, andCellConfig: { (cell, item) in
             if let pokemon = item as? Pokemon {
-                cell.configCell(withPokemon: pokemon)
+//                if (item?.count ?? 0) == indexPath.row {
+//                    // Display loading more pokemon cell
+//                    cell.isUserInteractionEnabled = false
+//                } else {
+                    cell.configCell(withPokemon: pokemon)
+//                }
             }
         })
 
         self.pokemonsDataSource.seeMoreWasClicked = { pokemonId in
-            self.seeMorePokemonDetails(pokemonId)
+            self.seeMorePokemonDetails(pokemonId, self.pokemonsList ?? [])
         }
 
         self.pokemonsDataSource.getMorePokemons = { offSet in

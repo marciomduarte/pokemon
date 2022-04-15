@@ -11,10 +11,23 @@
 // MARK: - Pokemon list
 "pokemon.empty.list" = "We couldn't catch any pokemon to present";
 
-// MARK: - Pokemon Cells
+// MARK: - Details
+"pokemon.details.about" = "About";
+"pokemon.details.abilities" = "Abilities";
+"pokemon.details.stats" = "Stats";
+
+// MARK: - Pokemon Collection Cells
 "pokemon.cell.name.label" = "Name:";
+
+// MARK: - Pokemon Tablew Cells
+"pokemon.cell.about.number" = "Number: ";
+"pokemon.cell.about.name" = "Name: ";
+"pokemon.cell.about.pokemonType" = "Type: ";
+"pokemon.cell.about.weight" = "Weight: ";
+"pokemon.cell.about.height" = "Height: ";
 
 // MARK: - Error Messages
 "pokemon.alert.error.title" = "🫥 \nSomething wrong happens.";
 "pokemon.alert.error.message.MissingData" = "We cannot carry out this operation right now.";
 "pokemon.alert.error.message.GeneralError" = "Please, try again later.";
+

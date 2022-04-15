@@ -51,11 +51,7 @@ class PokemonListViewModel: NSObject {
             return
         }
 
-        Task { [weak self] in
-            guard let self = self else {
-                return
-            }
-
+        Task {
             do {
                 let pokemonsList = try await self.pokemonServiceAPI.getPokemonList(withNumberOfElements: self.numberOfPokemonsFetched, withOffSet: offSet)
 
@@ -87,7 +83,7 @@ class PokemonListViewModel: NSObject {
             frontPokemonImageData = frontImageData
         }
 
-        if let backImageUrl = pokemon.sprites?.front_default, let backImageData: Data = try? await self.pokemonServiceAPI.getImage(withURLString: backImageUrl) {
+        if let backImageUrl = pokemon.sprites?.back_default, let backImageData: Data = try? await self.pokemonServiceAPI.getImage(withURLString: backImageUrl) {
             backPokemonImageData = backImageData
         }
 

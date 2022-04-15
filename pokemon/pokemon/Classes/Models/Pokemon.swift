@@ -15,6 +15,8 @@ struct Pokemon: Decodable, Hashable {
     let height: Int?
     var sprites: Sprites?
     let types: [Types]?
+    var abilities: [Abilities]?
+    let stats: [Stats]?
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -31,19 +33,83 @@ struct Pokemon: Decodable, Hashable {
     }
 }
 
-struct Sprites: Decodable {
+// MARK: - Abilities
+struct Abilities: Decodable {
+    var ability: Ability?
+    var is_hidden: Bool?
 
+    enum CodingKeys : String, CodingKey {
+        case ability = "ability"
+        case is_hidden = "is_hidden"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        if let ability = try? container.decodeIfPresent(Ability.self, forKey: .ability) {
+            self.ability = ability
+        }
+
+        is_hidden = try container.decode(Bool.self, forKey: .is_hidden)
+    }
+    
+}
+
+struct Ability: Decodable {
+    var name: String?
+    var url: String?
+    var effect_entries: [EffectEntries]?
+
+    enum CodingKeys : String, CodingKey {
+        case name = "name"
+        case url = "url"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        if let name = try? container.decodeIfPresent(String.self, forKey: .name) {
+            self.name = name
+        }
+
+        if let url = try? container.decodeIfPresent(String.self, forKey: .url) {
+            self.url = url
+        }
+    }
+}
+
+struct EffectEntries: Decodable {
+    var effect: String?
+    var language: Language?
+    var short_effect: String?
+}
+
+struct Language: Decodable {
+    var name: String?
+}
+
+// MARK: - Pokemon Images
+struct Sprites: Decodable {
     let front_default: String?
     var frontDefaultData: Data?
     let back_default: String?
     var backDefaultData: Data?
 }
 
+// MARK: - Types
 struct Types: Decodable {
-    var slot: Int
+    let slot: Int
     let type: PokemonType?
 }
 
 struct PokemonType: Decodable {
+    let name: String?
+}
+
+// MARK: - Pokemon stats
+struct Stats: Decodable {
+    let base_stat: Int?
+    let stat: Stat?
+}
+
+struct Stat: Decodable {
     let name: String?
 }

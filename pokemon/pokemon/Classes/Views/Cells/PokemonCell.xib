@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDe-lw-tEF">
                         <rect key="frame" x="0.0" y="0.0" width="281" height="161"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kz1-g1-V3s" customClass="PokemonImageView" customModule="pokemon" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kz1-g1-V3s">
                                 <rect key="frame" x="10" y="20" width="68" height="141"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="68" id="gaM-cO-pZh"/>

@@ -20,9 +20,10 @@ extension UIColor {
     }
 
     //MARK: - Custom Colors
-    static let pokemonListBackGroundColor = UIColor(red: 250, green: 250, blue: 248)
+    static let pokemonListBackgroundColor = UIColor(red: 250, green: 250, blue: 248)
     static let pokemonCellBackgroundColor = UIColor(red: 28, green: 178, blue: 188)
     static let pokemonRedColor = UIColor(red: 234, green: 29, blue: 37)
+    static let paeanBlack = UIColor(red: 73, green: 66, blue: 72)
 
     static let pokemonColorsDict: [String: UIColor] = ["normal": UIColor(red: 168, green: 167, blue: 122),
                                                        "fire": UIColor(red:  238, green: 129, blue: 48),

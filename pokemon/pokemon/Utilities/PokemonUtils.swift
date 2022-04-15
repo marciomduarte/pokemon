@@ -9,10 +9,55 @@ import Foundation
 import UIKit
 
 // Enums
+/// Pokemons erros used to services error or other type os errors
 enum PokemonsError: Error {
     case MissingData
     case GeneralError
 }
+
+/// enum to identifier the index of segmented control
+enum PokemonDetailSegmentedSelected: Int {
+    case About
+    case Abilities
+    case Stats
+}
+
+/// Enum to identifier and return the title of cell
+/// Used to About details
+enum PokemonAboutDetailType: String {
+    case IdType
+    case NameType
+    case PokemonType
+    case WeightType
+    case HeightType
+
+    var description : String {
+        switch self {
+        case .IdType:
+            return NSLocalizedString("pokemon.cell.about.number", comment: "")
+        case .NameType:
+            return NSLocalizedString("pokemon.cell.about.name", comment: "")
+        case .PokemonType:
+            return NSLocalizedString("pokemon.cell.about.pokemonType", comment: "")
+        case .WeightType:
+            return NSLocalizedString("pokemon.cell.about.weight", comment: "")
+        case .HeightType:
+            return NSLocalizedString("pokemon.cell.about.height", comment: "")
+        }
+    }
+}
+
+///// Enum to identifier and return the title of cell
+///// Used to Abilities details
+//enum PokemonAbilitiesDetail: String {
+//    case Name = NSLocalizedString("", comment: "")
+//}
+//
+///// Enum to identifier and return the title of cell
+///// Used to Moves details
+//enum PokemonMovesDetail: String {
+//    case Name = NSLocalizedString("", comment: "")
+//}
 
 class PokemonsUtils: NSObject {
     private var pokemonServiceAPI: PokemonServiceProtocol = PokemonWebServices()

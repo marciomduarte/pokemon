@@ -23,28 +23,29 @@ class PokemonListViewController: UIViewController {
 
     private func setupUI() {
         // Define backgroundColor
-        self.view.backgroundColor = UIColor.pokemonListBackGroundColor
+        self.view.backgroundColor = UIColor.pokemonListBackgroundColor
 
         // Define Title label
         self.titleLabel.text = NSLocalizedString("pokemon.app.name", comment: "")
         self.titleLabel.pokemonListTitleLabelStyle()
 
         // Define and config searchBar
-        self.pokemonSearchBar.barTintColor = UIColor.pokemonListBackGroundColor
+        self.pokemonSearchBar.barTintColor = UIColor.pokemonListBackgroundColor
         self.pokemonSearchBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
 
-        self.pokemonListView.seeMorePokemonDetails = { pokemonId in
-            self.goToPokemonDetail(withPokemonId: pokemonId)
+        self.pokemonListView.seeMorePokemonDetails = { pokemonId, pokemons in
+            self.goToPokemonDetail(withPokemonId: pokemonId, andPokemons: pokemons ?? [])
         }
     }
 
-    private func goToPokemonDetail(withPokemonId pokemonId: Int) {
+    private func goToPokemonDetail(withPokemonId pokemonId: Int, andPokemons pokemons: [Pokemon]) {
         if pokemonId == 0{
             return
         }
         
         let pokemonDetailsVC: PokemonDetailsViewController = PokemonDetailsViewController()
         pokemonDetailsVC.pokemonId = pokemonId
+        pokemonDetailsVC.pokemons = pokemons
         self.present(pokemonDetailsVC, animated: true, completion: nil)
     }
 

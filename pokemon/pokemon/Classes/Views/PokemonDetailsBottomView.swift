@@ -78,27 +78,27 @@ class PokemonDetailsBottomView: UIView {
 
     @objc func changeImageGesture(_ sender: UIGestureRecognizer) {
         if let swipeGesture = sender as? UISwipeGestureRecognizer {
-            var newPokemonImage: String = ""
-
             switch swipeGesture.direction {
             case .right:
                 if shownFrontPokemonVisivel {
-                    self.pokemonImageView.alpha = 0.0
-                    newPokemonImage = self.pokemon.sprites?.front_default ?? ""
                     self.shownFrontPokemonVisivel = !self.shownFrontPokemonVisivel
+                    self.pokemonImageView.alpha = 0.0
+                    if let frontData = self.pokemon.sprites?.frontDefaultData {
+                        self.pokemonImageView.image = UIImage(data: frontData)
+                    }
                 }
             case .left:
                 if !shownFrontPokemonVisivel {
-                    self.pokemonImageView.alpha = 0.0
-                    newPokemonImage = self.pokemon.sprites?.back_default ?? ""
-
                     self.shownFrontPokemonVisivel = !self.shownFrontPokemonVisivel
+                    self.pokemonImageView.alpha = 0.0
+                    if let backData = self.pokemon.sprites?.backDefaultData {
+                        self.pokemonImageView.image = UIImage(data: backData)
+                    }
                 }
             default:
                 break
             }
 
-//            self.pokemonImageView.loadImage(withURLString: newPokemonImage)
             UIView.animate(withDuration: 1.0, delay: 0.2, options: .curveEaseInOut, animations: {
                 self.pokemonImageView.alpha = 1.0
             }, completion: nil)

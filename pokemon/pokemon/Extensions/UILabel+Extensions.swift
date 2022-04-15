@@ -18,28 +18,28 @@ extension UILabel {
     // MARK: - Pokemon cell styles
     public func pokemonCellTypeLabelStyle() {
         self.font = UIFont.customItalicFont(withSize: 18)
-        self.textColor = UIColor.pokemonListBackGroundColor
+        self.textColor = UIColor.pokemonListBackgroundColor
         self.shadowColor = .black
         self.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
 
     public func pokemonCellNumberTitleLabelStyle() {
         self.font = UIFont.customItalicFont(withSize: 18)
-        self.textColor = UIColor.pokemonListBackGroundColor
+        self.textColor = UIColor.pokemonListBackgroundColor
         self.shadowColor = .black
         self.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
 
     public func pokemonCellNameTitleLabelStyle() {
         self.font = UIFont.customItalicFont(withSize: 18)
-        self.textColor = UIColor.pokemonListBackGroundColor
+        self.textColor = UIColor.pokemonListBackgroundColor
         self.shadowColor = .black
         self.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
 
     public func pokemonCellNameLabelStyle() {
         self.font = UIFont.customRegularFont(withSize: 20)
-        self.textColor = UIColor.pokemonListBackGroundColor
+        self.textColor = UIColor.pokemonListBackgroundColor
         self.shadowColor = .black
         self.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
@@ -58,4 +58,15 @@ extension UILabel {
         self.shadowOffset = CGSize(width: 0.0, height: 1.0)
     }
 
+    // MARK: - DetailsCell
+    public func pokemonDetailCellTitleStyle() {
+        self.font = UIFont.customItalicFont(withSize: 16)
+        self.textColor = UIColor.paeanBlack.withAlphaComponent(0.6)
+    }
+
+    public func pokemonDetailCellDescriptionStyle() {
+        self.font = UIFont.customRegularFont(withSize: 20)
+        self.textColor = UIColor.paeanBlack
+            .withAlphaComponent(0.8)
+    }
 }
