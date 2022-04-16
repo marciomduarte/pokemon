@@ -49,18 +49,23 @@ class PokemonDetailsTopViewModel: NSObject {
                     return
                 }
 
-                if let abilities = self.pokemon.abilities {
-                    var index: Int = 0
-                    for ability in abilities {
-                        let newAbility: Ability!
-                        if let urlString = ability.ability?.url {
-                            newAbility = try await self.pokemonServiceAPI.getPokemonAbilities(withURLString: urlString)
-                            self.pokemon.abilities?[index].ability = newAbility
-                            self.pokemon.abilities?[index].isAbilityFetched = true
+                do {
+                    if let abilities = self.pokemon.abilities {
+                        var index: Int = 0
+                        for ability in abilities {
+                            let newAbility: Ability!
+                            if let urlString = ability.ability?.url {
+                                newAbility = try await self.pokemonServiceAPI.getPokemonAbilities(withURLString: urlString)
+                                self.pokemon.abilities?[index].ability = newAbility
+                                self.pokemon.abilities?[index].isAbilityFetched = true
+                            }
+                            index += 1
                         }
-                        index += 1
-                    }
 
+                    }
+                } catch {
+                    let errorData: [String: Error] = [errorType: error]
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: pokemonErrorServiceNotification), object: errorData)
                 }
             }
         }
@@ -117,7 +122,7 @@ class PokemonDetailsTopViewModel: NSObject {
                 ability.ability?.effect_entries?.forEach({ effectEntries in
                     if effectEntries.language?.name == PokemonDetailsTopViewModel.kAppLanguageDefault {
                         // Ability cell
-                        pokemonDetails.append(PokemonDetails(withDetailsTitle: NSLocalizedString("pokemon.cell.abilities", comment: ""), andDetailsDescriptionTitle: ability.ability?.name?.capitalized ?? "-", andDetailsDescriptions: effectEntries.effect ?? "-", andDetailsSubDescription: effectEntries.short_effect ?? "-"))
+                        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAbilitiesDetail.Ability.description, andDetailsDescriptionTitle: ability.ability?.name?.capitalized ?? "-", andDetailsDescriptions: effectEntries.effect ?? "-", andDetailsSubDescription: effectEntries.short_effect ?? "-"))
                     }
                 })
             }

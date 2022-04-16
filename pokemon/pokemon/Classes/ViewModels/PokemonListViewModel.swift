@@ -35,6 +35,7 @@ class PokemonListViewModel: NSObject {
         }
     }
 
+    /// Var used to send pokemons to view
     var bindPokemonsList: ((_ pokemons: [Pokemon]) -> ()) = {_ in}
 
     // MARK: - Life Cycle
@@ -73,7 +74,8 @@ class PokemonListViewModel: NSObject {
                 self.offSet += self.numberOfPokemonsFetched
                 self.hasNextPage = offSet < (pokemonsList?.count ?? 0)
             } catch {
-                print(error)
+                let errorData: [String: Error] = [errorType: error]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: pokemonErrorServiceNotification), object: errorData)
             }
         }
     }

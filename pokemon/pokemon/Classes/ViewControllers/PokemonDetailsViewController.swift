@@ -29,8 +29,19 @@ class PokemonDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(pokemonErrorServiceNotification), object: nil)
+        self.navigationController?.navigationBar.tintColor = UIColor.pokemonRedColor
+        self.navigationController?.navigationBar.topItem?.title = ""
+
+        self.showActivityIndicator()
 
         self.setupUI()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        NotificationCenter.default.removeObserver(Notification.Name(pokemonErrorServiceNotification))
     }
 
     private func setupUI() {
@@ -40,12 +51,16 @@ class PokemonDetailsViewController: UIViewController {
         self.pokemonListViewModel = PokemonDetailsViewModel()
         if let pokemonFetched = self.pokemons.first(where: { $0.id == self.pokemonId}) {
             self.pokemon = pokemonFetched
+
+            self.hideActivityIndicator()
         } else {
             self.pokemonListViewModel.pokemonId = self.pokemonId
         }
 
         self.pokemonListViewModel.bindPokemonDetail = { pokemon in
             self.pokemon = pokemon
+
+            self.hideActivityIndicator()
         }
 
         self.pokemonDetailsBottomViewHeightConstraint.constant = pokemonDetailsBottomView.bottomView.frame.maxY - self.pokemonDetailsBottomView.imageViewContainer.frame.minY

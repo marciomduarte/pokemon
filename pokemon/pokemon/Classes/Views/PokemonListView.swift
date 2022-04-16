@@ -30,6 +30,7 @@ class PokemonListView: UIView {
         }
     }
 
+    /// Action to see more about the pokemon cell selected
     public var seeMorePokemonDetails : ((_ pokemonId: Int, _ pokemonList: [Pokemon]?) -> ()) = {_, _ in}
 
     // MARK: - Constants
@@ -77,7 +78,9 @@ class PokemonListView: UIView {
 
     // Populate PokemonCollectionView
     private func pokemonsListUpdateDataSource() {
-        self.pokemonEmptyListView.isHidden = true
+        if let numberOfPokemonsFetched = self.pokemonsList?.count, numberOfPokemonsFetched > 0 {
+            self.pokemonEmptyListView.isHidden = true
+        }
 
         UIApplication.shared.topMostViewController()?.hideActivityIndicator()
 
@@ -126,7 +129,7 @@ class PokemonListView: UIView {
         let xPos: CGFloat = (UIScreen.main.bounds.width / 2) - (imageViewWidth / 2)
 
         let imageView: UIImageView = UIImageView(frame: CGRect(x: xPos, y: self.pokemonCollectionView.frame.minY + imageViewWidth, width: imageViewWidth, height: imageViewHeight))
-        imageView.image = UIImage(named: "outline_warning_black")
+        imageView.image = UIImage(named: "outline_sync_problem_black")
         imageView.tintColor = UIColor.pokemonRedColor
         self.pokemonEmptyListView.addSubview(imageView)
 

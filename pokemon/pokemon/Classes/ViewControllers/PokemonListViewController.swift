@@ -16,6 +16,9 @@ class PokemonListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(pokemonErrorServiceNotification), object: nil)
+
+
         self.showActivityIndicator()
 
         self.setupUI()
@@ -42,11 +45,11 @@ class PokemonListViewController: UIViewController {
         if pokemonId == 0{
             return
         }
-        
+
         let pokemonDetailsVC: PokemonDetailsViewController = PokemonDetailsViewController()
         pokemonDetailsVC.pokemonId = pokemonId
         pokemonDetailsVC.pokemons = pokemons
-        self.present(pokemonDetailsVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(pokemonDetailsVC, animated: true)
     }
 
 }

@@ -8,6 +8,14 @@
 import Foundation
 import UIKit
 
+// Dictionary keys
+/// Used to get error type from notificatication object
+let errorType: String = "errorType"
+
+// Notification name
+/// Used to send notification error
+let PokemonErrorServiceNotification: String = "PokemonErrorServiceNotification"
+
 // Enums
 /// Pokemons erros used to services error or other type os errors
 enum PokemonsError: Error {
@@ -49,15 +57,18 @@ enum PokemonAboutDetailType: String {
 
 ///// Enum to identifier and return the title of cell
 ///// Used to Abilities details
-//enum PokemonAbilitiesDetail: String {
-//    case Name = NSLocalizedString("", comment: "")
-//}
-//
-///// Enum to identifier and return the title of cell
-///// Used to Moves details
-//enum PokemonMovesDetail: String {
-//    case Name = NSLocalizedString("", comment: "")
-//}
+enum PokemonAbilitiesDetail: String {
+    case Ability
+
+    var description: String {
+        switch self {
+        case .Ability:
+            return NSLocalizedString("pokemon.cell.abilities", comment: "")
+        default:
+            return ""
+        }
+    }
+}
 
 class PokemonsUtils: NSObject {
     private var pokemonServiceAPI: PokemonServiceProtocol = PokemonWebServices()
@@ -110,6 +121,33 @@ extension UIViewController {
         }
         return self.presentedViewController!.topMostViewController()
     }
+
+    @objc func methodOfReceivedNotification(notification: NSNotification){
+        DispatchQueue.main.async {
+            self.topMostViewController().hideActivityIndicator()
+            
+            guard let object = notification.object as? [String: Any], let errorType: PokemonsError = object[errorType] as? PokemonsError else {
+                return
+            }
+
+            var message: String = ""
+            switch errorType {
+            case .MissingData:
+                message = NSLocalizedString("pokemon.alert.error.message.MissingData", comment: "")
+            default:
+                // General error
+                message = NSLocalizedString("pokemon.alert.error.message.GeneralError", comment: "")
+            }
+            self.showErrorAlert(withMessage: message)
+        }
+    }
+
+    func showErrorAlert(withMessage message: String) {
+        let alert = UIAlertController(title: NSLocalizedString("pokemon.alert.error.title", comment: ""), message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("pokemon.alert.error.ok.button", comment: ""), style: UIAlertAction.Style.destructive, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
 }
 
 extension UIApplication {

@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="w3D-0C-gFd">
-                    <rect key="frame" x="108.5" y="60" width="197" height="32"/>
+                    <rect key="frame" x="108.5" y="20" width="197" height="32"/>
                     <segments>
                         <segment title="First"/>
                         <segment title="Second"/>
@@ -31,7 +31,7 @@
                     </connections>
                 </segmentedControl>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RMr-74-mTk">
-                    <rect key="frame" x="20" y="121" width="374" height="724"/>
+                    <rect key="frame" x="20" y="91" width="374" height="754"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -39,13 +39,13 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="w3D-0C-gFd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="60" id="2Xd-Yf-SaA"/>
+                <constraint firstItem="w3D-0C-gFd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="2Xd-Yf-SaA"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w3D-0C-gFd" secondAttribute="trailing" constant="24" id="ILg-tI-Sju"/>
                 <constraint firstItem="RMr-74-mTk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="P5f-el-0wM"/>
                 <constraint firstItem="w3D-0C-gFd" firstAttribute="centerX" secondItem="RMr-74-mTk" secondAttribute="centerX" id="UF2-lh-ufY"/>
                 <constraint firstItem="w3D-0C-gFd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="W5i-ed-ZIw"/>
                 <constraint firstAttribute="bottom" secondItem="RMr-74-mTk" secondAttribute="bottom" constant="51" id="lRP-KZ-SSW"/>
-                <constraint firstItem="RMr-74-mTk" firstAttribute="top" secondItem="w3D-0C-gFd" secondAttribute="bottom" constant="30" id="m0X-2Q-FuJ"/>
+                <constraint firstItem="RMr-74-mTk" firstAttribute="top" secondItem="w3D-0C-gFd" secondAttribute="bottom" constant="40" id="m0X-2Q-FuJ"/>
                 <constraint firstAttribute="trailing" secondItem="RMr-74-mTk" secondAttribute="trailing" constant="20" id="t0a-mV-WIP"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

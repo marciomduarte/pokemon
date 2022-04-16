@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "outline_warning_black@1x.png",
+      "filename" : "outline_sync_problem_black@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "outline_warning_black@2x.png",
+      "filename" : "outline_sync_problem_black@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "outline_warning_black@3x.png",
+      "filename" : "outline_sync_problem_black@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

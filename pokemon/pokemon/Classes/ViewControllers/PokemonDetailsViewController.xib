@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="haE-S5-7FH" customClass="PokemonDetailsTopView" customModule="pokemon" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="666"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="622"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0iH-cs-htA" customClass="PokemonDetailsBottomView" customModule="pokemon" customModuleProvider="target">
@@ -34,11 +34,12 @@
                 </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="tintColor" name="selectedTextColor" catalog="System" colorSpace="catalog"/>
             <constraints>
                 <constraint firstItem="0iH-cs-htA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Gtw-f8-mlg"/>
                 <constraint firstAttribute="trailing" secondItem="0iH-cs-htA" secondAttribute="trailing" id="IC3-uw-IOE"/>
                 <constraint firstAttribute="trailing" secondItem="haE-S5-7FH" secondAttribute="trailing" id="Qk2-nO-srE"/>
-                <constraint firstItem="haE-S5-7FH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="UPl-vy-sZe"/>
+                <constraint firstItem="haE-S5-7FH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="UPl-vy-sZe"/>
                 <constraint firstAttribute="bottom" secondItem="0iH-cs-htA" secondAttribute="bottom" id="aJh-Ih-utM"/>
                 <constraint firstItem="0iH-cs-htA" firstAttribute="top" secondItem="haE-S5-7FH" secondAttribute="bottom" id="xaM-mx-dVq"/>
                 <constraint firstItem="haE-S5-7FH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xfH-uW-WKF"/>

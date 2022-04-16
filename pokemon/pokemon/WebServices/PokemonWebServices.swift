@@ -26,13 +26,15 @@ public class PokemonWebServices: PokemonServiceProtocol {
             throw PokemonsError.GeneralError
         }
 
-        let (data, _) = try await PokemonWebServices.urlSession.data(from: url)
+        guard let (data, _) = try? await PokemonWebServices.urlSession.data(from: url) else {
+            throw PokemonsError.MissingData
+        }
 
         var pokemonDecoded: PokemonList?
         do {
             pokemonDecoded = try JSONDecoder().decode(PokemonList.self, from: data)
         } catch {
-            print(error)
+            throw PokemonsError.GeneralError
         }
 
         return pokemonDecoded
@@ -45,9 +47,19 @@ public class PokemonWebServices: PokemonServiceProtocol {
             return nil
         }
 
-        let (data, _) = try await PokemonWebServices.urlSession.data(from: url)
 
-        return try JSONDecoder().decode(Pokemon.self, from: data)
+        guard let (data, _) = try? await PokemonWebServices.urlSession.data(from: url) else {
+            throw PokemonsError.MissingData
+        }
+
+        var pokemonDecoded: Pokemon?
+        do {
+            pokemonDecoded = try JSONDecoder().decode(Pokemon.self, from: data)
+        } catch {
+            throw PokemonsError.GeneralError
+        }
+
+        return pokemonDecoded
     }
 
     /// Get additional information of pokemon by id
@@ -57,9 +69,18 @@ public class PokemonWebServices: PokemonServiceProtocol {
             return nil
         }
 
-        let (data, _) = try await PokemonWebServices.urlSession.data(from: url)
+        guard let (data, _) = try? await PokemonWebServices.urlSession.data(from: url) else {
+            throw PokemonsError.MissingData
+        }
 
-        return try JSONDecoder().decode(Pokemon.self, from: data)
+        var pokemonDecoded: Pokemon?
+        do {
+            pokemonDecoded = try? JSONDecoder().decode(Pokemon.self, from: data)
+        } catch {
+            throw PokemonsError.GeneralError
+        }
+        
+        return pokemonDecoded
     }
 
     /// Get pokemon abilities
@@ -68,13 +89,15 @@ public class PokemonWebServices: PokemonServiceProtocol {
             return nil
         }
 
-        let (data, _) = try await PokemonWebServices.urlSession.data(from: url)
+        guard let (data, _) = try? await PokemonWebServices.urlSession.data(from: url) else {
+            throw PokemonsError.MissingData
+        }
 
         var abilityDecoded: Ability?
         do {
             abilityDecoded = try JSONDecoder().decode(Ability.self, from: data)
         } catch {
-            print(error)
+            throw PokemonsError.GeneralError
         }
 
         return abilityDecoded
@@ -86,7 +109,10 @@ public class PokemonWebServices: PokemonServiceProtocol {
             return nil
         }
 
-        let (data, _) = try await URLSession.shared.data(from: urlImage)
+        guard let (data, _) = try? await URLSession.shared.data(from: urlImage) else {
+            throw PokemonsError.MissingData
+        }
+        
         return data
     }
 }

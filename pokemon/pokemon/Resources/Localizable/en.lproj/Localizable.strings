@@ -28,7 +28,8 @@
 "pokemon.cell.abilities" = "Abilities: ";
 
 // MARK: - Error Messages
-"pokemon.alert.error.title" = "🫥 \nSomething wrong happens.";
+"pokemon.alert.error.ok.button" = "Ok.";
+"pokemon.alert.error.title" = "ℹ️ \nSomething wrong happens.";
 "pokemon.alert.error.message.MissingData" = "We cannot carry out this operation right now.";
 "pokemon.alert.error.message.GeneralError" = "Please, try again later.";
 
