@@ -11,7 +11,7 @@ import UIKit
 protocol PokemonServiceProtocol {
     func getPokemonList(withNumberOfElements numberOfElements: Int, withOffSet offSet: Int) async throws -> PokemonList?
     func getAdditionalInformation(withURLString urlString: String) async throws -> Pokemon?
-    func getAdditionalInformation(withPokemonId pokemonId: Int) async throws -> Pokemon?
+    func getSearchPokemon(withPokemonIdOrName pokemonIdOrName: String) async throws -> Pokemon?
     func getPokemonAbilities(withURLString urlString: String) async throws -> Ability?
     func getImage(withURLString urlString: String) async throws -> Data?
 }
@@ -63,9 +63,9 @@ public class PokemonWebServices: PokemonServiceProtocol {
     }
 
     /// Get additional information of pokemon by id
-    func getAdditionalInformation(withPokemonId pokemonId: Int) async throws -> Pokemon? {
+    func getSearchPokemon(withPokemonIdOrName pokemonIdOrName: String) async throws -> Pokemon? {
 
-        guard let url = URL(string: PokemonEndpoints.getPokemonById(withPokemonId: pokemonId)) else {
+        guard let url = URL(string: PokemonEndpoints.getPokemonById(withPokemonIdOrName: String(pokemonIdOrName))) else {
             return nil
         }
 
@@ -77,7 +77,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
         do {
             pokemonDecoded = try? JSONDecoder().decode(Pokemon.self, from: data)
         } catch {
-            throw PokemonsError.GeneralError
+            throw PokemonsError.GetPokemonError
         }
         
         return pokemonDecoded
@@ -112,7 +112,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
         guard let (data, _) = try? await URLSession.shared.data(from: urlImage) else {
             throw PokemonsError.MissingData
         }
-        
+
         return data
     }
 }

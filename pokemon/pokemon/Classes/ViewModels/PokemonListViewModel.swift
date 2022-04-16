@@ -31,23 +31,43 @@ class PokemonListViewModel: NSObject {
     var numberOfElementsOnScreen: Int? {
         willSet {
             self.numberOfPokemonsFetched = (newValue ?? 0) * 2
-            self.getPokemonList(withOffSet: self.offSet)
+            self.fetchPokemons(withOffSet: self.offSet)
         }
     }
 
     /// Var used to send pokemons to view
     var bindPokemonsList: ((_ pokemons: [Pokemon]) -> ()) = {_ in}
 
+    /// Var used to send searched pokemons to view
+    var bindSearchedPokemons: ((_ pokemons: [Pokemon]) -> ()) = {_ in}
+
     // MARK: - Life Cycle
+    /// Init serviceAPI protocol
     init (pokemonAPI: PokemonServiceProtocol = PokemonWebServices()) {
         self.pokemonServiceAPI = pokemonAPI
     }
 
-    public func getPokemonList(withOffSet offSet: Int) {
-        self.fetchPokemons(withOffSet: offSet)
+    /// Get Pokemon images (Front and back image)
+    private func getPokemonImages(withPokemon pokemon: Pokemon) async -> Pokemon {
+        var newPokemon = pokemon
+        var frontPokemonImageData: Data? = nil
+        var backPokemonImageData: Data? = nil
+
+        if let frontImageUrl = pokemon.sprites?.front_default, let frontImageData: Data = try? await self.pokemonServiceAPI.getImage(withURLString: frontImageUrl) {
+            frontPokemonImageData = frontImageData
+        }
+
+        if let backImageUrl = pokemon.sprites?.back_default, let backImageData: Data = try? await self.pokemonServiceAPI.getImage(withURLString: backImageUrl) {
+            backPokemonImageData = backImageData
+        }
+
+        newPokemon.setFrontAndBackPokemonImage(withFrontImage: frontPokemonImageData, andBackImage: backPokemonImageData)
+
+        return newPokemon
     }
 
-    private func fetchPokemons(withOffSet offSet: Int) {
+    /// Fetch pokemons
+    public func fetchPokemons(withOffSet offSet: Int) {
         if !self.hasNextPage {
             return
         }
@@ -80,21 +100,43 @@ class PokemonListViewModel: NSObject {
         }
     }
 
-    private func getPokemonImages(withPokemon pokemon: Pokemon) async -> Pokemon {
-        var newPokemon = pokemon
-        var frontPokemonImageData: Data? = nil
-        var backPokemonImageData: Data? = nil
 
-        if let frontImageUrl = pokemon.sprites?.front_default, let frontImageData: Data = try? await self.pokemonServiceAPI.getImage(withURLString: frontImageUrl) {
-            frontPokemonImageData = frontImageData
+    /// Function used to update collectionView
+    /// Used to update collection when user click on cancel button on search bar
+    public func getPokemonsToSearch(withSearchText searchText: String) {
+        var searchPokemon: [Pokemon] = []
+        self.pokemons?.forEach({ pokemonFiltered in
+            if PokemonsUtils().isNumber(withString: searchText), pokemonFiltered.id == Int(searchText) {
+                searchPokemon.append(pokemonFiltered)
+            } else if pokemonFiltered.name == searchText.lowercased() {
+                searchPokemon.append(pokemonFiltered)
+            }
+
+            if searchPokemon.count > 0 {
+                self.bindSearchedPokemons(searchPokemon)
+                return
+            }
+        })
+
+        if (searchPokemon.isEmpty) {
+            Task {
+                do {
+                    var newPokemon: Pokemon? = try await self.pokemonServiceAPI.getSearchPokemon(withPokemonIdOrName: searchText)
+
+                    if (newPokemon != nil) {
+                        newPokemon = await self.getPokemonImages(withPokemon: newPokemon!)
+                        self.bindSearchedPokemons([newPokemon!])
+                    } else {
+                        self.bindSearchedPokemons([])
+                        let errorData: [String: Error] = [errorType: PokemonsError.PokemonNoExist]
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
+                    }
+                } catch {
+                    let errorData: [String: Error] = [errorType: error]
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
+                }
+            }
         }
 
-        if let backImageUrl = pokemon.sprites?.back_default, let backImageData: Data = try? await self.pokemonServiceAPI.getImage(withURLString: backImageUrl) {
-            backPokemonImageData = backImageData
-        }
-
-        newPokemon.setFrontAndBackPokemonImage(withFrontImage: frontPokemonImageData, andBackImage: backPokemonImageData)
-
-        return newPokemon
     }
 }

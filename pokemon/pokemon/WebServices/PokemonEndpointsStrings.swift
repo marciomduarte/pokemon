@@ -17,8 +17,8 @@ struct PokemonEndpoints {
         return endpointString
     }
 
-    static func getPokemonById(withPokemonId pokemonId: Int) -> String {
-        let endpointString = baseUrl + "pokemon/\(pokemonId)"
+    static func getPokemonById(withPokemonIdOrName pokemonIdOrName: String) -> String {
+        let endpointString = baseUrl + "pokemon/\(pokemonIdOrName)"
         return endpointString
     }
 }

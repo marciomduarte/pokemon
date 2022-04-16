@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PokemonListViewController: UIViewController {
+class PokemonListViewController: UIViewController, UISearchBarDelegate {
 
     // MARK: - IBOutlet
     @IBOutlet private weak var titleLabel: UILabel!
@@ -36,6 +36,10 @@ class PokemonListViewController: UIViewController {
         // Define and config searchBar
         self.pokemonSearchBar.barTintColor = UIColor.pokemonListBackgroundColor
         self.pokemonSearchBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
+        self.pokemonSearchBar.placeholder = NSLocalizedString("pokemon.empty.search.placeholder", comment: "")
+        self.pokemonSearchBar.tintColor = UIColor.pokemonRedColor
+        self.pokemonSearchBar.searchBarStyle = .prominent
+        self.pokemonSearchBar.delegate = self
 
         self.pokemonListView.seeMorePokemonDetails = { pokemonId, pokemons in
             self.goToPokemonDetail(withPokemonId: pokemonId, andPokemons: pokemons ?? [])
@@ -52,5 +56,39 @@ class PokemonListViewController: UIViewController {
         pokemonDetailsVC.pokemons = pokemons
         self.navigationController?.pushViewController(pokemonDetailsVC, animated: true)
     }
+
+    private func searchPokemon(wiehtSearchBar searchBar: UISearchBar) {
+        self.pokemonSearchBar.endEditing(true)
+
+        self.showActivityIndicator()
+        if (searchBar.searchTextField.text ?? "").count > 0 {
+            self.pokemonListView.pokemonsSearchText = searchBar.searchTextField.text ?? ""
+        } else {
+            self.resetSearchbarAndReloadData()
+        }
+    }
+
+    private func resetSearchbarAndReloadData() {
+        self.pokemonSearchBar.showsCancelButton = false
+        self.pokemonListView.reloadPokemonList()
+    }
+
+    // MARK: - Search Bar delegate
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.pokemonSearchBar.showsCancelButton = true
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        self.searchPokemon(wiehtSearchBar: searchBar)
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchPokemon(wiehtSearchBar: searchBar)
+    }
+
+    internal func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.resetSearchbarAndReloadData()
+    }
+
 
 }

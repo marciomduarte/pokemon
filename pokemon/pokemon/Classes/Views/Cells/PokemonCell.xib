@@ -50,15 +50,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="kA4-p2-0zS">
+                                <rect key="frame" x="120.5" y="60.5" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Dyl-1d-zLc"/>
+                                    <constraint firstAttribute="width" constant="40" id="Z14-rx-Ls6"/>
+                                </constraints>
+                                <color key="color" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Kz1-g1-V3s" firstAttribute="top" secondItem="nRj-8e-QIx" secondAttribute="bottom" constant="2" id="0T1-DG-ADw"/>
                             <constraint firstItem="IN5-MQ-C7l" firstAttribute="top" secondItem="jqp-nq-MHV" secondAttribute="bottom" constant="4" id="27h-Wk-Xvn"/>
                             <constraint firstItem="IN5-MQ-C7l" firstAttribute="trailing" secondItem="jqp-nq-MHV" secondAttribute="trailing" id="DY5-1r-iVY"/>
+                            <constraint firstItem="kA4-p2-0zS" firstAttribute="centerY" secondItem="mDe-lw-tEF" secondAttribute="centerY" id="F9T-VH-MRr"/>
                             <constraint firstItem="FRA-0f-ryD" firstAttribute="leading" secondItem="mDe-lw-tEF" secondAttribute="leading" constant="10" id="IZD-Lf-Sgr"/>
                             <constraint firstItem="FRA-0f-ryD" firstAttribute="top" secondItem="mDe-lw-tEF" secondAttribute="top" constant="4" id="Kfr-Bl-vZP"/>
                             <constraint firstAttribute="bottom" secondItem="Kz1-g1-V3s" secondAttribute="bottom" id="N3V-9e-Csd"/>
+                            <constraint firstItem="kA4-p2-0zS" firstAttribute="centerX" secondItem="mDe-lw-tEF" secondAttribute="centerX" id="NAv-ME-HSp"/>
                             <constraint firstItem="Kz1-g1-V3s" firstAttribute="centerY" secondItem="mDe-lw-tEF" secondAttribute="centerY" constant="10" id="U2c-PL-Fit"/>
                             <constraint firstAttribute="trailing" secondItem="jqp-nq-MHV" secondAttribute="trailing" constant="8" id="ULt-9z-eIV"/>
                             <constraint firstItem="Kz1-g1-V3s" firstAttribute="centerY" secondItem="jqp-nq-MHV" secondAttribute="centerY" constant="10" id="Upx-hA-y8u"/>
@@ -79,6 +89,7 @@
             </constraints>
             <size key="customSize" width="281" height="161"/>
             <connections>
+                <outlet property="activityIndicator" destination="kA4-p2-0zS" id="gld-ak-jAu"/>
                 <outlet property="contentViewCell" destination="mDe-lw-tEF" id="DR1-g6-mPb"/>
                 <outlet property="pokemonIdLabel" destination="nRj-8e-QIx" id="wxQ-4d-Seh"/>
                 <outlet property="pokemonImageView" destination="Kz1-g1-V3s" id="U58-PL-1T3"/>

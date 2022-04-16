@@ -38,7 +38,7 @@ class PokemonDetailsViewModel: NSObject {
             }
 
             do {
-                self.pokemon = try await self.pokemonServiceAPI.getAdditionalInformation(withPokemonId: self.pokemonId)
+                self.pokemon = try await self.pokemonServiceAPI.getSearchPokemon(withPokemonIdOrName: String(pokemonId))
             } catch {
                 let errorData: [String: Error] = [errorType: error]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)

@@ -16,6 +16,7 @@ class PokemonCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonImageView: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     // MARK: - Public vars
     static let identifier = "PokemonCell"
@@ -39,10 +40,16 @@ class PokemonCell: UICollectionViewCell {
     }
 
     override func prepareForReuse() {
+        self.resetCell()
+    }
+
+    private func resetCell() {
         self.contentViewCell.backgroundColor = UIColor.pokemonCellBackgroundColor.withAlphaComponent(0.5)
         self.pokemonIdLabel.text = ""
         self.pokemonNameLabel.text = ""
+        self.pokemonTypeLabel.text = ""
         self.pokemonImageView.image = nil
+        self.activityIndicator.isHidden = true
     }
 
     public func configCell(withPokemon pokemon: Pokemon) {
@@ -59,5 +66,17 @@ class PokemonCell: UICollectionViewCell {
             self.pokemonTypeLabel.text = type.capitalized
             self.contentViewCell.backgroundColor = UIColor.pokemonColorsDict[type]
         }
+    }
+
+    public func configLoadingView() {
+        self.resetCell()
+        self.titleLabel.text = ""
+
+        self.contentViewCell.backgroundColor = UIColor.pokemonListBackgroundColor
+
+        self.activityIndicator.style = UIActivityIndicatorView.Style.large
+        self.activityIndicator.color = UIColor.pokemonRedColor
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
     }
 }

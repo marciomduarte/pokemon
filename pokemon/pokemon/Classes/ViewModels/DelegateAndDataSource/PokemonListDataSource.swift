@@ -30,7 +30,7 @@ class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollect
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.pokemons?.count ?? 0 //+ 1
+        return self.pokemons?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

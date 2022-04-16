@@ -15,18 +15,44 @@ class PokemonListView: UIView {
     @IBOutlet var contentView: UIView!
 
     // MARK: - Private vars
+    ///Empty list view
     private var pokemonEmptyListView: UIView = UIView()
 
+    /// View model control
     private var pokemonListViewModel: PokemonListViewModel!
+
+    /// Var to control if the user is in search mode
+    /// This var is setted to true when find an element on pokemon fetch or if the service call return values
+    private var findPokemonOnSearch: Bool = false
 
     // MARK: - Public vars
     public var pokemonsDataSource: PokemonListDataSource<PokemonCell, [Pokemon]>!
 
+    /// Var for list of pokemons
+    /// When this var is setted, data source is called and start reload data of the collection
     public var pokemonsList: [Pokemon]? {
         didSet {
             DispatchQueue.main.async {
                 self.pokemonsListUpdateDataSource()
             }
+        }
+    }
+
+    /// Var for list of pokemons
+    /// When this var is setted, data source is called and start reload data of the collection
+    public var searchedListPokemons: [Pokemon]? {
+        didSet {
+            DispatchQueue.main.async {
+                self.pokemonsListUpdateDataSource()
+            }
+        }
+    }
+
+    /// Text introduced by the user to get que pokemon ID or pokemon name.
+    /// When this text is setted, the call the function to search on pokemonsArrays fetched or call the service to get the pokemon information
+    public var pokemonsSearchText: String = "" {
+        didSet {
+            self.pokemonListViewModel.getPokemonsToSearch(withSearchText: self.pokemonsSearchText )
         }
     }
 
@@ -53,6 +79,7 @@ class PokemonListView: UIView {
         self.configContent()
     }
 
+    /// Config Content view
     private func configContent() {
         Bundle.main.loadNibNamed(String(describing: PokemonListView.self), owner: self, options: nil)
         self.contentView.frame = CGRect(x: 0.0, y: 0.0, width: self.frame.width, height: self.frame.height)
@@ -61,6 +88,7 @@ class PokemonListView: UIView {
         self.setupUI()
     }
 
+    /// Setup layout view
     private func setupUI() {
         // Config collectionView
         self.pokemonCollectionView.backgroundColor = UIColor.clear
@@ -73,15 +101,29 @@ class PokemonListView: UIView {
 
         self.pokemonListViewModel = PokemonListViewModel()
         self.pokemonListViewModel.numberOfElementsOnScreen = self.numberOfVisibelCell()
+
+        self.configureBinds()
+    }
+
+    private func configureBinds() {
         self.pokemonListViewModel.bindPokemonsList = { pokemonsListFetched in
             self.pokemonsList = pokemonsListFetched
+        }
+
+        self.pokemonListViewModel.bindSearchedPokemons = { searchPokemon in
+            self.findPokemonOnSearch = true
+            self.searchedListPokemons = searchPokemon
         }
     }
 
     // Populate PokemonCollectionView
     private func pokemonsListUpdateDataSource() {
-        if let numberOfPokemonsFetched = self.pokemonsList?.count, numberOfPokemonsFetched > 0 {
+        if let numberOfPokemonsFetched = self.pokemonsList?.count, numberOfPokemonsFetched > 0 && self.findPokemonOnSearch == false {
             self.pokemonEmptyListView.isHidden = true
+        } else if let numberOfPokemonsFetched = self.searchedListPokemons?.count, numberOfPokemonsFetched > 0 {
+            self.pokemonEmptyListView.isHidden = true
+        } else {
+            self.pokemonEmptyListView.isHidden = false
         }
 
         UIApplication.shared.topMostViewController()?.hideActivityIndicator()
@@ -90,14 +132,16 @@ class PokemonListView: UIView {
             return
         }
 
-        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.pokemonsList!, andCellConfig: { (cell, item) in
+        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.findPokemonOnSearch ? (self.searchedListPokemons ?? []) : self.pokemonsList!, andCellConfig: { (cell, item) in
             if let pokemon = item as? Pokemon {
-//                if (item?.count ?? 0) == indexPath.row {
-//                    // Display loading more pokemon cell
-//                    cell.isUserInteractionEnabled = false
-//                } else {
+                if self.pokemonsList?.last?.id == pokemon.id {
+                    // Display loading more pokemon cell
+                    cell.isUserInteractionEnabled = false
+                    cell.configLoadingView()
+                } else {
+                    // DIsplay pokemon cell
                     cell.configCell(withPokemon: pokemon)
-//                }
+                }
             }
         })
 
@@ -106,7 +150,7 @@ class PokemonListView: UIView {
         }
 
         self.pokemonsDataSource.getMorePokemons = { offSet in
-            self.pokemonListViewModel.getPokemonList(withOffSet: offSet)
+            self.pokemonListViewModel.fetchPokemons(withOffSet: offSet)
         }
 
         self.pokemonCollectionView.dataSource = self.pokemonsDataSource
@@ -114,6 +158,7 @@ class PokemonListView: UIView {
         self.pokemonCollectionView.reloadData()
     }
 
+    /// Get number of cells the user can see
     private func numberOfVisibelCell() -> Int {
         let collectionHeightWithoutPadding: CGFloat = self.frame.height - (kCollectionPadding * 2)
         let numberOfElements: CGFloat = (collectionHeightWithoutPadding / kCollectionCellHeight).rounded(.down)
@@ -177,4 +222,11 @@ class PokemonListView: UIView {
         return layout
     }
 
+    /// Function used to update collectionView
+    /// Used to update collection when user click on cancel button on search bar
+    public func reloadPokemonList() {
+        self.searchedListPokemons = []
+        self.findPokemonOnSearch = false
+        self.pokemonsListUpdateDataSource()
+    }
 }

@@ -21,6 +21,8 @@ let PokemonErrorServiceNotification: String = "PokemonErrorServiceNotification"
 enum PokemonsError: Error {
     case MissingData
     case GeneralError
+    case GetPokemonError
+    case PokemonNoExist
 }
 
 /// enum to identifier the index of segmented control
@@ -70,15 +72,21 @@ enum PokemonAbilitiesDetail: String {
     }
 }
 
+/// PokemonUtils.
+/// Class with common methods
 class PokemonsUtils: NSObject {
     private var pokemonServiceAPI: PokemonServiceProtocol = PokemonWebServices()
 
-    func loadImage(withURLString urlString: String) async throws -> Data? {
+    public func loadImage(withURLString urlString: String) async throws -> Data? {
         guard let imageData = try await self.pokemonServiceAPI.getImage(withURLString: urlString) else {
             return nil
         }
 
         return imageData
+    }
+
+    public func isNumber(withString string: String) -> Bool {
+        return Double(string) != nil
     }
 }
 
@@ -103,7 +111,9 @@ extension UIViewController {
         self.view.addSubview(UIViewController.activityView!)
 
         UIViewController.activityViewIndicator = UIActivityIndicatorView(style: .large)
-        UIViewController.activityViewIndicator?.center = self.view.center
+        let minX: CGFloat = (UIScreen.main.bounds.width / 2) - (UIViewController.activityViewIndicator?.frame.width ?? 0.0)
+        let minY: CGFloat = (UIScreen.main.bounds.height / 2) - (UIViewController.activityViewIndicator?.frame.height ?? 0.0)
+        UIViewController.activityViewIndicator?.center = CGPoint(x: minX, y: minY)
         UIViewController.activityViewIndicator?.color = UIColor.pokemonRedColor
         self.view.addSubview(UIViewController.activityViewIndicator!)
         UIViewController.activityViewIndicator?.startAnimating()
@@ -144,6 +154,10 @@ extension UIViewController {
             switch errorType {
             case .MissingData:
                 message = NSLocalizedString("pokemon.alert.error.message.MissingData", comment: "")
+            case .GetPokemonError:
+                message = NSLocalizedString("pokemon.alert.error.message.error.find.pokemon", comment: "")
+            case .PokemonNoExist:
+                message = NSLocalizedString("pokemon.alert.error.message.cant.find.pokemon", comment: "")
             default:
                 // General error
                 message = NSLocalizedString("pokemon.alert.error.message.GeneralError", comment: "")
