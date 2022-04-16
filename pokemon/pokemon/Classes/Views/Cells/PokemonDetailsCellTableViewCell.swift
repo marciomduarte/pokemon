@@ -11,7 +11,9 @@ class PokemonDetailsCellTableViewCell: UITableViewCell {
 
     // MARK: - IBOutlets
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionTitleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var subDescriptionLabel: UILabel!
 
     // MARK: - Public vars
     static let identifier = "PokemonTableViewCell"
@@ -22,14 +24,40 @@ class PokemonDetailsCellTableViewCell: UITableViewCell {
         self.setupUI()
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        self.descriptionTitleLabel.isHidden = true
+        self.descriptionLabel.isHidden = true
+        self.subDescriptionLabel.isHidden = true
+
+    }
+
     private func setupUI() {
         self.titleLabel.pokemonDetailCellTitleStyle()
+        self.descriptionTitleLabel.pokemonDetailCellDescriptionTitleStyle()
         self.descriptionLabel.pokemonDetailCellDescriptionStyle()
+        self.subDescriptionLabel.pokemonDetailCellSubDescriptionStyle()
     }
 
     public func configCell(withPokemonDetails pokemonDetails: PokemonDetails) {
+
         self.titleLabel.text = pokemonDetails.detailsTitle
-        self.descriptionLabel.text = pokemonDetails.detailsDescription
+
+        if !pokemonDetails.detailsDescriptionTitle.isEmpty {
+            self.descriptionTitleLabel.isHidden = false
+            self.descriptionTitleLabel.text = pokemonDetails.detailsDescriptionTitle
+        }
+
+        if !pokemonDetails.detailsDescription.isEmpty {
+            self.descriptionLabel.isHidden = false
+            self.descriptionLabel.text = pokemonDetails.detailsDescription
+        }
+
+        if !pokemonDetails.detailsSubDescription.isEmpty {
+            self.subDescriptionLabel.isHidden = false
+            self.subDescriptionLabel.text = pokemonDetails.detailsSubDescription
+        }
     }
     
 }

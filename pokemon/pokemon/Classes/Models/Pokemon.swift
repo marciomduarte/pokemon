@@ -37,6 +37,7 @@ struct Pokemon: Decodable, Hashable {
 struct Abilities: Decodable {
     var ability: Ability?
     var is_hidden: Bool?
+    var isAbilityFetched: Bool? = false
 
     enum CodingKeys : String, CodingKey {
         case ability = "ability"
@@ -62,6 +63,7 @@ struct Ability: Decodable {
     enum CodingKeys : String, CodingKey {
         case name = "name"
         case url = "url"
+        case effectEntries = "effect_entries"
     }
 
     init(from decoder: Decoder) throws {
@@ -73,8 +75,14 @@ struct Ability: Decodable {
         if let url = try? container.decodeIfPresent(String.self, forKey: .url) {
             self.url = url
         }
+
+        if let effectEntries = try? container.decodeIfPresent([EffectEntries].self, forKey: .effectEntries) {
+            self.effect_entries = effectEntries
+        }
     }
 }
+
+
 
 struct EffectEntries: Decodable {
     var effect: String?
@@ -104,7 +112,7 @@ struct PokemonType: Decodable {
     let name: String?
 }
 
-// MARK: - Pokemon stats
+// MARK: - Pokemon Images
 struct Stats: Decodable {
     let base_stat: Int?
     let stat: Stat?

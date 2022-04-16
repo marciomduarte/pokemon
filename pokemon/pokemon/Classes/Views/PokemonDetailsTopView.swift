@@ -78,15 +78,12 @@ class PokemonDetailsTopView: UIView {
         self.pokemonsDetailsDataSource = PokemonDetailsTopViewTableDataSource(cellIdentifier: PokemonDetailsCellTableViewCell.identifier, pokemonDetails: details, startCellConfiguration: { cell, item in
             if let pokemonDetails = item as? PokemonDetails {
                 cell.configCell(withPokemonDetails: pokemonDetails)
-
-                cell.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
             }
         })
 
         self.tableView.dataSource = self.pokemonsDetailsDataSource
         self.tableView.delegate = self.pokemonsDetailsDataSource
         self.tableView.reloadData()
-        self.tableView.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
     }
 
     @IBAction func segmentedControlWasClicked(_ sender: Any) {

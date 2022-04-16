@@ -25,6 +25,7 @@
 "pokemon.cell.about.pokemonType" = "Type: ";
 "pokemon.cell.about.weight" = "Weight: ";
 "pokemon.cell.about.height" = "Height: ";
+"pokemon.cell.abilities" = "Abilities: ";
 
 // MARK: - Error Messages
 "pokemon.alert.error.title" = "🫥 \nSomething wrong happens.";

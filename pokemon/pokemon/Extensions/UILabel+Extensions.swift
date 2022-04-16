@@ -64,9 +64,21 @@ extension UILabel {
         self.textColor = UIColor.paeanBlack.withAlphaComponent(0.6)
     }
 
-    public func pokemonDetailCellDescriptionStyle() {
-        self.font = UIFont.customRegularFont(withSize: 20)
+    public func pokemonDetailCellDescriptionTitleStyle() {
+        self.font = UIFont.customRegularFont(withSize: 18)
         self.textColor = UIColor.paeanBlack
+            .withAlphaComponent(0.8)
+    }
+
+    public func pokemonDetailCellDescriptionStyle() {
+        self.font = UIFont.customRegularFont(withSize: 18)
+        self.textColor = UIColor.paeanBlack.withAlphaComponent(0.7)
+            .withAlphaComponent(0.8)
+    }
+
+    public func pokemonDetailCellSubDescriptionStyle() {
+        self.font = UIFont.customRegularFont(withSize: 16)
+        self.textColor = UIColor.paeanBlack.withAlphaComponent(0.7)
             .withAlphaComponent(0.8)
     }
 }

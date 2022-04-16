@@ -43,19 +43,29 @@ class PokemonDetailsTopViewModel: NSObject {
     }
 
     private func getPokemonAdditionalInformation() {
-        Task {
-            if let abilities = self.pokemon.abilities {
-                var index: Int = 0
-                for ability in abilities {
-                    if let urlString = ability.ability?.url {
-                        let newAbility = try await self.pokemonServiceAPI.getPokemonAbilities(withURLString: urlString)
-                        self.pokemon.abilities?[index].ability = newAbility
-                    }
-                    index += 1
+        if self.pokemon.abilities?.count ?? 0 != 0, let abilityFetched = self.pokemon.abilities?.first?.isAbilityFetched, !abilityFetched {
+            Task { [weak self] in
+                guard let self = self else {
+                    return
                 }
-                self.getPokemonDetails()
+
+                if let abilities = self.pokemon.abilities {
+                    var index: Int = 0
+                    for ability in abilities {
+                        let newAbility: Ability!
+                        if let urlString = ability.ability?.url {
+                            newAbility = try await self.pokemonServiceAPI.getPokemonAbilities(withURLString: urlString)
+                            self.pokemon.abilities?[index].ability = newAbility
+                            self.pokemon.abilities?[index].isAbilityFetched = true
+                        }
+                        index += 1
+                    }
+
+                }
             }
         }
+
+        self.getPokemonDetails()
     }
 
     private func getPokemonDetails() {
@@ -73,10 +83,10 @@ class PokemonDetailsTopViewModel: NSObject {
         var pokemonDetails: [PokemonDetails] = []
 
         // Cell Id
-        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.IdType.description, andDetailsDescriptions: String(describing: self.pokemon.id!)))
+        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.IdType.description, andDetailsDescriptionTitle: String(describing: self.pokemon.id!), andDetailsDescriptions: "", andDetailsSubDescription: ""))
 
         // Cell Name
-        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.NameType.description, andDetailsDescriptions: self.pokemon.name?.capitalized ?? "-"))
+        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.NameType.description, andDetailsDescriptionTitle: self.pokemon.name?.capitalized ?? "-", andDetailsDescriptions: "", andDetailsSubDescription: ""))
 
         // Cell PokemonType
         var typeString: String = ""
@@ -87,13 +97,13 @@ class PokemonDetailsTopViewModel: NSObject {
                 typeString += "\n"
             }
         }
-        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.PokemonType.description, andDetailsDescriptions: typeString))
+        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.PokemonType.description, andDetailsDescriptionTitle: typeString, andDetailsDescriptions: "", andDetailsSubDescription: ""))
 
         // Cell Weight
-        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.WeightType.description, andDetailsDescriptions: "\(String(describing: self.pokemon.weight!)) kg"))
+        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.WeightType.description, andDetailsDescriptionTitle: "\(String(describing: self.pokemon.weight!)) kg", andDetailsDescriptions: "", andDetailsSubDescription: ""))
 
         // Cell Height
-        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.HeightType.description, andDetailsDescriptions: "\(String(describing: self.pokemon.height!)) cm"))
+        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.HeightType.description, andDetailsDescriptionTitle: "\(String(describing: self.pokemon.height!)) cm", andDetailsDescriptions: "", andDetailsSubDescription: ""))
 
         self.pokemonDetails = pokemonDetails
     }
@@ -103,11 +113,13 @@ class PokemonDetailsTopViewModel: NSObject {
 
         self.pokemon.abilities?.forEach({ ability in
             if let hidden = ability.is_hidden, !hidden {
-                // Cell Name
-                pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.IdType.description, andDetailsDescriptions: ability.ability?.name ?? "-"))
 
-                // Cell
-                pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.IdType.description, andDetailsDescriptions: String(describing: self.pokemon.id!)))
+                ability.ability?.effect_entries?.forEach({ effectEntries in
+                    if effectEntries.language?.name == PokemonDetailsTopViewModel.kAppLanguageDefault {
+                        // Ability cell
+                        pokemonDetails.append(PokemonDetails(withDetailsTitle: NSLocalizedString("pokemon.cell.abilities", comment: ""), andDetailsDescriptionTitle: ability.ability?.name?.capitalized ?? "-", andDetailsDescriptions: effectEntries.effect ?? "-", andDetailsSubDescription: effectEntries.short_effect ?? "-"))
+                    }
+                })
             }
         })
 
@@ -122,7 +134,7 @@ class PokemonDetailsTopViewModel: NSObject {
             let baseState = String(describing: stats.base_stat!)
 
             // Cell Speed
-            pokemonDetails.append(PokemonDetails(withDetailsTitle: statName ?? "-", andDetailsDescriptions: baseState))
+            pokemonDetails.append(PokemonDetails(withDetailsTitle: statName ?? "-", andDetailsDescriptionTitle: baseState, andDetailsDescriptions: "", andDetailsSubDescription: ""))
         })
 
         self.pokemonDetails = pokemonDetails
