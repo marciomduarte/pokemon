@@ -86,6 +86,16 @@ extension UIViewController {
     static var activityView: UIView?
     static var activityViewIndicator: UIActivityIndicatorView?
 
+    func hideKeyboardWhenTappedAround() {
+        let tapOnScreen = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboardHandler))
+        tapOnScreen.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapOnScreen)
+    }
+
+    @objc func dismissKeyboardHandler() {
+        self.view.endEditing(true)
+    }
+
     func showActivityIndicator() {
         UIViewController.activityView = UIView(frame: UIScreen.main.bounds)
         UIViewController.activityView?.backgroundColor = UIColor.black

@@ -18,6 +18,7 @@ class PokemonListViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(PokemonErrorServiceNotification), object: nil)
 
+        self.hideKeyboardWhenTappedAround()
 
         self.showActivityIndicator()
 
