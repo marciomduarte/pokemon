@@ -22,14 +22,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="haE-S5-7FH" customClass="PokemonDetailsTopView" customModule="pokemon" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="44" width="414" height="622"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="592"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0iH-cs-htA" customClass="PokemonDetailsBottomView" customModule="pokemon" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="666" width="414" height="230"/>
+                    <rect key="frame" x="0.0" y="636" width="414" height="260"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="230" id="NKC-c6-qxL"/>
+                        <constraint firstAttribute="height" constant="260" id="NKC-c6-qxL"/>
                     </constraints>
                 </view>
             </subviews>

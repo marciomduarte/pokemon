@@ -37,6 +37,8 @@ class PokemonListView: UIView {
     private var kCollectionPadding: CGFloat = 16.0
     private var kCollectionCellHeight: CGFloat = 120.0
     private var kCollectionCellMinWidth: CGFloat = 140.0
+    private var kCollectionCellHeightIPad: CGFloat = 240.0
+    private var kCollectionCellMinWidthIPad: CGFloat = 280.0
     private var kMinimunLineSpacing: CGFloat = 8.0
     private var kMinimumInteritemSpacing: CGFloat = 8.0
 
@@ -156,14 +158,21 @@ class PokemonListView: UIView {
     /// Create a Custom Flow layout
     /// Used to set pokemon list in grid
     private func getFlowLayout() -> UICollectionViewFlowLayout {
+        var cellDefaultHeight: CGFloat = kCollectionCellHeight
+        var cellDefaultWidth: CGFloat = kCollectionCellMinWidth
+        if (UIDevice.current.userInterfaceIdiom == .pad) {
+            cellDefaultHeight = kCollectionCellHeightIPad
+            cellDefaultWidth = kCollectionCellMinWidthIPad
+        }
+
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: kCollectionPadding, left: kCollectionPadding, bottom: kCollectionPadding, right: kCollectionPadding)
         layout.minimumLineSpacing = kMinimunLineSpacing
         layout.minimumInteritemSpacing = kMinimumInteritemSpacing
         let collectionWidth: CGFloat = UIScreen.main.bounds.width - (kCollectionPadding * 2)
-        let numberOfCellsInLine: CGFloat = (collectionWidth / kCollectionCellMinWidth).rounded(.down)
+        let numberOfCellsInLine: CGFloat = (collectionWidth / cellDefaultWidth).rounded(.down)
         let cellWidth: CGFloat = (collectionWidth - (kMinimumInteritemSpacing * numberOfCellsInLine)) / numberOfCellsInLine
-        layout.itemSize = CGSize(width: cellWidth, height: kCollectionCellHeight)
+        layout.itemSize = CGSize(width: cellWidth, height: cellDefaultHeight)
 
         return layout
     }

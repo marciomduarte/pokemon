@@ -75,7 +75,7 @@ class PokemonListViewModel: NSObject {
                 self.hasNextPage = offSet < (pokemonsList?.count ?? 0)
             } catch {
                 let errorData: [String: Error] = [errorType: error]
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: pokemonErrorServiceNotification), object: errorData)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
             }
         }
     }

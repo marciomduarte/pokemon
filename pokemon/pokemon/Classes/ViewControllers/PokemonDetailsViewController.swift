@@ -29,7 +29,7 @@ class PokemonDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(pokemonErrorServiceNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(PokemonErrorServiceNotification), object: nil)
         self.navigationController?.navigationBar.tintColor = UIColor.pokemonRedColor
         self.navigationController?.navigationBar.topItem?.title = ""
 
@@ -41,7 +41,7 @@ class PokemonDetailsViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        NotificationCenter.default.removeObserver(Notification.Name(pokemonErrorServiceNotification))
+        NotificationCenter.default.removeObserver(Notification.Name(PokemonErrorServiceNotification))
     }
 
     private func setupUI() {
