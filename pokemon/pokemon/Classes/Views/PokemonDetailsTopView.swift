@@ -65,6 +65,7 @@ class PokemonDetailsTopView: UIView {
         self.segmentedControl.setTitle(NSLocalizedString("pokemon.details.about", comment: ""), forSegmentAt: 0)
         self.segmentedControl.setTitle(NSLocalizedString("pokemon.details.abilities", comment: ""), forSegmentAt: 1)
         self.segmentedControl.setTitle(NSLocalizedString("pokemon.details.stats", comment: ""), forSegmentAt: 2)
+        self.segmentedControl.accessibilityIdentifier = Constants().kSegmentedControlIdentifier
 
         // Config PokemonDetailsViewModel
         self.pokemonDetailsTopViewModel = PokemonDetailsTopViewModel()

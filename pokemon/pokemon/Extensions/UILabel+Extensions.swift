@@ -79,6 +79,5 @@ extension UILabel {
     public func pokemonDetailCellSubDescriptionStyle() {
         self.font = UIFont.customRegularFont(withSize: 16)
         self.textColor = UIColor.paeanBlack.withAlphaComponent(0.7)
-            .withAlphaComponent(0.8)
     }
 }

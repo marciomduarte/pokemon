@@ -21,10 +21,6 @@ class PokemonListView: UIView {
     /// View model control
     private var pokemonListViewModel: PokemonListViewModel!
 
-    /// Var to control if the user is in search mode
-    /// This var is setted to true when find an element on pokemon fetch or if the service call return values
-    private var findPokemonOnSearch: Bool = false
-
     // MARK: - Public vars
     public var pokemonsDataSource: PokemonListDataSource<PokemonCell, [Pokemon]>!
 
@@ -47,6 +43,10 @@ class PokemonListView: UIView {
             }
         }
     }
+
+    /// Var to control if the user is in search mode
+    /// This var is setted to true when find an element on pokemon fetch or if the service call return values
+    public var findPokemonOnSearch: Bool = false
 
     /// Text introduced by the user to get que pokemon ID or pokemon name.
     /// When this text is setted, the call the function to search on pokemonsArrays fetched or call the service to get the pokemon information
@@ -173,6 +173,7 @@ class PokemonListView: UIView {
         let imageViewHeight: CGFloat = 80.0
 
         self.pokemonEmptyListView = UIView(frame: .zero)
+        self.pokemonEmptyListView.accessibilityIdentifier = Constants().kEmptyListPokemonIdentifier
         let xPos: CGFloat = (UIScreen.main.bounds.width / 2) - (imageViewWidth / 2)
 
         let imageView: UIImageView = UIImageView(frame: CGRect(x: xPos, y: self.pokemonCollectionView.frame.minY + imageViewWidth, width: imageViewWidth, height: imageViewHeight))

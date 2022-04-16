@@ -44,7 +44,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
     func getAdditionalInformation(withURLString urlString: String) async throws -> Pokemon? {
 
         guard let url = URL(string: urlString) ?? URL(string: "") else {
-            return nil
+            throw PokemonsError.GeneralError
         }
 
 
@@ -66,7 +66,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
     func getSearchPokemon(withPokemonIdOrName pokemonIdOrName: String) async throws -> Pokemon? {
 
         guard let url = URL(string: PokemonEndpoints.getPokemonById(withPokemonIdOrName: String(pokemonIdOrName))) else {
-            return nil
+            throw PokemonsError.GeneralError
         }
 
         guard let (data, _) = try? await PokemonWebServices.urlSession.data(from: url) else {
