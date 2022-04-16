@@ -63,7 +63,21 @@ class PokemonDetailsViewController: UIViewController {
             self.hideActivityIndicator()
         }
 
-        self.pokemonDetailsBottomViewHeightConstraint.constant = pokemonDetailsBottomView.bottomView.frame.maxY - self.pokemonDetailsBottomView.imageViewContainer.frame.minY
+        self.changeLayoutWhenUserChangeOrientation()
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.changeLayoutWhenUserChangeOrientation()
+    }
+
+    private func changeLayoutWhenUserChangeOrientation() {
+        if UIDevice.current.orientation.isLandscape {
+            self.pokemonDetailsBottomViewHeightConstraint.constant = 0.0
+            self.pokemonDetailsBottomView.isHidden = true
+        } else {
+            self.pokemonDetailsBottomViewHeightConstraint.constant = pokemonDetailsBottomView.bottomView.frame.maxY - self.pokemonDetailsBottomView.imageViewContainer.frame.minY
+            self.pokemonDetailsBottomView.isHidden = false
+        }
     }
 
 }

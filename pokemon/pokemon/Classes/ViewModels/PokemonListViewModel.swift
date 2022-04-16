@@ -113,8 +113,6 @@ class PokemonListViewModel: NSObject {
             }
 
             if searchPokemon.count > 0 {
-                self.bindSearchedPokemons(searchPokemon)
-                return
             }
         })
 
@@ -138,5 +136,6 @@ class PokemonListViewModel: NSObject {
             }
         }
 
+        self.bindSearchedPokemons(searchPokemon)
     }
 }
