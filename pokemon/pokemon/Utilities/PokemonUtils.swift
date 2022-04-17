@@ -117,7 +117,7 @@ extension UIViewController {
             self.view.addSubview(UIViewController.activityView!)
 
             UIViewController.activityViewIndicator = UIActivityIndicatorView(style: .large)
-            let minX: CGFloat = (UIScreen.main.bounds.width / 2) - ((UIViewController.activityViewIndicator?.frame.width ?? 0.0) / 3)
+            let minX: CGFloat = (UIScreen.main.bounds.width / 2)
             let minY: CGFloat = (UIScreen.main.bounds.height / 2) - ((UIViewController.activityViewIndicator?.frame.height ?? 0.0) / 3)
             UIViewController.activityViewIndicator?.center = CGPoint(x: minX, y: minY)
             UIViewController.activityViewIndicator?.color = UIColor.pokemonRedColor

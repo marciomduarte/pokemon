@@ -121,14 +121,14 @@ class PokemonListView: UIView {
             return
         }
 
-        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.findPokemonOnSearch ? (self.searchedListPokemons ?? []) : self.pokemonsList!, andCellConfig: { (cell, item) in
+        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.findPokemonOnSearch ? (self.searchedListPokemons ?? []) : self.pokemonsList!, andIsLoadingCell: false, andNumberOfCellsVisible: self.numberOfVisibelCell(), andCellConfig: { (cell, item, isLoadingCell, numberOfVisibleCells) in
             if let pokemon = item as? Pokemon {
-                if self.pokemonsList?.last?.id == pokemon.id {
+                if isLoadingCell {
                     // Display loading more pokemon cell
                     cell.isUserInteractionEnabled = false
                     cell.configLoadingView()
                 } else {
-                    // DIsplay pokemon cell
+                    // Display pokemon cell
                     cell.configCell(withPokemon: pokemon)
                 }
             }
@@ -158,10 +158,27 @@ class PokemonListView: UIView {
 
     /// Get number of cells the user can see
     private func numberOfVisibelCell() -> Int {
-        let collectionHeightWithoutPadding: CGFloat = self.frame.height - (kCollectionPadding * 2)
-        let numberOfElements: CGFloat = (collectionHeightWithoutPadding / kCollectionCellHeight).rounded(.down)
+        var cellDefaultHeight: CGFloat = kCollectionCellHeight
+        if (UIDevice.current.userInterfaceIdiom == .pad) {
+            cellDefaultHeight = kCollectionCellHeightIPad
+        }
 
-        return Int(numberOfElements) * 2
+        let collectionHeightWithoutPadding: CGFloat = self.frame.height - (kCollectionPadding * 2)
+        let numberOfElements: CGFloat = (collectionHeightWithoutPadding / cellDefaultHeight).rounded(.down)
+
+        return Int(numberOfElements) * self.numberOfHorizontalVisibelCell()
+    }
+
+    private func numberOfHorizontalVisibelCell() -> Int {
+        var cellDefaultWidth: CGFloat = kCollectionCellMinWidth
+        if (UIDevice.current.userInterfaceIdiom == .pad) {
+            cellDefaultWidth = kCollectionCellMinWidthIPad
+        }
+
+        let collectionWidth: CGFloat = UIScreen.main.bounds.width - (kCollectionPadding * 2)
+        let numberOfCellsInLine: CGFloat = (collectionWidth / cellDefaultWidth).rounded(.down)
+
+        return Int(numberOfCellsInLine)
     }
 
     /// Get collectionView empty view
@@ -213,6 +230,7 @@ class PokemonListView: UIView {
         layout.sectionInset = UIEdgeInsets(top: kCollectionPadding, left: kCollectionPadding, bottom: kCollectionPadding, right: kCollectionPadding)
         layout.minimumLineSpacing = kMinimunLineSpacing
         layout.minimumInteritemSpacing = kMinimumInteritemSpacing
+
         let collectionWidth: CGFloat = UIScreen.main.bounds.width - (kCollectionPadding * 2)
         let numberOfCellsInLine: CGFloat = (collectionWidth / cellDefaultWidth).rounded(.down)
         let cellWidth: CGFloat = (collectionWidth - (kMinimumInteritemSpacing * numberOfCellsInLine)) / numberOfCellsInLine

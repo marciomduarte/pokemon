@@ -49,6 +49,7 @@ class PokemonCell: UICollectionViewCell {
     }
 
     private func resetCell() {
+        self.titleLabel.text = NSLocalizedString("pokemon.cell.name.label", comment: "")
         self.contentViewCell.backgroundColor = UIColor.pokemonCellBackgroundColor.withAlphaComponent(0.5)
         self.pokemonIdLabel.text = ""
         self.pokemonNameLabel.text = ""
