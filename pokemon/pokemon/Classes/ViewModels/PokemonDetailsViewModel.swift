@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class PokemonDetailsViewModel: NSObject {
 
@@ -38,7 +39,15 @@ class PokemonDetailsViewModel: NSObject {
             }
 
             do {
-                self.pokemon = try await self.pokemonServiceAPI.getSearchPokemon(withPokemonIdOrName: String(pokemonId))
+                var pokemon = try? await self.pokemonServiceAPI.getSearchPokemon(withPokemonIdOrName: String(pokemonId))
+                if pokemon == nil {
+                    let errorData: [String: Error] = [errorType: PokemonsError.NoMorePokemons]
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
+                } else {
+                    pokemon = try await PokemonsUtils().getPokemonImages(withPokemon: pokemon!)
+                    self.pokemon = pokemon
+                }
+
             } catch {
                 let errorData: [String: Error] = [errorType: error]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)

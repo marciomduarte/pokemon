@@ -16,11 +16,12 @@
 "pokemon.details.about" = "About";
 "pokemon.details.abilities" = "Abilities";
 "pokemon.details.stats" = "Stats";
+"pokemon.details.swipe" = "Swipe left and right to change pokemon";
 
 // MARK: - Pokemon Collection Cells
 "pokemon.cell.name.label" = "Name:";
 
-// MARK: - Pokemon Tablew Cells
+// MARK: - Pokemon Table Cells
 "pokemon.cell.about.number" = "Number: ";
 "pokemon.cell.about.name" = "Name: ";
 "pokemon.cell.about.pokemonType" = "Type: ";
@@ -33,11 +34,12 @@
 // MARK: - Error Messages
 "pokemon.alert.error.ok.button" = "Ok.";
 "pokemon.alert.error.title" = "ℹ️ \nSomething wrong happens.";
-"pokemon.alert.error.message.MissingData" = "\n\nWe cannot carry out this operation right now.";
-"pokemon.alert.error.message.GeneralError" = "\n\nPlease, try again later.";
-"pokemon.alert.error.message.error.find.pokemon" = "\n\nCan't find the pokemon.";
-"pokemon.alert.error.message.cant.find.pokemon" = "\n\nPokemon doesn't exist";
-"pokemon.alert.error.message.connection.error" = "\n\nNo internet connection!";
+"pokemon.alert.error.message.MissingData" = "\nWe cannot carry out this operation right now.";
+"pokemon.alert.error.message.GeneralError" = "\nPlease, try again later.";
+"pokemon.alert.error.message.error.find.pokemon" = "\nCan't find the pokemon.";
+"pokemon.alert.error.message.cant.find.pokemon" = "\nPokemon doesn't exist";
+"pokemon.alert.error.message.connection.error" = "\nNo internet connection!";
+"pokemon.alert.error.message.no.more.pokemons" = "\nNo more pokemons";
 
 // MARK: - Accessibility Voice Over
 "pokemon.accessibility.list.pokemons" = "Pokemons List.";

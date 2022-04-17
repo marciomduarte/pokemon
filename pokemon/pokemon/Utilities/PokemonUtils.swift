@@ -24,6 +24,7 @@ enum PokemonsError: Error {
     case GeneralError
     case GetPokemonError
     case PokemonNoExist
+    case NoMorePokemons
 }
 
 /// enum to identifier the index of segmented control
@@ -89,6 +90,37 @@ class PokemonsUtils: NSObject {
     public func isNumber(withString string: String) -> Bool {
         return Double(string) != nil
     }
+
+    /// Get Pokemon images (Front and back image)
+    public func getPokemonImages(withPokemon pokemon: Pokemon) async -> Pokemon {
+        var newPokemon = pokemon
+        var frontPokemonImageData: Data? = nil
+        var backPokemonImageData: Data? = nil
+
+        if let frontImageUrl = pokemon.sprites?.front_default, let frontImageData: Data = try? await self.pokemonServiceAPI.getImage(withURLString: frontImageUrl) {
+            frontPokemonImageData = frontImageData
+        }
+
+        if let backImageUrl = pokemon.sprites?.back_default, let backImageData: Data = try? await self.pokemonServiceAPI.getImage(withURLString: backImageUrl) {
+            backPokemonImageData = backImageData
+        }
+
+        newPokemon.setFrontAndBackPokemonImage(withFrontImage: frontPokemonImageData, andBackImage: backPokemonImageData)
+
+        return newPokemon
+    }
+
+    public func showActivityView() {
+        DispatchQueue.main.async {
+            UIApplication.shared.topMostViewController()?.showActivityIndicator()
+        }
+    }
+
+    public func hideActivityView() {
+        DispatchQueue.main.async {
+            UIApplication.shared.topMostViewController()?.hideActivityIndicator()
+        }
+    }
 }
 
 extension UIViewController {
@@ -139,6 +171,7 @@ extension UIViewController {
         if self.presentedViewController == nil {
             return self
         }
+
         if let navigation = self.presentedViewController as? UINavigationController {
             return navigation.visibleViewController!.topMostViewController()
         }
@@ -169,6 +202,8 @@ extension UIViewController {
                 message = NSLocalizedString("pokemon.alert.error.message.cant.find.pokemon", comment: "")
             case .ConnectionError:
                 message = NSLocalizedString("pokemon.alert.error.message.connection.error", comment: "")
+            case .NoMorePokemons:
+                message = NSLocalizedString("pokemon.alert.error.message.no.more.pokemons", comment: "")
             default:
                 // General error
                 message = NSLocalizedString("pokemon.alert.error.message.GeneralError", comment: "")

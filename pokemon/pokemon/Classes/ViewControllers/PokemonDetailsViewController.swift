@@ -56,19 +56,61 @@ class PokemonDetailsViewController: UIViewController {
         self.view.backgroundColor = UIColor.pokemonListBackgroundColor
 
         self.pokemonListViewModel = PokemonDetailsViewModel()
-        if let pokemonFetched = self.pokemons.first(where: { $0.id == self.pokemonId}) {
-            self.pokemon = pokemonFetched
-        } else {
-            self.pokemonListViewModel.pokemonId = self.pokemonId
-        }
+        self.getPokemonObject()
 
         self.pokemonListViewModel.bindPokemonDetail = { pokemon in
             self.pokemon = pokemon
         }
 
         self.changeLayoutWhenUserChangeOrientation()
+        self.addSwipeLeftRightToChangePokemon()
     }
 
+    // Get pokemon object on PokemonsFetched array or call service to get a new one.
+    private func getPokemonObject() {
+        if let pokemonFetched = self.pokemons.first(where: { $0.id == self.pokemonId}) {
+            self.pokemon = pokemonFetched
+        } else {
+            self.pokemonListViewModel.pokemonId = self.pokemonId
+        }
+    }
+
+    /// add gesture to swipe left right to call the next ou previou pokemon
+    private func addSwipeLeftRightToChangePokemon() {
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.changeImageGesture(_:)))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.changeImageGesture(_:)))
+        swipeLeft.direction = .left
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+
+    @objc func changeImageGesture(_ sender: UIGestureRecognizer) {
+        PokemonsUtils().showActivityView()
+        if let swipeGesture = sender as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case .right:
+                if self.pokemonId > 1 {
+                    self.pokemonId -= 1
+
+                    self.getPokemonObject()
+                }
+                break
+            case .left:
+                let numberOfPokemonsCanFetch = UserDefaults.standard.integer(forKey: Constants().kNumberOfPokemons)
+
+                if self.pokemonId < numberOfPokemonsCanFetch {
+                    self.pokemonId += 1
+                    self.getPokemonObject()
+                }
+            default:
+                break
+            }
+        }
+    }
+
+    // Change layout if device rotate
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.changeLayoutWhenUserChangeOrientation()
     }

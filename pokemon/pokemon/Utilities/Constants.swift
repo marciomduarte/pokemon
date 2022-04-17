@@ -11,4 +11,7 @@ class Constants {
     // UITests
     let kSegmentedControlIdentifier: String = "destailsSegmentedControl"
     let kEmptyListPokemonIdentifier: String = "emptyListPokemon"
+
+    // Pokemons
+    let kNumberOfPokemons: String = "numberOfPokemons"
 }

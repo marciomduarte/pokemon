@@ -13,6 +13,7 @@ class PokemonDetailsTopView: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var swipeInfoLabel: UILabel!
 
     // MARK: - Private vars
 
@@ -31,6 +32,9 @@ class PokemonDetailsTopView: UIView {
             if self.pokemonDetailsTopViewModel != nil {
                 self.pokemonDetailsTopViewModel.pokemon = self.pokemon
                 self.pokemonDetailsTopViewModel.pokemonDetailSegmentedSelected = .About
+                DispatchQueue.main.async {
+                    self.segmentedControl.selectedSegmentIndex = 0
+                }
             }
         }
     }
@@ -72,6 +76,10 @@ class PokemonDetailsTopView: UIView {
         self.pokemonDetailsTopViewModel.bindPokemonDetails = { details in
             self.updatePokemonsDetailsDataSource(withDetails: details)
         }
+
+        // Config swipe info label
+        self.swipeInfoLabel.text = NSLocalizedString("pokemon.details.swipe", comment: "")
+        self.swipeInfoLabel.pokemonDetailCellTitleStyle()
     }
 
     // Call updatePokemonDetails when PokemonDetailsViewModel return the pokemonDetailsObject

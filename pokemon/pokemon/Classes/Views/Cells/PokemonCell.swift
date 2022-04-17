@@ -74,7 +74,7 @@ class PokemonCell: UICollectionViewCell {
         }
 
         self.contentViewCell.isAccessibilityElement = true
-        self.contentViewCell.accessibilityLabel = String(format: NSLocalizedString("pokemon.accessibility.list.pokemon.resume", comment: ""), self.pokemonIdLabel.text!, self.pokemonNameLabel.text!, self.pokemonTypeLabel.text!)
+        self.contentViewCell.accessibilityLabel = String(format: NSLocalizedString("pokemon.accessibility.list.pokemon.resume", comment: ""), self.pokemonIdLabel.text ?? "", self.pokemonNameLabel.text ?? "", self.pokemonTypeLabel.text ?? "")
     }
 
     public func configLoadingView() {

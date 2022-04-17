@@ -57,7 +57,8 @@ class PokemonDetailsBottomView: UIView {
         if let frontImageData = self.pokemon.sprites?.frontDefaultData {
             self.pokemonImageView.image = UIImage(data: frontImageData)
         }
-        self.swipeLeftImageView.isHidden = true
+
+        self.setDefautSwipeLeftRightImage()
 
         self.imageViewContainer.backgroundColor = UIColor.white
         self.imageViewContainer.backgroundColor = UIColor.pokemonColorsDict[self.pokemon.types?.first?.type?.name ?? ""]
@@ -68,6 +69,12 @@ class PokemonDetailsBottomView: UIView {
 
         // Add tap gesture recognizer to pokemon image to show front and back pokemon
         self.addPokemonGestureRecognizer()
+    }
+
+    public func setDefautSwipeLeftRightImage() {
+        self.swipeLeftImageView.isHidden = true
+        self.swipeRightImageView.isHidden = false
+        self.shownFrontPokemonVisivel = false
     }
 
     private func addPokemonGestureRecognizer() {

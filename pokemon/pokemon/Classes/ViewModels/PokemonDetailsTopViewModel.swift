@@ -44,12 +44,13 @@ class PokemonDetailsTopViewModel: NSObject {
     }
 
     private func getPokemonAdditionalInformation() {
-        UIApplication.shared.topMostViewController()?.showActivityIndicator()
+        PokemonsUtils().showActivityView()
 
         if self.pokemon.abilities?.count ?? 0 != 0, let abilityFetched = self.pokemon.abilities?.first?.isAbilityFetched, !abilityFetched {
             Task { [weak self] in
                 guard let self = self else {
-                    await UIApplication.shared.topMostViewController()?.hideActivityIndicator()
+                    PokemonsUtils().hideActivityView()
+
                     return
                 }
 
@@ -58,7 +59,7 @@ class PokemonDetailsTopViewModel: NSObject {
                         var index: Int = 0
                         for ability in abilities {
                             let newAbility: Ability!
-                            if let urlString = ability.ability?.url {
+                            if let urlString = ability.ability?.url, index <= (self.pokemon.abilities?.count ?? 0) {
                                 newAbility = try await self.pokemonServiceAPI.getPokemonAbilities(withURLString: urlString)
                                 self.pokemon.abilities?[index].ability = newAbility
                                 self.pokemon.abilities?[index].isAbilityFetched = true
@@ -66,6 +67,7 @@ class PokemonDetailsTopViewModel: NSObject {
                             index += 1
                         }
 
+                        PokemonsUtils().hideActivityView()
                     }
                 } catch {
                     let errorData: [String: Error] = [errorType: error]
@@ -116,7 +118,7 @@ class PokemonDetailsTopViewModel: NSObject {
 
         self.pokemonDetails = pokemonDetails
 
-        UIApplication.shared.topMostViewController()?.hideActivityIndicator()
+        PokemonsUtils().hideActivityView()
     }
 
     private func getAbilitiesDetails() {
@@ -138,7 +140,7 @@ class PokemonDetailsTopViewModel: NSObject {
 
         self.pokemonDetails = pokemonDetails
 
-        UIApplication.shared.topMostViewController()?.hideActivityIndicator()
+        PokemonsUtils().hideActivityView()
     }
 
     private func getStatsDetails() {
@@ -154,6 +156,6 @@ class PokemonDetailsTopViewModel: NSObject {
 
         self.pokemonDetails = pokemonDetails
 
-        UIApplication.shared.topMostViewController()?.hideActivityIndicator()
+        PokemonsUtils().hideActivityView()
     }
 }

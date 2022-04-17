@@ -30,7 +30,7 @@ class PokemonListView: UIView {
         didSet {
             DispatchQueue.main.async {
                 self.pokemonsListUpdateDataSource()
-                UIApplication.shared.topMostViewController()?.hideActivityIndicator()
+                PokemonsUtils().hideActivityView()
             }
         }
     }
@@ -121,9 +121,9 @@ class PokemonListView: UIView {
             return
         }
 
-        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.findPokemonOnSearch ? (self.searchedListPokemons ?? []) : self.pokemonsList!, andIsLoadingCell: false, andNumberOfCellsVisible: self.numberOfVisibelCell(), andCellConfig: { (cell, item, isLoadingCell, numberOfVisibleCells) in
+        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.findPokemonOnSearch ? (self.searchedListPokemons ?? []) : self.pokemonsList!, andIsLoadingCell: false, andNumberOfCellsVisible: self.numberOfVisibelCell(), andIsSearchActive: self.findPokemonOnSearch, andCellConfig: { (cell, item, isLoadingCell, numberOfVisibleCells, isSearchActive) in
             if let pokemon = item as? Pokemon {
-                if isLoadingCell {
+                if isLoadingCell && !isSearchActive {
                     // Display loading more pokemon cell
                     cell.isUserInteractionEnabled = false
                     cell.configLoadingView()
