@@ -40,6 +40,7 @@ class PokemonDetailsCellTableViewCell: UITableViewCell {
         self.subDescriptionLabel.pokemonDetailCellSubDescriptionStyle()
     }
 
+    /// Method with configurations of the detail cell. This cell is used to configurate the detail tableView cell on DetailsViewControl when the user enter on the screen or change the segmented controll
     public func configCell(withPokemonDetails pokemonDetails: PokemonDetails) {
 
         self.titleLabel.text = pokemonDetails.detailsTitle

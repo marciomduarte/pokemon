@@ -10,8 +10,13 @@ import UIKit
 
 class PokemonDetailsTopViewTableDataSource<CELL : UITableViewCell, T>: NSObject, UITableViewDataSource, UITableViewDelegate {
 
+    /// Identifier of the cell used on tableView
     private var cellIdentifier: String!
+
+    /// Var with details of pokemons to present
     private var newPokemonDetails: [Any]!
+
+    /// Configuration of the cell that will be returned to the
     var configureCell: (CELL, PokemonDetails) -> () = {_,_ in}
 
     override init() {

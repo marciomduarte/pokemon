@@ -8,10 +8,8 @@
 import Foundation
 
 struct PokemonList: Decodable {
-
     var count: Int?
     var next: String?
     var previous: String?
     var results: [Pokemon]
-
 }

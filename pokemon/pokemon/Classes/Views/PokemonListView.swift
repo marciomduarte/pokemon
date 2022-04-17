@@ -139,6 +139,7 @@ class PokemonListView: UIView {
             self.seeMorePokemonDetails(pokemonId, self.findPokemonOnSearch ? self.searchedListPokemons ?? [] : self.pokemonsList ?? [])
         }
 
+        // Configurated bind to get more pokemons. This bind listening to know when the collection view ask for more
         self.pokemonsDataSource.getMorePokemons = { offSet in
             self.pokemonListViewModel.fetchPokemons(withOffSet: offSet)
         }
@@ -147,6 +148,7 @@ class PokemonListView: UIView {
         self.pokemonCollectionView.delegate = self.pokemonsDataSource
         self.pokemonCollectionView.reloadData()
 
+        /// Hidden/show  emptyListView logic
         if let numberOfPokemonsFetched = self.pokemonsList?.count, numberOfPokemonsFetched > 0 && self.findPokemonOnSearch == false {
             self.pokemonEmptyListView.isHidden = true
         } else if let numberOfPokemonsFetched = self.searchedListPokemons?.count, numberOfPokemonsFetched > 0 {
@@ -156,7 +158,8 @@ class PokemonListView: UIView {
         }
     }
 
-    /// Get number of cells the user can see
+    /// Get number of cells the user can see.
+    /// This method return all the cells, horizontal or vertical
     private func numberOfVisibelCell() -> Int {
         var cellDefaultHeight: CGFloat = kCollectionCellHeight
         if (UIDevice.current.userInterfaceIdiom == .pad) {
@@ -169,6 +172,7 @@ class PokemonListView: UIView {
         return Int(numberOfElements) * self.numberOfHorizontalVisibelCell()
     }
 
+    /// Get number of horizontal cell the user can
     private func numberOfHorizontalVisibelCell() -> Int {
         var cellDefaultWidth: CGFloat = kCollectionCellMinWidth
         if (UIDevice.current.userInterfaceIdiom == .pad) {

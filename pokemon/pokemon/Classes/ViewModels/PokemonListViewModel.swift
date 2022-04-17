@@ -16,6 +16,7 @@ class PokemonListViewModel: NSObject {
         }
     }
 
+    /// pokemonServiceAPI var used to call the protocol to data/informations
     private var pokemonServiceAPI: PokemonServiceProtocol
 
     /// Number of pokemons
@@ -43,7 +44,7 @@ class PokemonListViewModel: NSObject {
     var bindSearchedPokemons: ((_ pokemons: [Pokemon]) -> ()) = {_ in}
 
     // MARK: - Life Cycle
-    /// Init serviceAPI protocol
+    /// Init Pokemon service api  protocol.
     init (pokemonAPI: PokemonServiceProtocol = PokemonWebServices()) {
         self.pokemonServiceAPI = pokemonAPI
     }
@@ -65,9 +66,6 @@ class PokemonListViewModel: NSObject {
 
             do {
                 let pokemonsList = try await self.pokemonServiceAPI.getPokemonList(withNumberOfElements: self.numberOfPokemonsFetched, withOffSet: offSet)
-
-                // Save number of pokemons
-                UserDefaults.standard.set(pokemonsList?.count, forKey: Constants().kNumberOfPokemons)
 
                 let pokemonResult: [Pokemon] = pokemonsList?.results ?? []
                 var newPokemons: [Pokemon] = []

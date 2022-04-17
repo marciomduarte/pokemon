@@ -65,12 +65,7 @@ enum PokemonAbilitiesDetail: String {
     case Ability
 
     var description: String {
-        switch self {
-        case .Ability:
-            return NSLocalizedString("pokemon.cell.abilities", comment: "")
-        default:
-            return ""
-        }
+        return NSLocalizedString("pokemon.cell.abilities", comment: "")
     }
 }
 
@@ -110,12 +105,14 @@ class PokemonsUtils: NSObject {
         return newPokemon
     }
 
+    /// - Show activity view spinner
     public func showActivityView() {
         DispatchQueue.main.async {
             UIApplication.shared.topMostViewController()?.showActivityIndicator()
         }
     }
 
+    /// - Hide activity view spinner
     public func hideActivityView() {
         DispatchQueue.main.async {
             UIApplication.shared.topMostViewController()?.hideActivityIndicator()
@@ -127,6 +124,8 @@ extension UIViewController {
     static var activityView: UIView?
     static var activityViewIndicator: UIActivityIndicatorView?
 
+    /// Method to set gesture recognizer to the view.
+    /// This method is use to hide keyboard when view is tapped
     func hideKeyboardWhenTappedAround() {
         let tapOnScreen = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboardHandler))
         tapOnScreen.cancelsTouchesInView = false
@@ -137,6 +136,7 @@ extension UIViewController {
         self.view.endEditing(true)
     }
 
+    /// Config  activity indicator
     func showActivityIndicator() {
         DispatchQueue.main.async {
             if self.view.subviews.contains(UIViewController.activityView ?? UIView()) {
@@ -158,6 +158,7 @@ extension UIViewController {
         }
     }
 
+    /// remove activity indicator
     func hideActivityIndicator(){
         DispatchQueue.main.async {
             if UIViewController.activityView != nil {
@@ -167,23 +168,8 @@ extension UIViewController {
         }
     }
 
-    func topMostViewController() -> UIViewController {
-        if self.presentedViewController == nil {
-            return self
-        }
-
-        if let navigation = self.presentedViewController as? UINavigationController {
-            return navigation.visibleViewController!.topMostViewController()
-        }
-        if let tab = self.presentedViewController as? UITabBarController {
-            if let selectedTab = tab.selectedViewController {
-                return selectedTab.topMostViewController()
-            }
-            return tab.topMostViewController()
-        }
-        return self.presentedViewController!.topMostViewController()
-    }
-
+    /// Method used to receive the notification sended when the app needs to call a service and this service return a error/problem.
+    /// Also, this method create the message to show on alert.
     @objc func methodOfReceivedNotification(notification: NSNotification){
         DispatchQueue.main.async {
             self.topMostViewController().hideActivityIndicator()
@@ -212,14 +198,37 @@ extension UIViewController {
         }
     }
 
+    /// Method to show the alert with de error or for the present information of the app
     func showErrorAlert(withMessage message: String) {
         let alert = UIAlertController(title: NSLocalizedString("pokemon.alert.error.title", comment: ""), message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("pokemon.alert.error.ok.button", comment: ""), style: UIAlertAction.Style.destructive, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 
+    /// Get the ViewController on top of the list.
+    /// Is used for the view controller, that is visualy on the top
+    /// In this case, the topMostViewController it is used to show and hide the Activity View indicator
+    func topMostViewController() -> UIViewController {
+        if self.presentedViewController == nil {
+            return self
+        }
+
+        if let navigation = self.presentedViewController as? UINavigationController {
+            return navigation.visibleViewController!.topMostViewController()
+        }
+        if let tab = self.presentedViewController as? UITabBarController {
+            if let selectedTab = tab.selectedViewController {
+                return selectedTab.topMostViewController()
+            }
+            return tab.topMostViewController()
+        }
+        return self.presentedViewController!.topMostViewController()
+    }
 }
 
+/// Get the ViewController on top of the list.
+/// Is used for the view controller, that is visualy on the top
+/// In this case, the topMostViewController it is used to show and hide the Activity View indicator
 extension UIApplication {
     func topMostViewController() -> UIViewController? {
         return UIWindow.key!.rootViewController?.topMostViewController()

@@ -11,15 +11,29 @@ import UIKit
 class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
 
     // MARK: - Private vars
+    /// Identifier of the cell used on collection
     private var cellIdentifier: String!
+
+    /// List of pokemons
     private var pokemons: [Pokemon]?
+
+    /// Flag used to check if the cell to present is a loading cell
     private var isLoadingCell: Bool = false
+
+    /// Var used to know the number of the cells the device can be display
     private var numberOfCellsVisible: Int = 0
+
+    /// Flag used to know if the user have something write on search bar
     private var isSearchActive: Bool = false
 
     // MARK: - Public vars
+    /// Configuration of the cell that will be returned to the
     var configureCell: (CELL, Pokemon, Bool, Int, Bool) -> () = {_, _, _, _, _ in}
+
+    /// Method used to inform the view about the need to ask for more pokemons to present
     var getMorePokemons:((Int) -> Void)? = nil
+
+    /// Method used to return to view the pokemon click on cell
     var seeMoreWasClicked:((Int) -> Void)? = nil
 
     override init() {

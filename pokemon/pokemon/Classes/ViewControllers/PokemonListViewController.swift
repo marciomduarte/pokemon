@@ -52,6 +52,7 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
         }
     }
 
+    // Go to pokemons details after click on cell
     private func goToPokemonDetail(withPokemonId pokemonId: Int, andPokemons pokemons: [Pokemon]) {
         if pokemonId == 0{
             return
@@ -63,7 +64,8 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
         self.navigationController?.pushViewController(pokemonDetailsVC, animated: true)
     }
 
-    private func searchPokemon(wiehtSearchBar searchBar: UISearchBar) {
+    // This method receive the text inserted by the user on search bar.
+    private func searchPokemon(withSearchBar searchBar: UISearchBar) {
         self.pokemonSearchBar.endEditing(true)
 
         if (searchBar.searchTextField.text ?? "").count > 0 {
@@ -79,11 +81,11 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
 
     // MARK: - Search Bar delegate
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        self.searchPokemon(wiehtSearchBar: searchBar)
+        self.searchPokemon(withSearchBar: searchBar)
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchPokemon(wiehtSearchBar: searchBar)
+        self.searchPokemon(withSearchBar: searchBar)
     }
 
     internal func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

@@ -16,7 +16,6 @@ class PokemonDetailsTopView: UIView {
     @IBOutlet weak var swipeInfoLabel: UILabel!
 
     // MARK: - Private vars
-
     /// Data source of table view details.
     /// User to create data source to show in details
     private var pokemonsDetailsDataSource: PokemonDetailsTopViewTableDataSource<PokemonDetailsCellTableViewCell, Any>!
@@ -82,7 +81,7 @@ class PokemonDetailsTopView: UIView {
         self.swipeInfoLabel.pokemonDetailCellTitleStyle()
     }
 
-    // Call updatePokemonDetails when PokemonDetailsViewModel return the pokemonDetailsObject
+    /// Call updatePokemonDetails when PokemonDetailsViewModel return the pokemonDetailsObject
     private func updatePokemonsDetailsDataSource(withDetails details: [Any]) {
         self.pokemonsDetailsDataSource = PokemonDetailsTopViewTableDataSource(cellIdentifier: PokemonDetailsCellTableViewCell.identifier, pokemonDetails: details, startCellConfiguration: { cell, item in
             if let pokemonDetails = item as? PokemonDetails {
@@ -96,6 +95,7 @@ class PokemonDetailsTopView: UIView {
         self.tableView.reloadData()
     }
 
+    /// Action of the segmented controll.
     @IBAction func segmentedControlWasClicked(_ sender: Any) {
         if let segmentedControl = sender as? UISegmentedControl {
             self.pokemonDetailsTopViewModel.pokemonDetailSegmentedSelected = PokemonDetailSegmentedSelected.init(rawValue: segmentedControl.selectedSegmentIndex) ?? .About

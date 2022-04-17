@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,16 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="LzM-BE-VmR">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_pokeball" translatesAutoresizingMaskIntoConstraints="NO" id="LzM-BE-VmR">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="LzM-BE-VmR" secondAttribute="bottom" id="0cm-h8-f7F"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LzM-BE-VmR" secondAttribute="trailing" id="CwR-da-1jd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="LzM-BE-VmR" secondAttribute="top" constant="44" id="RnO-cz-xlF"/>
+                            <constraint firstAttribute="top" secondItem="LzM-BE-VmR" secondAttribute="top" id="YrA-8W-m1I"/>
                             <constraint firstItem="LzM-BE-VmR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="clU-Ae-LHE"/>
+                            <constraint firstItem="LzM-BE-VmR" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="hLY-VQ-gYd"/>
                             <constraint firstItem="LzM-BE-VmR" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="t3S-gy-D9Z"/>
                         </constraints>
                     </view>
@@ -37,9 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splash" width="1200" height="2598"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="splash_pokeball" width="2000" height="3197"/>
     </resources>
 </document>

@@ -82,8 +82,6 @@ struct Ability: Decodable {
     }
 }
 
-
-
 struct EffectEntries: Decodable {
     var effect: String?
     var language: Language?

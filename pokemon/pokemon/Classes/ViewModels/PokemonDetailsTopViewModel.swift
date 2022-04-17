@@ -11,8 +11,11 @@ import UIKit
 class PokemonDetailsTopViewModel: NSObject {
 
     // MARK: - Private vars
+    /// Static var to identifier the language of the app
     static var kAppLanguageDefault: String = "en"
 
+    /// Var used to set the pokemons details receive from the service vall.
+    /// This var call the bindPokemonDetails to send to the view all the details necessary to show the screen
     private(set) var pokemonDetails: [PokemonDetails]! {
         didSet {
             DispatchQueue.main.async {
@@ -32,6 +35,8 @@ class PokemonDetailsTopViewModel: NSObject {
     /// Pokemon selected to show details
     public var pokemon: Pokemon!
 
+    /// Segmented control state
+    /// This var is setted after the user change the index of the segmented control and after this, call and return the details by the var - pokemonDetails -
     public var pokemonDetailSegmentedSelected: PokemonDetailSegmentedSelected = .About {
         didSet {
             self.getPokemonAdditionalInformation()
@@ -39,10 +44,13 @@ class PokemonDetailsTopViewModel: NSObject {
     }
 
     // MARK: - Life Cycles
+    /// Init Pokemon service api  protocol.
     init (pokemonAPI: PokemonServiceProtocol = PokemonWebServices()) {
         self.pokemonServiceAPI = pokemonAPI
     }
 
+    /// Get pokemons additional information
+    /// This method get all abilities of the pokemon and after that get the details of the abilities que devem ser apresentados
     private func getPokemonAdditionalInformation() {
         PokemonsUtils().showActivityView()
 
@@ -79,6 +87,7 @@ class PokemonDetailsTopViewModel: NSObject {
         self.getPokemonDetails()
     }
 
+    /// Identifie and reate the detail object based of the segmented control
     private func getPokemonDetails() {
         switch self.pokemonDetailSegmentedSelected {
         case .Abilities:
@@ -90,6 +99,7 @@ class PokemonDetailsTopViewModel: NSObject {
         }
     }
 
+    /// Create about information details of pokemon
     private func getAbountDetails() {
         var pokemonDetails: [PokemonDetails] = []
 
@@ -101,7 +111,6 @@ class PokemonDetailsTopViewModel: NSObject {
 
         // Cell PokemonType
         var typeString: String = ""
-
         for type in self.pokemon.types ?? [] {
             typeString += (type.type?.name?.capitalized ?? "")
             if self.pokemon.types?.last?.type?.name != type.type?.name {
@@ -121,9 +130,11 @@ class PokemonDetailsTopViewModel: NSObject {
         PokemonsUtils().hideActivityView()
     }
 
+    /// Create abilities object information details of pokemon
     private func getAbilitiesDetails() {
         var pokemonDetails: [PokemonDetails] = []
 
+        // For each ability will get the explanatory details of each one of them and construct the PokemonDetails object
         self.pokemon.abilities?.forEach({ ability in
             if let hidden = ability.is_hidden, !hidden {
 
@@ -143,9 +154,11 @@ class PokemonDetailsTopViewModel: NSObject {
         PokemonsUtils().hideActivityView()
     }
 
+    /// Create stats object information details of pokemon
     private func getStatsDetails() {
         var pokemonDetails: [PokemonDetails] = []
 
+        // For each stats will create a cell with information of the pokemon stats
         self.pokemon.stats?.forEach({ stats in
             let statName = stats.stat?.name?.capitalized
             let baseState = String(describing: stats.base_stat!)

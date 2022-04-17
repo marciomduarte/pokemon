@@ -98,12 +98,8 @@ class PokemonDetailsViewController: UIViewController {
                 }
                 break
             case .left:
-                let numberOfPokemonsCanFetch = UserDefaults.standard.integer(forKey: Constants().kNumberOfPokemons)
-
-                if self.pokemonId < numberOfPokemonsCanFetch {
                     self.pokemonId += 1
                     self.getPokemonObject()
-                }
             default:
                 break
             }
@@ -115,6 +111,7 @@ class PokemonDetailsViewController: UIViewController {
         self.changeLayoutWhenUserChangeOrientation()
     }
 
+    // Method to update layout after user change the device orientation
     private func changeLayoutWhenUserChangeOrientation() {
         if UIDevice.current.orientation.isLandscape {
             self.pokemonDetailsBottomViewHeightConstraint.constant = 0.0

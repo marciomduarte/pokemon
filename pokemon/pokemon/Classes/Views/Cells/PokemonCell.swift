@@ -37,6 +37,7 @@ class PokemonCell: UICollectionViewCell {
         self.pokemonTypeLabel.pokemonCellTypeLabelStyle()
         self.pokemonNameLabel.pokemonCellNameLabelStyle()
 
+        // Accessibility configuration
         self.pokemonNameLabel.accessibilityElementsHidden = true
         self.pokemonIdLabel.accessibilityElementsHidden = true
         self.pokemonTypeLabel.accessibilityElementsHidden = true
@@ -58,6 +59,9 @@ class PokemonCell: UICollectionViewCell {
         self.activityIndicator.isHidden = true
     }
 
+    /// Method with configurations of the cell when we need a pokemon information cell
+    /// This method is used to present the pokemon information on pokemon list collection view
+    /// This method receive a pokemon object
     public func configCell(withPokemon pokemon: Pokemon) {
         if let id = pokemon.id {
             self.pokemonIdLabel.text = "#\(String(describing: id))"
@@ -77,6 +81,8 @@ class PokemonCell: UICollectionViewCell {
         self.contentViewCell.accessibilityLabel = String(format: NSLocalizedString("pokemon.accessibility.list.pokemon.resume", comment: ""), self.pokemonIdLabel.text ?? "", self.pokemonNameLabel.text ?? "", self.pokemonTypeLabel.text ?? "")
     }
 
+    /// Method with configurations of the cell when we need a loading view cell
+    /// This method is used when the app wait for service responde after scroll on pokemon list collection view
     public func configLoadingView() {
         self.resetCell()
         self.titleLabel.text = ""
