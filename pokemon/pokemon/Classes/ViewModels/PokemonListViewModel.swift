@@ -73,7 +73,9 @@ class PokemonListViewModel: NSObject {
             return
         }
 
-        UIApplication.shared.topMostViewController()?.showActivityIndicator()
+        if self.pokemons.count == 0 {
+            UIApplication.shared.topMostViewController()?.showActivityIndicator()
+        }
 
         Task { [weak self] in
             guard let self = self else {
