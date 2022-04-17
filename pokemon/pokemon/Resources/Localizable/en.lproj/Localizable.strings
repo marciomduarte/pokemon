@@ -39,3 +39,7 @@
 "pokemon.alert.error.message.cant.find.pokemon" = "\n\nPokemon doesn't exist";
 "pokemon.alert.error.message.connection.error" = "\n\nNo internet connection!";
 
+// MARK: - Accessibility Voice Over
+"pokemon.accessibility.list.pokemons" = "Pokemons List.";
+"pokemon.accessibility.list.pokemon.resume" = "%@. Pokemon with name %@. It's a type %@ pokemon. Double tap to more details.";
+"pokemon.accessibility.pokemon.details" = "About %@";

@@ -91,6 +91,10 @@ class PokemonDetailsTopView: UIView {
     @IBAction func segmentedControlWasClicked(_ sender: Any) {
         if let segmentedControl = sender as? UISegmentedControl {
             self.pokemonDetailsTopViewModel.pokemonDetailSegmentedSelected = PokemonDetailSegmentedSelected.init(rawValue: segmentedControl.selectedSegmentIndex) ?? .About
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                UIAccessibility.post(notification: .screenChanged, argument: self.tableView);
+            }
         }
     }
 

@@ -36,6 +36,15 @@ class PokemonDetailsViewController: UIViewController {
         self.setupUI()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            UIAccessibility.post(notification: .announcement, argument: String(format: NSLocalizedString("pokemon.accessibility.pokemon.details", comment: ""), self.pokemon.name ?? "" ));
+            self.pokemonDetailsBottomView.isAccessibilityElement = false
+        }
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 

@@ -33,10 +33,15 @@ class PokemonCell: UICollectionViewCell {
 
         self.titleLabel.text = NSLocalizedString("pokemon.cell.name.label", comment: "")
         self.titleLabel.pokemonCellNameTitleLabelStyle()
-
         self.pokemonIdLabel.pokemonCellNumberTitleLabelStyle()
         self.pokemonTypeLabel.pokemonCellTypeLabelStyle()
         self.pokemonNameLabel.pokemonCellNameLabelStyle()
+
+        self.pokemonNameLabel.accessibilityElementsHidden = true
+        self.pokemonIdLabel.accessibilityElementsHidden = true
+        self.pokemonTypeLabel.accessibilityElementsHidden = true
+        self.titleLabel.accessibilityElementsHidden = true
+        self.activityIndicator.accessibilityElementsHidden = true
     }
 
     override func prepareForReuse() {
@@ -66,6 +71,9 @@ class PokemonCell: UICollectionViewCell {
             self.pokemonTypeLabel.text = type.capitalized
             self.contentViewCell.backgroundColor = UIColor.pokemonColorsDict[type]
         }
+
+        self.contentViewCell.isAccessibilityElement = true
+        self.contentViewCell.accessibilityLabel = String(format: NSLocalizedString("pokemon.accessibility.list.pokemon.resume", comment: ""), self.pokemonIdLabel.text!, self.pokemonNameLabel.text!, self.pokemonTypeLabel.text!)
     }
 
     public func configLoadingView() {

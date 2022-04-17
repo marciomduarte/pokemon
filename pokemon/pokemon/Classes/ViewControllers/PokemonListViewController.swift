@@ -44,6 +44,14 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            UIAccessibility.post(notification: .screenChanged, argument: self.titleLabel);
+        }
+    }
+
     private func goToPokemonDetail(withPokemonId pokemonId: Int, andPokemons pokemons: [Pokemon]) {
         if pokemonId == 0{
             return

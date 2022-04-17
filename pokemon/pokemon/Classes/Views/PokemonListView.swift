@@ -95,6 +95,7 @@ class PokemonListView: UIView {
         self.pokemonCollectionView.backgroundColor = UIColor.clear
         self.pokemonCollectionView.collectionViewLayout = self.getFlowLayout()
         self.pokemonCollectionView.register(UINib.init(nibName: String(describing: PokemonCell.self), bundle: nil), forCellWithReuseIdentifier: PokemonCell.identifier)
+        self.pokemonCollectionView.accessibilityLabel = NSLocalizedString("pokemon.accessibility.list.pokemons", comment: "")
 
         // Add Pokemon empty list view
         self.getPokemonEmptyListView()
