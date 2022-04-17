@@ -26,13 +26,16 @@ public class PokemonWebServices: PokemonServiceProtocol {
             throw PokemonsError.GeneralError
         }
 
-        guard let (data, _) = try? await PokemonWebServices.urlSession.data(from: url) else {
+        let (data, _, serviceError) = try await PokemonWebServices.urlSession.data(from: url)
+        if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
+            throw PokemonsError.ConnectionError
+        } else if data == nil {
             throw PokemonsError.MissingData
         }
 
         var pokemonDecoded: PokemonList?
         do {
-            pokemonDecoded = try JSONDecoder().decode(PokemonList.self, from: data)
+            pokemonDecoded = try JSONDecoder().decode(PokemonList.self, from: data ?? Data())
         } catch {
             throw PokemonsError.GeneralError
         }
@@ -47,14 +50,16 @@ public class PokemonWebServices: PokemonServiceProtocol {
             throw PokemonsError.GeneralError
         }
 
-
-        guard let (data, _) = try? await PokemonWebServices.urlSession.data(from: url) else {
+        let (data, _, serviceError) = try await PokemonWebServices.urlSession.data(from: url)
+        if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
+            throw PokemonsError.ConnectionError
+        } else if data == nil {
             throw PokemonsError.MissingData
         }
 
         var pokemonDecoded: Pokemon?
         do {
-            pokemonDecoded = try JSONDecoder().decode(Pokemon.self, from: data)
+            pokemonDecoded = try JSONDecoder().decode(Pokemon.self, from: data ?? Data())
         } catch {
             throw PokemonsError.GeneralError
         }
@@ -69,13 +74,16 @@ public class PokemonWebServices: PokemonServiceProtocol {
             throw PokemonsError.GeneralError
         }
 
-        guard let (data, _) = try? await PokemonWebServices.urlSession.data(from: url) else {
+        let (data, _, serviceError) = try await PokemonWebServices.urlSession.data(from: url)
+        if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
+            throw PokemonsError.ConnectionError
+        } else if data == nil {
             throw PokemonsError.MissingData
         }
 
         var pokemonDecoded: Pokemon?
         do {
-            pokemonDecoded = try? JSONDecoder().decode(Pokemon.self, from: data)
+            pokemonDecoded = try? JSONDecoder().decode(Pokemon.self, from: data ?? Data())
         } catch {
             throw PokemonsError.GetPokemonError
         }
@@ -89,13 +97,16 @@ public class PokemonWebServices: PokemonServiceProtocol {
             return nil
         }
 
-        guard let (data, _) = try? await PokemonWebServices.urlSession.data(from: url) else {
+        let (data, _, serviceError) = try await PokemonWebServices.urlSession.data(from: url)
+        if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
+            throw PokemonsError.ConnectionError
+        } else if data == nil {
             throw PokemonsError.MissingData
         }
 
         var abilityDecoded: Ability?
         do {
-            abilityDecoded = try JSONDecoder().decode(Ability.self, from: data)
+            abilityDecoded = try JSONDecoder().decode(Ability.self, from: data ?? Data())
         } catch {
             throw PokemonsError.GeneralError
         }
@@ -109,7 +120,10 @@ public class PokemonWebServices: PokemonServiceProtocol {
             return nil
         }
 
-        guard let (data, _) = try? await URLSession.shared.data(from: urlImage) else {
+        let (data, _, serviceError) = try await URLSession.shared.data(from: urlImage)
+        if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
+            throw PokemonsError.ConnectionError
+        } else if data == nil {
             throw PokemonsError.MissingData
         }
 

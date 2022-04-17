@@ -16,6 +16,8 @@ class PokemonDetailsBottomView: UIView {
     @IBOutlet weak var pokemonView: UIView!
     @IBOutlet weak var pokemonImageView: UIImageView!
     @IBOutlet weak var pokemonNameLabel: UILabel!
+    @IBOutlet weak var swipeLeftImageView: UIImageView!
+    @IBOutlet weak var swipeRightImageView: UIImageView!
 
     // MARK: - Private vars
     private var shownFrontPokemonVisivel: Bool = false
@@ -55,6 +57,8 @@ class PokemonDetailsBottomView: UIView {
         if let frontImageData = self.pokemon.sprites?.frontDefaultData {
             self.pokemonImageView.image = UIImage(data: frontImageData)
         }
+        self.swipeLeftImageView.isHidden = true
+
         self.imageViewContainer.backgroundColor = UIColor.white
         self.imageViewContainer.backgroundColor = UIColor.pokemonColorsDict[self.pokemon.types?.first?.type?.name ?? ""]
         self.bottomView.backgroundColor = UIColor.pokemonColorsDict[self.pokemon.types?.first?.type?.name ?? ""]
@@ -81,6 +85,8 @@ class PokemonDetailsBottomView: UIView {
             switch swipeGesture.direction {
             case .right:
                 if shownFrontPokemonVisivel {
+                    self.swipeLeftImageView.isHidden = true
+                    self.swipeRightImageView.isHidden = false
                     self.shownFrontPokemonVisivel = !self.shownFrontPokemonVisivel
                     self.pokemonImageView.alpha = 0.0
                     if let frontData = self.pokemon.sprites?.frontDefaultData {
@@ -89,6 +95,8 @@ class PokemonDetailsBottomView: UIView {
                 }
             case .left:
                 if !shownFrontPokemonVisivel {
+                    self.swipeLeftImageView.isHidden = false
+                    self.swipeRightImageView.isHidden = true
                     self.shownFrontPokemonVisivel = !self.shownFrontPokemonVisivel
                     self.pokemonImageView.alpha = 0.0
                     if let backData = self.pokemon.sprites?.backDefaultData {
@@ -99,7 +107,7 @@ class PokemonDetailsBottomView: UIView {
                 break
             }
 
-            UIView.animate(withDuration: 1.0, delay: 0.2, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.4, delay: 0.2, options: .curveEaseInOut, animations: {
                 self.pokemonImageView.alpha = 1.0
             }, completion: nil)
         }

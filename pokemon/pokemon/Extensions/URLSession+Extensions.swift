@@ -9,17 +9,16 @@ import Foundation
 
 extension URLSession {
 
-    func data(from url: URL) async throws -> (Data, URLResponse){
-        try await withCheckedContinuation({ continuation in
+    func data(from url: URL) async throws -> (Data?, URLResponse, Error?){
+        try await withCheckedThrowingContinuation { continuation in
             self.dataTask(with: url) { data, response, error in
                 guard let data = data, let response = response else {
-                    let error = error ?? URLError(.unknown)
-                    return continuation.resume(throwing: error as! Never)
+                    let error = error ?? URLError(.notConnectedToInternet)
+                    return continuation.resume(returning: (Data(), URLResponse(), error))
                 }
 
-                continuation.resume(returning: (data, response))
+                continuation.resume(returning: (data, response, nil))
             }.resume()
-        })
+        }
     }
-
 }

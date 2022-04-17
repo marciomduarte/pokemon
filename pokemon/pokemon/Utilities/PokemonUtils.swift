@@ -19,6 +19,7 @@ let PokemonErrorServiceNotification: String = "PokemonErrorServiceNotification"
 // Enums
 /// Pokemons erros used to services error or other type os errors
 enum PokemonsError: Error {
+    case ConnectionError
     case MissingData
     case GeneralError
     case GetPokemonError
@@ -105,24 +106,32 @@ extension UIViewController {
     }
 
     func showActivityIndicator() {
-        UIViewController.activityView = UIView(frame: UIScreen.main.bounds)
-        UIViewController.activityView?.backgroundColor = UIColor.black
-        UIViewController.activityView?.alpha = 0.3
-        self.view.addSubview(UIViewController.activityView!)
+        DispatchQueue.main.async {
+            if self.view.subviews.contains(UIViewController.activityView ?? UIView()) {
+                return
+            }
 
-        UIViewController.activityViewIndicator = UIActivityIndicatorView(style: .large)
-        let minX: CGFloat = (UIScreen.main.bounds.width / 2) - (UIViewController.activityViewIndicator?.frame.width ?? 0.0)
-        let minY: CGFloat = (UIScreen.main.bounds.height / 2) - (UIViewController.activityViewIndicator?.frame.height ?? 0.0)
-        UIViewController.activityViewIndicator?.center = CGPoint(x: minX, y: minY)
-        UIViewController.activityViewIndicator?.color = UIColor.pokemonRedColor
-        self.view.addSubview(UIViewController.activityViewIndicator!)
-        UIViewController.activityViewIndicator?.startAnimating()
+            UIViewController.activityView = UIView(frame: UIScreen.main.bounds)
+            UIViewController.activityView?.backgroundColor = UIColor.black
+            UIViewController.activityView?.alpha = 0.3
+            self.view.addSubview(UIViewController.activityView!)
+
+            UIViewController.activityViewIndicator = UIActivityIndicatorView(style: .large)
+            let minX: CGFloat = (UIScreen.main.bounds.width / 2) - ((UIViewController.activityViewIndicator?.frame.width ?? 0.0) / 2)
+            let minY: CGFloat = (UIScreen.main.bounds.height / 2) - ((UIViewController.activityViewIndicator?.frame.height ?? 0.0) / 2)
+            UIViewController.activityViewIndicator?.center = CGPoint(x: minX, y: minY)
+            UIViewController.activityViewIndicator?.color = UIColor.pokemonRedColor
+            self.view.addSubview(UIViewController.activityViewIndicator!)
+            UIViewController.activityViewIndicator?.startAnimating()
+        }
     }
 
     func hideActivityIndicator(){
-        if UIViewController.activityViewIndicator != nil {
-            UIViewController.activityViewIndicator?.stopAnimating()
-            UIViewController.activityView?.removeFromSuperview()
+        DispatchQueue.main.async {
+            if UIViewController.activityView != nil {
+                UIViewController.activityViewIndicator?.removeFromSuperview()
+                UIViewController.activityView?.removeFromSuperview()
+            }
         }
     }
 
@@ -158,6 +167,8 @@ extension UIViewController {
                 message = NSLocalizedString("pokemon.alert.error.message.error.find.pokemon", comment: "")
             case .PokemonNoExist:
                 message = NSLocalizedString("pokemon.alert.error.message.cant.find.pokemon", comment: "")
+            case .ConnectionError:
+                message = NSLocalizedString("pokemon.alert.error.message.connection.error", comment: "")
             default:
                 // General error
                 message = NSLocalizedString("pokemon.alert.error.message.GeneralError", comment: "")

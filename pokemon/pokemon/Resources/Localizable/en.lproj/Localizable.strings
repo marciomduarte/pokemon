@@ -27,12 +27,15 @@
 "pokemon.cell.about.weight" = "Weight: ";
 "pokemon.cell.about.height" = "Height: ";
 "pokemon.cell.abilities" = "Ability: ";
+"pokemon.cell.effect" = "Effect: ";
+"pokemon.cell.short.effect" = "Short Entries: ";
 
 // MARK: - Error Messages
 "pokemon.alert.error.ok.button" = "Ok.";
 "pokemon.alert.error.title" = "ℹ️ \nSomething wrong happens.";
-"pokemon.alert.error.message.MissingData" = "We cannot carry out this operation right now.";
-"pokemon.alert.error.message.GeneralError" = "Please, try again later.";
-"pokemon.alert.error.message.error.find.pokemon" = "Can't find the pokemon.";
-"pokemon.alert.error.message.cant.find.pokemon" = "Pokemon doesn't exist";
+"pokemon.alert.error.message.MissingData" = "\n\nWe cannot carry out this operation right now.";
+"pokemon.alert.error.message.GeneralError" = "\n\nPlease, try again later.";
+"pokemon.alert.error.message.error.find.pokemon" = "\n\nCan't find the pokemon.";
+"pokemon.alert.error.message.cant.find.pokemon" = "\n\nPokemon doesn't exist";
+"pokemon.alert.error.message.connection.error" = "\n\nNo internet connection!";
 

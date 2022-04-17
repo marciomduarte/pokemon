@@ -30,6 +30,7 @@ class PokemonListView: UIView {
         didSet {
             DispatchQueue.main.async {
                 self.pokemonsListUpdateDataSource()
+                UIApplication.shared.topMostViewController()?.hideActivityIndicator()
             }
         }
     }
@@ -102,10 +103,7 @@ class PokemonListView: UIView {
         self.pokemonListViewModel = PokemonListViewModel()
         self.pokemonListViewModel.numberOfElementsOnScreen = self.numberOfVisibelCell()
 
-        self.configureBinds()
-    }
-
-    private func configureBinds() {
+        //PokemonLisViewModel binds
         self.pokemonListViewModel.bindPokemonsList = { pokemonsListFetched in
             self.pokemonsList = pokemonsListFetched
         }
@@ -118,16 +116,6 @@ class PokemonListView: UIView {
 
     // Populate PokemonCollectionView
     private func pokemonsListUpdateDataSource() {
-        if let numberOfPokemonsFetched = self.pokemonsList?.count, numberOfPokemonsFetched > 0 && self.findPokemonOnSearch == false {
-            self.pokemonEmptyListView.isHidden = true
-        } else if let numberOfPokemonsFetched = self.searchedListPokemons?.count, numberOfPokemonsFetched > 0 {
-            self.pokemonEmptyListView.isHidden = true
-        } else {
-            self.pokemonEmptyListView.isHidden = false
-        }
-
-        UIApplication.shared.topMostViewController()?.hideActivityIndicator()
-
         if self.pokemonsList == nil || self.pokemonsList?.count == 0 {
             return
         }
@@ -145,8 +133,9 @@ class PokemonListView: UIView {
             }
         })
 
+        // PokemonDataSource binds
         self.pokemonsDataSource.seeMoreWasClicked = { pokemonId in
-            self.seeMorePokemonDetails(pokemonId, self.pokemonsList ?? [])
+            self.seeMorePokemonDetails(pokemonId, self.findPokemonOnSearch ? self.searchedListPokemons ?? [] : self.pokemonsList ?? [])
         }
 
         self.pokemonsDataSource.getMorePokemons = { offSet in
@@ -156,6 +145,14 @@ class PokemonListView: UIView {
         self.pokemonCollectionView.dataSource = self.pokemonsDataSource
         self.pokemonCollectionView.delegate = self.pokemonsDataSource
         self.pokemonCollectionView.reloadData()
+
+        if let numberOfPokemonsFetched = self.pokemonsList?.count, numberOfPokemonsFetched > 0 && self.findPokemonOnSearch == false {
+            self.pokemonEmptyListView.isHidden = true
+        } else if let numberOfPokemonsFetched = self.searchedListPokemons?.count, numberOfPokemonsFetched > 0 {
+            self.pokemonEmptyListView.isHidden = true
+        } else {
+            self.pokemonEmptyListView.isHidden = false
+        }
     }
 
     /// Get number of cells the user can see

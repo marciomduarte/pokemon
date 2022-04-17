@@ -28,6 +28,7 @@ class PokemonListViewModel: NSObject {
     private var hasNextPage: Bool = true
 
     // MARK: - Public vars
+    /// Var with number of cell on screen
     var numberOfElementsOnScreen: Int? {
         willSet {
             self.numberOfPokemonsFetched = (newValue ?? 0) * 2
@@ -72,6 +73,8 @@ class PokemonListViewModel: NSObject {
             return
         }
 
+        UIApplication.shared.topMostViewController()?.showActivityIndicator()
+
         Task { [weak self] in
             guard let self = self else {
                 return
@@ -85,7 +88,7 @@ class PokemonListViewModel: NSObject {
                 for var pokemonObject: Pokemon? in pokemonResult {
                     pokemonObject = try await self.pokemonServiceAPI.getAdditionalInformation(withURLString: pokemonObject?.url ?? "")
                     if var newPokemonObject: Pokemon = pokemonObject {
-                    newPokemonObject = await self.getPokemonImages(withPokemon: newPokemonObject)
+                        newPokemonObject = await self.getPokemonImages(withPokemon: newPokemonObject)
                         newPokemons.append(newPokemonObject)
                     }
                 }
@@ -105,6 +108,9 @@ class PokemonListViewModel: NSObject {
     /// Used to update collection when user click on cancel button on search bar
     public func getPokemonsToSearch(withSearchText searchText: String) {
         var searchPokemon: [Pokemon] = []
+
+        UIApplication.shared.topMostViewController()?.showActivityIndicator()
+
         self.pokemons?.forEach({ pokemonFiltered in
             if PokemonsUtils().isNumber(withString: searchText), pokemonFiltered.id == Int(searchText) {
                 searchPokemon.append(pokemonFiltered)
@@ -122,18 +128,23 @@ class PokemonListViewModel: NSObject {
                     var newPokemon: Pokemon? = try await self.pokemonServiceAPI.getSearchPokemon(withPokemonIdOrName: searchText)
 
                     if (newPokemon != nil) {
-                        newPokemon = await self.getPokemonImages(withPokemon: newPokemon!)
+                        let aux: Pokemon = await self.getPokemonImages(withPokemon: newPokemon!)
+                        newPokemon = aux
                         self.bindSearchedPokemons([newPokemon!])
                     } else {
                         self.bindSearchedPokemons([])
                         let errorData: [String: Error] = [errorType: PokemonsError.PokemonNoExist]
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
                     }
+
+                    await UIApplication.shared.topMostViewController()?.hideActivityIndicator()
                 } catch {
                     let errorData: [String: Error] = [errorType: error]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
                 }
             }
+        } else {
+            UIApplication.shared.topMostViewController()?.hideActivityIndicator()
         }
 
         self.bindSearchedPokemons(searchPokemon)

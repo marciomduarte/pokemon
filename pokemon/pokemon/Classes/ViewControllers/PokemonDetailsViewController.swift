@@ -33,8 +33,6 @@ class PokemonDetailsViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.pokemonRedColor
         self.navigationController?.navigationBar.topItem?.title = ""
 
-        self.showActivityIndicator()
-
         self.setupUI()
     }
 
@@ -51,16 +49,12 @@ class PokemonDetailsViewController: UIViewController {
         self.pokemonListViewModel = PokemonDetailsViewModel()
         if let pokemonFetched = self.pokemons.first(where: { $0.id == self.pokemonId}) {
             self.pokemon = pokemonFetched
-
-            self.hideActivityIndicator()
         } else {
             self.pokemonListViewModel.pokemonId = self.pokemonId
         }
 
         self.pokemonListViewModel.bindPokemonDetail = { pokemon in
             self.pokemon = pokemon
-
-            self.hideActivityIndicator()
         }
 
         self.changeLayoutWhenUserChangeOrientation()

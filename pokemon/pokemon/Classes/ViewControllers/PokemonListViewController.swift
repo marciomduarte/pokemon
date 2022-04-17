@@ -20,8 +20,6 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
 
         self.hideKeyboardWhenTappedAround()
 
-        self.showActivityIndicator()
-
         self.setupUI()
     }
 
@@ -60,7 +58,6 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
     private func searchPokemon(wiehtSearchBar searchBar: UISearchBar) {
         self.pokemonSearchBar.endEditing(true)
 
-        self.showActivityIndicator()
         if (searchBar.searchTextField.text ?? "").count > 0 {
             self.pokemonListView.pokemonsSearchText = searchBar.searchTextField.text ?? ""
         } else {
@@ -69,15 +66,10 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
     }
 
     private func resetSearchbarAndReloadData() {
-        self.pokemonSearchBar.showsCancelButton = false
         self.pokemonListView.reloadPokemonList()
     }
 
     // MARK: - Search Bar delegate
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.pokemonSearchBar.showsCancelButton = true
-    }
-
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         self.searchPokemon(wiehtSearchBar: searchBar)
     }
@@ -89,6 +81,4 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
     internal func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.resetSearchbarAndReloadData()
     }
-
-
 }

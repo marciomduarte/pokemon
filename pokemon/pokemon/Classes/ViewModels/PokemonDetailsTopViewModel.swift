@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class PokemonDetailsTopViewModel: NSObject {
 
@@ -43,9 +44,12 @@ class PokemonDetailsTopViewModel: NSObject {
     }
 
     private func getPokemonAdditionalInformation() {
+        UIApplication.shared.topMostViewController()?.showActivityIndicator()
+
         if self.pokemon.abilities?.count ?? 0 != 0, let abilityFetched = self.pokemon.abilities?.first?.isAbilityFetched, !abilityFetched {
             Task { [weak self] in
                 guard let self = self else {
+                    await UIApplication.shared.topMostViewController()?.hideActivityIndicator()
                     return
                 }
 
@@ -111,6 +115,8 @@ class PokemonDetailsTopViewModel: NSObject {
         pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.HeightType.description, andDetailsDescriptionTitle: "\(String(describing: self.pokemon.height!)) cm", andDetailsDescriptions: "", andDetailsSubDescription: ""))
 
         self.pokemonDetails = pokemonDetails
+
+        UIApplication.shared.topMostViewController()?.hideActivityIndicator()
     }
 
     private func getAbilitiesDetails() {
@@ -122,13 +128,17 @@ class PokemonDetailsTopViewModel: NSObject {
                 ability.ability?.effect_entries?.forEach({ effectEntries in
                     if effectEntries.language?.name == PokemonDetailsTopViewModel.kAppLanguageDefault {
                         // Ability cell
-                        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAbilitiesDetail.Ability.description, andDetailsDescriptionTitle: ability.ability?.name?.capitalized ?? "-", andDetailsDescriptions: effectEntries.effect ?? "-", andDetailsSubDescription: effectEntries.short_effect ?? "-"))
+                        let effect: String = "\(NSLocalizedString("pokemon.cell.effect", comment: "") + (effectEntries.effect ?? "-"))"
+                        let shortEffect: String = "\(NSLocalizedString("pokemon.cell.short.effect", comment: "") + (effectEntries.short_effect ?? "-"))"
+                        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAbilitiesDetail.Ability.description, andDetailsDescriptionTitle: ability.ability?.name?.capitalized ?? "-", andDetailsDescriptions: effect, andDetailsSubDescription: shortEffect))
                     }
                 })
             }
         })
 
         self.pokemonDetails = pokemonDetails
+
+        UIApplication.shared.topMostViewController()?.hideActivityIndicator()
     }
 
     private func getStatsDetails() {
@@ -143,5 +153,7 @@ class PokemonDetailsTopViewModel: NSObject {
         })
 
         self.pokemonDetails = pokemonDetails
+
+        UIApplication.shared.topMostViewController()?.hideActivityIndicator()
     }
 }
