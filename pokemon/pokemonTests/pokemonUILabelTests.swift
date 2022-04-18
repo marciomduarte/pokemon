@@ -93,7 +93,7 @@ class pokemonUILabelTests: pokemonTests {
         label.pokemonDetailCellTitleStyle()
 
         XCTAssertEqual(label.font, UIFont.customItalicFont(withSize: 16), "Font should be of size: 16")
-        XCTAssertEqual(label.textColor, UIColor.paeanBlack.withAlphaComponent(0.6), "Text color should be paeanBlack with alpha 0.6")
+        XCTAssertEqual(label.textColor, UIColor.paeanBlackColor.withAlphaComponent(0.6), "Text color should be paeanBlack with alpha 0.6")
     }
 
     func testPokemonDetailCellDescriptionTitleStyle() {
@@ -102,7 +102,7 @@ class pokemonUILabelTests: pokemonTests {
         label.pokemonDetailCellDescriptionTitleStyle()
 
         XCTAssertEqual(label.font, UIFont.customRegularFont(withSize: 18), "Font should be of size: 18")
-        XCTAssertEqual(label.textColor, UIColor.paeanBlack.withAlphaComponent(0.8), "Text color should be paeanBlack with alpha 0.8")
+        XCTAssertEqual(label.textColor, UIColor.paeanBlackColor.withAlphaComponent(0.8), "Text color should be paeanBlack with alpha 0.8")
     }
 
     func testPokemonDetailCellDescriptionStyle() {
@@ -111,7 +111,7 @@ class pokemonUILabelTests: pokemonTests {
         label.pokemonDetailCellDescriptionStyle()
 
         XCTAssertEqual(label.font, UIFont.customRegularFont(withSize: 18), "Font should be of size: 18")
-        XCTAssertEqual(label.textColor, UIColor.paeanBlack.withAlphaComponent(0.8), "Text color should be paeanBlack with alpha 0.8")
+        XCTAssertEqual(label.textColor, UIColor.paeanBlackColor.withAlphaComponent(0.8), "Text color should be paeanBlack with alpha 0.8")
     }
 
     func testPokemonDetailCellSubDescriptionStyle() {
@@ -120,6 +120,6 @@ class pokemonUILabelTests: pokemonTests {
         label.pokemonDetailCellSubDescriptionStyle()
 
         XCTAssertEqual(label.font, UIFont.customRegularFont(withSize: 16), "Font should be of size: 16")
-        XCTAssertEqual(label.textColor, UIColor.paeanBlack.withAlphaComponent(0.7), "Text color should be paeanBlack with alpha 0.7")
+        XCTAssertEqual(label.textColor, UIColor.paeanBlackColor.withAlphaComponent(0.7), "Text color should be paeanBlack with alpha 0.7")
     }
 }

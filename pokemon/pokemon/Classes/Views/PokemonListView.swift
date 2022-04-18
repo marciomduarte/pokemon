@@ -121,7 +121,7 @@ class PokemonListView: UIView {
             return
         }
 
-        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.findPokemonOnSearch ? (self.searchedListPokemons ?? []) : self.pokemonsList!, andIsLoadingCell: self.pokemonListViewModel.hasNextPage, andNumberOfCellsVisible: self.numberOfVisibelCell(), andIsSearchActive: self.findPokemonOnSearch, andCellConfig: { (cell, item, isLoadingCell, numberOfVisibleCells, isSearchActive) in
+        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.findPokemonOnSearch ? (self.searchedListPokemons ?? []) : self.pokemonsList!, andIsLoadingCell: self.pokemonListViewModel.hasNextPage, andIsSearchActive: self.findPokemonOnSearch, andCellConfig: { (cell, item, isLoadingCell, isSearchActive) in
             if let pokemon = item as? Pokemon {
                 if isLoadingCell && !isSearchActive {
                     // Display loading more pokemon cell
@@ -140,8 +140,8 @@ class PokemonListView: UIView {
         }
 
         // Configurated bind to get more pokemons. This bind listening to know when the collection view ask for more
-        self.pokemonsDataSource.getMorePokemons = { offSet in
-            self.pokemonListViewModel.fetchPokemons(withOffSet: offSet)
+        self.pokemonsDataSource.getMorePokemons = {
+            self.pokemonListViewModel.fetchPokemons()
         }
 
         self.pokemonCollectionView.dataSource = self.pokemonsDataSource

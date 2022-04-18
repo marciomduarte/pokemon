@@ -1,6 +1,6 @@
 # PokemonDemo App
 
-An iOS application that retrieves and shows Pokémon information from an external API.
+An iOS application that retrieves and shows Pokémon information. This app use an an external API to get the pokemons and your additional information.
 
 ## Desenvolvimento
 
@@ -16,8 +16,8 @@ An iOS application that retrieves and shows Pokémon information from an externa
 
 ## Classes
 
-- PokemonListViewController
-- PokemonDetailsViewController
+- PokemonListViewController: First screen. Showns the pokemon list in collection view. Each cell have the color corresponding to the type of pokemon, name, id. It has a search bar that allows the user to search for a pokemon by id or by name. When one of the cells is pressed, the app automatically go to detail of pokemon
+- PokemondetailsViewController: Show the details of the pokemons. On this screen, the user can see the front or back image of the pokemon. You can also see its general details (Height, weight, ...), abilities and base stats. This screen also has an option to switch from pokemon through with a swipe(left or right)
 
 ## View
 
@@ -35,8 +35,8 @@ An iOS application that retrieves and shows Pokémon information from an externa
 
 ### Delegate and Data Source
 
-- PokemonListDataSource
-- PokemonDetailsTopViewTableDataSource
+- PokemonListDataSource: Data source and delegate for the list of pokemons. Used on PokemonListViewController UICollectionView
+- PokemonDetailsTopViewTableDataSource: Data source and delegate for the details of pokemon. Used on POkemonDetailsTopView UITableView
 
 ## Model
 
@@ -46,8 +46,8 @@ An iOS application that retrieves and shows Pokémon information from an externa
 
 ## Custom UI
 
-- PokemonCell
-- PokemonDetailsCell
+- PokemonCell: Cell with configuration to present the pokemon information. Used in the PokemonListViewController UICollectionView  
+- PokemonDetailsCell: Cell with configuration to present the details of the pokemon. Used in the PokemonDetailsTopView UITableView
 
 ## Extensions
 
@@ -126,3 +126,4 @@ An iOS application that retrieves and shows Pokémon information from an externa
 - [ ] Show Pokémon moves information
 - [ ] Add custom loading animation 
 - [ ] Add custom popup
+- [ ] Add animation when user click on pokemon to get more detail

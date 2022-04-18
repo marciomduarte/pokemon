@@ -61,23 +61,23 @@ extension UILabel {
     // MARK: - DetailsCell
     public func pokemonDetailCellTitleStyle() {
         self.font = UIFont.customItalicFont(withSize: 16)
-        self.textColor = UIColor.paeanBlack.withAlphaComponent(0.6)
+        self.textColor = UIColor.paeanBlackColor.withAlphaComponent(0.6)
     }
 
     public func pokemonDetailCellDescriptionTitleStyle() {
         self.font = UIFont.customRegularFont(withSize: 18)
-        self.textColor = UIColor.paeanBlack
+        self.textColor = UIColor.paeanBlackColor
             .withAlphaComponent(0.8)
     }
 
     public func pokemonDetailCellDescriptionStyle() {
         self.font = UIFont.customRegularFont(withSize: 18)
-        self.textColor = UIColor.paeanBlack.withAlphaComponent(0.7)
+        self.textColor = UIColor.paeanBlackColor.withAlphaComponent(0.7)
             .withAlphaComponent(0.8)
     }
 
     public func pokemonDetailCellSubDescriptionStyle() {
         self.font = UIFont.customRegularFont(withSize: 16)
-        self.textColor = UIColor.paeanBlack.withAlphaComponent(0.7)
+        self.textColor = UIColor.paeanBlackColor.withAlphaComponent(0.7)
     }
 }

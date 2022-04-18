@@ -20,7 +20,7 @@ class pokemonAPIServicesTests: XCTestCase {
     }
 
     func testGetPokemons() {
-        pokemonListViewModel.fetchPokemons(withOffSet: 10)
+        pokemonListViewModel.fetchPokemons()
         // Sleep 15 seconds because we need to wait for the service respnse
         sleep(15)
         XCTAssertTrue(pokemonListViewModel.pokemons.count > 0)

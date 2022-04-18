@@ -25,12 +25,15 @@ class PokemonListViewModel: NSObject {
     /// Offset of next pokemons
     private var offSet: Int = 0
 
+    /// Offset of next pokemons
+    private var isServiceAPIFetching: Bool = false
+
     // MARK: - Public vars
     /// Var with number of cell on screen
     var numberOfElementsOnScreen: Int? {
         willSet {
             self.numberOfPokemonsFetched = (newValue ?? 0) * 2
-            self.fetchPokemons(withOffSet: self.offSet)
+            self.fetchPokemons()
         }
     }
 
@@ -50,8 +53,8 @@ class PokemonListViewModel: NSObject {
     public var hasNextPage: Bool = true
 
     /// Fetch pokemons
-    public func fetchPokemons(withOffSet offSet: Int) {
-        if !self.hasNextPage {
+    public func fetchPokemons() {
+        if !self.hasNextPage || self.isServiceAPIFetching {
             return
         }
 
@@ -64,8 +67,10 @@ class PokemonListViewModel: NSObject {
                 return
             }
 
+            self.isServiceAPIFetching = true
+
             do {
-                let pokemonsList = try await self.pokemonServiceAPI.getPokemonList(withNumberOfElements: self.numberOfPokemonsFetched, withOffSet: offSet)
+                let pokemonsList = try await self.pokemonServiceAPI.getPokemonList(withNumberOfElements: self.numberOfPokemonsFetched, withOffSet: self.offSet)
 
                 let pokemonResult: [Pokemon] = pokemonsList?.results ?? []
                 var newPokemons: [Pokemon] = []
@@ -76,13 +81,17 @@ class PokemonListViewModel: NSObject {
                         newPokemons.append(newPokemonObject)
                     }
                 }
+
                 self.pokemons.append(contentsOf: newPokemons)
 
-                self.offSet += self.numberOfPokemonsFetched
-                self.hasNextPage = offSet < (pokemonsList?.count ?? 0)
+                self.offSet += (pokemonsList?.results.count ?? 0)
+                self.hasNextPage = self.offSet < (pokemonsList?.count ?? 0)
+
+                self.isServiceAPIFetching = false
             } catch {
                 let errorData: [String: Error] = [errorType: error]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
+                self.isServiceAPIFetching = false
             }
         }
     }
