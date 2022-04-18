@@ -125,7 +125,6 @@ class PokemonListView: UIView {
             if let pokemon = item as? Pokemon {
                 if isLoadingCell && !isSearchActive {
                     // Display loading more pokemon cell
-                    cell.isUserInteractionEnabled = false
                     cell.configLoadingView()
                 } else {
                     // Display pokemon cell

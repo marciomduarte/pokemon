@@ -65,6 +65,12 @@ class PokemonDetailsTopView: UIView {
         self.segmentedControl.tintColor = UIColor.pokemonRedColor
         self.segmentedControl.selectedSegmentTintColor = UIColor.pokemonListBackgroundColor
         self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.pokemonRedColor], for:.normal)
+
+        let normalFontSegmentedControlFont: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font : UIFont.customItalicFont(withSize: 15.0) as Any]
+        segmentedControl.setTitleTextAttributes(normalFontSegmentedControlFont, for: .normal)
+        let selectedFontSegmentedControlFont: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font : UIFont.customItalicFont(withSize: 16.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.pokemonRedColor]
+        segmentedControl.setTitleTextAttributes(selectedFontSegmentedControlFont, for: .selected)
+
         self.segmentedControl.setTitle(NSLocalizedString("pokemon.details.about", comment: ""), forSegmentAt: 0)
         self.segmentedControl.setTitle(NSLocalizedString("pokemon.details.abilities", comment: ""), forSegmentAt: 1)
         self.segmentedControl.setTitle(NSLocalizedString("pokemon.details.stats", comment: ""), forSegmentAt: 2)

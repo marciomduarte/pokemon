@@ -57,6 +57,7 @@ class PokemonCell: UICollectionViewCell {
         self.pokemonTypeLabel.text = ""
         self.pokemonImageView.image = nil
         self.activityIndicator.isHidden = true
+        self.isUserInteractionEnabled = true
     }
 
     /// Method with configurations of the cell when we need a pokemon information cell
@@ -93,5 +94,7 @@ class PokemonCell: UICollectionViewCell {
         self.activityIndicator.color = UIColor.pokemonRedColor
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
+
+        self.isUserInteractionEnabled = false
     }
 }
