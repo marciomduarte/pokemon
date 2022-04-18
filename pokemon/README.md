@@ -100,28 +100,28 @@ An iOS application that retrieves and shows Pokémon information from an externa
 
 ## TODO List
 
-[x] iPhone Support
-[x] iPad full support
-[x] Fetch Pokemons from API
-[x] Allow dependency injection
-[x] Pagination
-[x] Support multiple device orientation
-[x] Add app icon
-[x] Set app launch screen
-[x] Accessibility
-[x] Add UITesting
-[x] Add UnitTesting
-[x] Show loading on last cell when the app wait for the service response
-[x] Search pokemon by ID
-[x] Search pokemon by Name
-[x] Show Pokémon Height information
-[x] Show Pokémon Weight information
-[x] Show Pokémon Abilities Information
-[x] Show Pokémon Basic Stat Information
-[x] Show Pokémon Type(s) information
-[x] Show Pokémon front and back image
-[x] Swipe between Pokémon details (previous and next)
-[] Save favorite Pokémons
-[] Show Pokémon moves information
-[] Add custom loading animation 
-[] Add custom popup
+- [x] iPhone Support
+- [x] iPad full support
+- [x] Fetch Pokemons from API
+- [x] Allow dependency injection
+- [x] Pagination
+- [x] Support multiple device orientation
+- [x] Add app icon
+- [x] Set app launch screen
+- [x] Accessibility
+- [x] Add UITesting
+- [x] Add UnitTesting
+- [x] Show loading on last cell when the app wait for the service response
+- [x] Search pokemon by ID
+- [x] Search pokemon by Name
+- [x] Show Pokémon Height information
+- [x] Show Pokémon Weight information
+- [x] Show Pokémon Abilities Information
+- [x] Show Pokémon Basic Stat Information
+- [x] Show Pokémon Type(s) information
+- [x] Show Pokémon front and back image
+- [x] Swipe between Pokémon details (previous and next)
+- [] Save favorite Pokémons
+- [] Show Pokémon moves information
+- [] Add custom loading animation 
+- [] Add custom popup
