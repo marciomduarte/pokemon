@@ -121,7 +121,7 @@ An iOS application that retrieves and shows Pokémon information from an externa
 - [x] Show Pokémon Type(s) information
 - [x] Show Pokémon front and back image
 - [x] Swipe between Pokémon details (previous and next)
-- [] Save favorite Pokémons
-- [] Show Pokémon moves information
-- [] Add custom loading animation 
-- [] Add custom popup
+- [ ] Save favorite Pokémons
+- [ ] Show Pokémon moves information
+- [ ] Add custom loading animation 
+- [ ] Add custom popup
