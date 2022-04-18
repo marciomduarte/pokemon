@@ -17,7 +17,7 @@ let errorType: String = "errorType"
 let PokemonErrorServiceNotification: String = "PokemonErrorServiceNotification"
 
 // Enums
-/// Pokemons erros used to services error or other type os errors
+/// Pokemons erros used to services error
 enum PokemonsError: Error {
     case ConnectionError
     case MissingData
@@ -35,7 +35,7 @@ enum PokemonDetailSegmentedSelected: Int {
 }
 
 /// Enum to identifier and return the title of cell
-/// Used to About details
+/// Segmented - About buttom
 enum PokemonAboutDetailType: String {
     case IdType
     case NameType
@@ -60,7 +60,7 @@ enum PokemonAboutDetailType: String {
 }
 
 ///// Enum to identifier and return the title of cell
-///// Used to Abilities details
+////// Segmented - Abilities details
 enum PokemonAbilitiesDetail: String {
     case Ability
 

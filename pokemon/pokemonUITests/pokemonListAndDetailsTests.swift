@@ -24,7 +24,7 @@ class pokemonListAndDetailsTests: XCTestCase {
         XCTAssertTrue(firstCellOfCollectionView.exists)
 
         if firstCellOfCollectionView.exists {
-            // Sleep 5seconds to wait service response
+            // Sleep 10seconds to wait service response
             sleep(10)
             firstCellOfCollectionView.tap()
         }

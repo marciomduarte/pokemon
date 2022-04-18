@@ -12,11 +12,4 @@ struct PokemonDetails {
     var detailsDescriptionTitle: String = ""
     var detailsDescription: String = ""
     var detailsSubDescription: String = ""
-
-    init(withDetailsTitle detailsTitle: String, andDetailsDescriptionTitle detailsDescriptionTitle: String, andDetailsDescriptions detailsDescriptions: String, andDetailsSubDescription detailsSubDescription: String) {
-        self.detailsTitle = detailsTitle
-        self.detailsDescriptionTitle = detailsDescriptionTitle
-        self.detailsDescription = detailsDescriptions
-        self.detailsSubDescription = detailsSubDescription
-    }
 }

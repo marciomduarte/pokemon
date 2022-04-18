@@ -9,7 +9,6 @@ import XCTest
 
 class PokemonUIFontTests: pokemonTests {
 
-
     func testCustomRegularFont() {
         let label = UILabel()
         label.font = UIFont.customRegularFont(withSize: 29.0)
@@ -18,7 +17,6 @@ class PokemonUIFontTests: pokemonTests {
         XCTAssertEqual(label.font.fontName, AppFontName.regular, "Font name should be equal to Ketchum")
     }
 
-    static let italic = ""
     func testCustomItalicFont() {
         let label = UILabel()
         label.font = UIFont.customItalicFont(withSize: 29.0)

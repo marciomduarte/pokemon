@@ -11,9 +11,6 @@ import UIKit
 class PokemonDetailsTopViewModel: NSObject {
 
     // MARK: - Private vars
-    /// Static var to identifier the language of the app
-    static var kAppLanguageDefault: String = "en"
-
     /// Var used to set the pokemons details receive from the service vall.
     /// This var call the bindPokemonDetails to send to the view all the details necessary to show the screen
     private(set) var pokemonDetails: [PokemonDetails]! {
@@ -104,10 +101,10 @@ class PokemonDetailsTopViewModel: NSObject {
         var pokemonDetails: [PokemonDetails] = []
 
         // Cell Id
-        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.IdType.description, andDetailsDescriptionTitle: String(describing: self.pokemon.id!), andDetailsDescriptions: "", andDetailsSubDescription: ""))
+        pokemonDetails.append(PokemonDetails(detailsTitle: PokemonAboutDetailType.IdType.description, detailsDescriptionTitle: String(describing: self.pokemon.id!), detailsDescription: "", detailsSubDescription: ""))
 
         // Cell Name
-        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.NameType.description, andDetailsDescriptionTitle: self.pokemon.name?.capitalized ?? "-", andDetailsDescriptions: "", andDetailsSubDescription: ""))
+        pokemonDetails.append(PokemonDetails(detailsTitle: PokemonAboutDetailType.NameType.description, detailsDescriptionTitle: self.pokemon.name?.capitalized ?? "-", detailsDescription: "", detailsSubDescription: ""))
 
         // Cell PokemonType
         var typeString: String = ""
@@ -117,13 +114,13 @@ class PokemonDetailsTopViewModel: NSObject {
                 typeString += "\n"
             }
         }
-        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.PokemonType.description, andDetailsDescriptionTitle: typeString, andDetailsDescriptions: "", andDetailsSubDescription: ""))
+        pokemonDetails.append(PokemonDetails(detailsTitle: PokemonAboutDetailType.PokemonType.description, detailsDescriptionTitle: typeString, detailsDescription: "", detailsSubDescription: ""))
 
         // Cell Weight
-        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.WeightType.description, andDetailsDescriptionTitle: "\(String(describing: self.pokemon.weight!)) kg", andDetailsDescriptions: "", andDetailsSubDescription: ""))
+        pokemonDetails.append(PokemonDetails(detailsTitle: PokemonAboutDetailType.WeightType.description, detailsDescriptionTitle: "\(String(describing: self.pokemon.weight!)) kg", detailsDescription: "", detailsSubDescription: ""))
 
         // Cell Height
-        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAboutDetailType.HeightType.description, andDetailsDescriptionTitle: "\(String(describing: self.pokemon.height!)) cm", andDetailsDescriptions: "", andDetailsSubDescription: ""))
+        pokemonDetails.append(PokemonDetails(detailsTitle: PokemonAboutDetailType.HeightType.description, detailsDescriptionTitle: "\(String(describing: self.pokemon.height!)) cm", detailsDescription: "", detailsSubDescription: ""))
 
         self.pokemonDetails = pokemonDetails
 
@@ -139,11 +136,11 @@ class PokemonDetailsTopViewModel: NSObject {
             if let hidden = ability.is_hidden, !hidden {
 
                 ability.ability?.effect_entries?.forEach({ effectEntries in
-                    if effectEntries.language?.name == PokemonDetailsTopViewModel.kAppLanguageDefault {
+                    if effectEntries.language?.name == Constants().kENLanguage {
                         // Ability cell
                         let effect: String = "\(NSLocalizedString("pokemon.cell.effect", comment: "") + (effectEntries.effect ?? "-"))"
                         let shortEffect: String = "\(NSLocalizedString("pokemon.cell.short.effect", comment: "") + (effectEntries.short_effect ?? "-"))"
-                        pokemonDetails.append(PokemonDetails(withDetailsTitle: PokemonAbilitiesDetail.Ability.description, andDetailsDescriptionTitle: ability.ability?.name?.capitalized ?? "-", andDetailsDescriptions: effect, andDetailsSubDescription: shortEffect))
+                        pokemonDetails.append(PokemonDetails(detailsTitle: PokemonAbilitiesDetail.Ability.description, detailsDescriptionTitle: ability.ability?.name?.capitalized ?? "-", detailsDescription: effect, detailsSubDescription: shortEffect))
                     }
                 })
             }
@@ -164,7 +161,7 @@ class PokemonDetailsTopViewModel: NSObject {
             let baseState = String(describing: stats.base_stat!)
 
             // Cell Speed
-            pokemonDetails.append(PokemonDetails(withDetailsTitle: statName ?? "-", andDetailsDescriptionTitle: baseState, andDetailsDescriptions: "", andDetailsSubDescription: ""))
+            pokemonDetails.append(PokemonDetails(detailsTitle: statName ?? "-", detailsDescriptionTitle: baseState, detailsDescription: "", detailsSubDescription: ""))
         })
 
         self.pokemonDetails = pokemonDetails
