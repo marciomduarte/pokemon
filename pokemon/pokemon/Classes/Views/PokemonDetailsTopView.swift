@@ -4,6 +4,7 @@
 //
 //  Created by Márcio Duarte on 13/04/2022.
 //
+//  PokemonDetailsTopView is the UIView when the user can see the pokemon details (id, name, ..), abilities ans base stat
 
 import UIKit
 

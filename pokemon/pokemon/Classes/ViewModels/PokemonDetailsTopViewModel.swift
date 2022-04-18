@@ -4,6 +4,8 @@
 //
 //  Created by Márcio Duarte on 15/04/2022.
 //
+//  ViewModel used to call services to retrive additional information about pokemon before start the layout construction
+//  Class used on PokemonDetailsTopView
 
 import Foundation
 import UIKit

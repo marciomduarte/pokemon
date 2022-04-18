@@ -31,7 +31,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
         }
 
         print(url)
-        let (data, _, serviceError) = try await PokemonWebServices.urlSession.newData(from: url)
+        let (data, _, serviceError) = try await PokemonWebServices.urlSession.getData(from: url)
         if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
             throw PokemonsError.ConnectionError
         } else if data == nil {
@@ -58,7 +58,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
             throw PokemonsError.GeneralError
         }
 
-        let (data, _, serviceError) = try await PokemonWebServices.urlSession.newData(from: url)
+        let (data, _, serviceError) = try await PokemonWebServices.urlSession.getData(from: url)
         if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
             throw PokemonsError.ConnectionError
         } else if data == nil {
@@ -85,7 +85,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
             throw PokemonsError.GeneralError
         }
 
-        let (data, _, serviceError) = try await PokemonWebServices.urlSession.newData(from: url)
+        let (data, _, serviceError) = try await PokemonWebServices.urlSession.getData(from: url)
         if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
             throw PokemonsError.ConnectionError
         } else if data == nil {
@@ -111,7 +111,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
             return nil
         }
 
-        let (data, _, serviceError) = try await PokemonWebServices.urlSession.newData(from: url)
+        let (data, _, serviceError) = try await PokemonWebServices.urlSession.getData(from: url)
         if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
             throw PokemonsError.ConnectionError
         } else if data == nil {
@@ -137,7 +137,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
             return nil
         }
 
-        let (data, _, serviceError) = try await URLSession.shared.newData(from: urlImage)
+        let (data, _, serviceError) = try await URLSession.shared.getData(from: urlImage)
         if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
             throw PokemonsError.ConnectionError
         } else if data == nil {

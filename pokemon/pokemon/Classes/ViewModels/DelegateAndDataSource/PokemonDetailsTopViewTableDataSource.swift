@@ -4,6 +4,7 @@
 //
 //  Created by Márcio Duarte on 15/04/2022.
 //
+// Class with the delegates and data source of the table view used to shown the details of the pokemons selected
 
 import Foundation
 import UIKit

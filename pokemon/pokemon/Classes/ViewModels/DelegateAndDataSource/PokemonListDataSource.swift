@@ -4,6 +4,7 @@
 //
 //  Created by Márcio Duarte on 12/04/2022.
 //
+// Class with the delegates and data source of the collection view used to shown the pokemons
 
 import Foundation
 import UIKit

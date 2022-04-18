@@ -4,6 +4,9 @@
 //
 //  Created by Márcio Duarte on 13/04/2022.
 //
+//  This ViewModel get pokemon additional information before update the details layout
+//  Class used on PokemonDetailsViewController
+//
 
 import Foundation
 import UIKit

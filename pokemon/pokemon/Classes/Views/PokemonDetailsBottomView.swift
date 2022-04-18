@@ -4,6 +4,7 @@
 //
 //  Created by Márcio Duarte on 13/04/2022.
 //
+//  PokemonDetailsBottomView is the UIView when the user can see the pokemon name and the front and back image of the pokemon
 
 import UIKit
 

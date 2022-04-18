@@ -4,6 +4,10 @@
 //
 //  Created by Márcio Duarte on 11/04/2022.
 //
+//  Class to show all the pokemons retrived by the service api
+//  This class contains:
+//      SearchBar: To search a pokemon by name or id
+//      PokemonListView: To shown the pokemons and get more information about them.
 
 import UIKit
 

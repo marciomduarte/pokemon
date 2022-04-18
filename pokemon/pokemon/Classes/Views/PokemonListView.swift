@@ -4,6 +4,8 @@
 //
 //  Created by Márcio Duarte on 13/04/2022.
 //
+//  PokemonListView is the UIView when the pokemons will be visible
+//  This clas receive the pokemon object and populate and construct the collectionViewDataSource
 
 import Foundation
 import UIKit

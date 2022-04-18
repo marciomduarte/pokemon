@@ -4,6 +4,10 @@
 //
 //  Created by Márcio Duarte on 13/04/2022.
 //
+//  Class to present the details of pokemons
+//  This class present:
+//      DetailsTopView: This view contains informations of pokemon (about pokemon, abilities, base stat)
+//      DetailsBottomView: This view contains the name of the pokemon and the front and back image.
 
 import UIKit
 

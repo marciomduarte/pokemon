@@ -9,8 +9,9 @@ import Foundation
 
 extension URLSession {
 
-    public func newData(from url: URL) async throws -> (Data?, URLResponse, Error?){
-        try await withCheckedThrowingContinuation { continuation in
+    // iOS 13 and 14 doens't support async mehtod and to skip this problem we create a wrapper around URLSession.
+    public func getData(from url: URL) async throws -> (Data?, URLResponse, Error?){
+        try await withCheckedContinuation { continuation in
             self.dataTask(with: url) { data, response, error in
                 guard let data = data, let response = response else {
                     let error = error ?? URLError(.notConnectedToInternet)
