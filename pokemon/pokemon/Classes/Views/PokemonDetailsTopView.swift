@@ -18,7 +18,7 @@ class PokemonDetailsTopView: UIView {
     // MARK: - Private vars
     /// Data source of table view details.
     /// User to create data source to show in details
-    private var pokemonsDetailsDataSource: PokemonDetailsTopViewTableDataSource<PokemonDetailsCellTableViewCell, Any>!
+    private var pokemonsDetailsDataSource: PokemonDetailsTopViewTableDataSource<PokemonDetailsCell, Any>!
 
     /// pokemonDetailsTopViewModel is used in comunication of View and ViewModel.
     private var pokemonDetailsTopViewModel: PokemonDetailsTopViewModel!
@@ -58,7 +58,7 @@ class PokemonDetailsTopView: UIView {
 
     private func setupUI() {
         //Config TableView
-        self.tableView.register(UINib.init(nibName: String(describing: PokemonDetailsCellTableViewCell.self), bundle: nil), forCellReuseIdentifier: PokemonDetailsCellTableViewCell.identifier)
+        self.tableView.register(UINib.init(nibName: String(describing: PokemonDetailsCell.self), bundle: nil), forCellReuseIdentifier: PokemonDetailsCell.identifier)
 
         // Config segmented control
         self.segmentedControl.backgroundColor = UIColor.clear
@@ -83,7 +83,7 @@ class PokemonDetailsTopView: UIView {
 
     /// Call updatePokemonDetails when PokemonDetailsViewModel return the pokemonDetailsObject
     private func updatePokemonsDetailsDataSource(withDetails details: [Any]) {
-        self.pokemonsDetailsDataSource = PokemonDetailsTopViewTableDataSource(cellIdentifier: PokemonDetailsCellTableViewCell.identifier, pokemonDetails: details, startCellConfiguration: { cell, item in
+        self.pokemonsDetailsDataSource = PokemonDetailsTopViewTableDataSource(cellIdentifier: PokemonDetailsCell.identifier, pokemonDetails: details, startCellConfiguration: { cell, item in
             if let pokemonDetails = item as? PokemonDetails {
                 cell.configCell(withPokemonDetails: pokemonDetails)
                 cell.selectionStyle = .none

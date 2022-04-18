@@ -121,7 +121,7 @@ class PokemonListView: UIView {
             return
         }
 
-        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.findPokemonOnSearch ? (self.searchedListPokemons ?? []) : self.pokemonsList!, andIsLoadingCell: false, andNumberOfCellsVisible: self.numberOfVisibelCell(), andIsSearchActive: self.findPokemonOnSearch, andCellConfig: { (cell, item, isLoadingCell, numberOfVisibleCells, isSearchActive) in
+        self.pokemonsDataSource = PokemonListDataSource(WithCellIdentifier: PokemonCell.identifier, andPokemons: self.findPokemonOnSearch ? (self.searchedListPokemons ?? []) : self.pokemonsList!, andIsLoadingCell: self.pokemonListViewModel.hasNextPage, andNumberOfCellsVisible: self.numberOfVisibelCell(), andIsSearchActive: self.findPokemonOnSearch, andCellConfig: { (cell, item, isLoadingCell, numberOfVisibleCells, isSearchActive) in
             if let pokemon = item as? Pokemon {
                 if isLoadingCell && !isSearchActive {
                     // Display loading more pokemon cell

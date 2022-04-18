@@ -25,9 +25,6 @@ class PokemonListViewModel: NSObject {
     /// Offset of next pokemons
     private var offSet: Int = 0
 
-    /// Used to check if we have more pokemons
-    private var hasNextPage: Bool = true
-
     // MARK: - Public vars
     /// Var with number of cell on screen
     var numberOfElementsOnScreen: Int? {
@@ -48,6 +45,9 @@ class PokemonListViewModel: NSObject {
     init (pokemonAPI: PokemonServiceProtocol = PokemonWebServices()) {
         self.pokemonServiceAPI = pokemonAPI
     }
+
+    /// Used to check if we have more pokemons
+    public var hasNextPage: Bool = true
 
     /// Fetch pokemons
     public func fetchPokemons(withOffSet offSet: Int) {

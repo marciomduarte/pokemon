@@ -1,5 +1,5 @@
 //
-//  PokemonDetailsCellTableViewCell.swift
+//  PokemonDetailsCell.swift
 //  pokemon
 //
 //  Created by Márcio Duarte on 15/04/2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PokemonDetailsCellTableViewCell: UITableViewCell {
+class PokemonDetailsCell: UITableViewCell {
 
     // MARK: - IBOutlets
     @IBOutlet weak var titleLabel: UILabel!

@@ -18,7 +18,7 @@ class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollect
     private var pokemons: [Pokemon]?
 
     /// Flag used to check if the cell to present is a loading cell
-    private var isLoadingCell: Bool = false
+    private var hasNextPage: Bool = false
 
     /// Var used to know the number of the cells the device can be display
     private var numberOfCellsVisible: Int = 0
@@ -44,13 +44,13 @@ class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollect
         self.cellIdentifier = cellIdentifier
         self.pokemons = pokemons as? [Pokemon]
         self.configureCell = cellConfig
-        self.isLoadingCell = isLoadingCell
+        self.hasNextPage = isLoadingCell
         self.numberOfCellsVisible = numberOfCellsVisible
         self.isSearchActive = searchActive
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.pokemons?.count ?? 0) + (self.isSearchActive ? 0 : 2)
+        return (self.pokemons?.count ?? 0) + (self.isSearchActive ? 0 : 1)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -70,7 +70,7 @@ class PokemonListDataSource<CELL : UICollectionViewCell, T>: NSObject, UICollect
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // Fetch more pokemons when 10 pokemons are missing to display
-        if (self.pokemons?.count ?? 0) - 10 == indexPath.row  {
+        if (self.pokemons?.count ?? 0) - 10 == indexPath.row  && self.hasNextPage {
             self.getMorePokemons?((self.pokemons?.count ?? 0) + self.numberOfCellsVisible)
         }
     }

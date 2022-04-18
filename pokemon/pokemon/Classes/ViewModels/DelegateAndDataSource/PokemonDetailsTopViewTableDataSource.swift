@@ -34,7 +34,7 @@ class PokemonDetailsTopViewTableDataSource<CELL : UITableViewCell, T>: NSObject,
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PokemonDetailsCellTableViewCell.identifier, for: indexPath) as! CELL
+        let cell = tableView.dequeueReusableCell(withIdentifier: PokemonDetailsCell.identifier, for: indexPath) as! CELL
 
         if let pokemonDetails = self.newPokemonDetails as? [PokemonDetails] {
             self.configureCell(cell, pokemonDetails[indexPath.row])
