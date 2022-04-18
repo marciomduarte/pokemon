@@ -100,7 +100,7 @@ An iOS application that retrieves and shows Pokémon information from an externa
 
 ## TODO List
 
-- [x] iPhone Support
+- [x] iPhone full Support
 - [x] iPad full support
 - [x] Fetch Pokemons from API
 - [x] Allow dependency injection
@@ -121,6 +121,7 @@ An iOS application that retrieves and shows Pokémon information from an externa
 - [x] Show Pokémon Type(s) information
 - [x] Show Pokémon front and back image
 - [x] Swipe between Pokémon details (previous and next)
+- [ ] Hide search bar when scrolling collection view
 - [ ] Save favorite Pokémons
 - [ ] Show Pokémon moves information
 - [ ] Add custom loading animation 

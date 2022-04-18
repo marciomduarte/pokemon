@@ -15,7 +15,11 @@ class PokemonDetailsViewController: UIViewController {
     @IBOutlet weak var pokemonDetailsBottomViewHeightConstraint: NSLayoutConstraint!
 
     // MARK: - Private vars
-    private var pokemonListViewModel: PokemonDetailsViewModel!
+    /// View model for pokemon details
+    private var pokemonDetailsViewModel: PokemonDetailsViewModel!
+
+    /// Pokemon selected by the user to see the details
+    /// Pokemon sent by the view model to show details
     private var pokemon: Pokemon! {
         didSet {
             self.pokemonDetailsTopView.pokemon = self.pokemon
@@ -24,8 +28,18 @@ class PokemonDetailsViewController: UIViewController {
     }
 
     // MARK: Public vars
+    /// Pokemon identifier
+    /// This pokemonId it is used to get more details to a specific pokemon
+    /// The service call to get additional information use this
     public var pokemonId: Int = -1
+
+    /// All pokemons fetched
+    /// This array is used before calling the details service.
+    /// It is an array to  check if the pokemon it is already loaded.
     public var pokemons: [Pokemon]!
+
+    /// Save the swipe
+    public var leftSwiped: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,11 +69,21 @@ class PokemonDetailsViewController: UIViewController {
         // Define backgroundColor
         self.view.backgroundColor = UIColor.pokemonListBackgroundColor
 
-        self.pokemonListViewModel = PokemonDetailsViewModel()
+        self.pokemonDetailsViewModel = PokemonDetailsViewModel()
         self.getPokemonObject()
 
-        self.pokemonListViewModel.bindPokemonDetail = { pokemon in
+        // Bind to return pokemon to view controller
+        self.pokemonDetailsViewModel.bindPokemonDetail = { pokemon in
             self.pokemon = pokemon
+        }
+
+        // Bind to return error if the pokemon doesn't exist
+        self.pokemonDetailsViewModel.errorGetPokemon = {
+            if self.leftSwiped {
+                self.pokemonId -= 1
+            } else {
+                self.pokemonId += 1
+            }
         }
 
         self.changeLayoutWhenUserChangeOrientation()
@@ -71,7 +95,7 @@ class PokemonDetailsViewController: UIViewController {
         if let pokemonFetched = self.pokemons.first(where: { $0.id == self.pokemonId}) {
             self.pokemon = pokemonFetched
         } else {
-            self.pokemonListViewModel.pokemonId = self.pokemonId
+            self.pokemonDetailsViewModel.pokemonId = self.pokemonId
         }
     }
 
@@ -91,6 +115,7 @@ class PokemonDetailsViewController: UIViewController {
         if let swipeGesture = sender as? UISwipeGestureRecognizer {
             switch swipeGesture.direction {
             case .right:
+                self.leftSwiped = true
                 if self.pokemonId > 1 {
                     self.pokemonId -= 1
 
@@ -98,8 +123,9 @@ class PokemonDetailsViewController: UIViewController {
                 }
                 break
             case .left:
-                    self.pokemonId += 1
-                    self.getPokemonObject()
+                self.leftSwiped = true
+                self.pokemonId += 1
+                self.getPokemonObject()
             default:
                 break
             }

@@ -25,6 +25,10 @@ class PokemonDetailsViewModel: NSObject {
     /// This method return to view the pokemon detail requested by the user
     var bindPokemonDetail: ((_ pokemons: Pokemon) -> ()) = {_ in}
 
+    /// bind the pokemons details.
+    /// This method return to view the pokemon detail requested by the user
+    var errorGetPokemon: (() -> ()) = {}
+
     /// Pokemon Id of the pokemon.
     /// Used to setted the pokemonId selected by the user
     var pokemonId: Int = -1 {
@@ -52,6 +56,7 @@ class PokemonDetailsViewModel: NSObject {
                 if pokemon == nil {
                     let errorData: [String: Error] = [errorType: PokemonsError.NoMorePokemons]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
+                    self.errorGetPokemon()
                 } else {
                     pokemon = await PokemonsUtils().getPokemonImages(withPokemon: pokemon!)
                     self.pokemon = pokemon
@@ -60,6 +65,7 @@ class PokemonDetailsViewModel: NSObject {
             } catch {
                 let errorData: [String: Error] = [errorType: error]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
+                self.errorGetPokemon()
             }
         }
     }

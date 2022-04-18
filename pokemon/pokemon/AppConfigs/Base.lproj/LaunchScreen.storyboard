@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_pokeball" translatesAutoresizingMaskIntoConstraints="NO" id="LzM-BE-VmR">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pokemon_splash" translatesAutoresizingMaskIntoConstraints="NO" id="LzM-BE-VmR">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                         </subviews>
@@ -24,8 +24,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="LzM-BE-VmR" secondAttribute="bottom" id="0cm-h8-f7F"/>
+                            <constraint firstItem="LzM-BE-VmR" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="54J-yE-wlV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LzM-BE-VmR" secondAttribute="trailing" id="CwR-da-1jd"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="LzM-BE-VmR" secondAttribute="top" constant="44" id="RnO-cz-xlF"/>
+                            <constraint firstAttribute="top" secondItem="LzM-BE-VmR" secondAttribute="top" id="RnO-cz-xlF"/>
                             <constraint firstAttribute="top" secondItem="LzM-BE-VmR" secondAttribute="top" id="YrA-8W-m1I"/>
                             <constraint firstItem="LzM-BE-VmR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="clU-Ae-LHE"/>
                             <constraint firstItem="LzM-BE-VmR" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="hLY-VQ-gYd"/>
@@ -39,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splash_pokeball" width="2000" height="3197"/>
+        <image name="pokemon_splash" width="1200" height="1920"/>
     </resources>
 </document>
