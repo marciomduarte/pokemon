@@ -10,7 +10,7 @@ An iOS application that retrieves and shows Pokémon information. This app use a
 - API used: PokeAPI (https://pokeapi.co/).
 
 ## Notes:
-If you have a xCode below version 13.2.1, you need to change the iOS target to iOS 15.0 because Swift's concurrency because it is not available for versions below xCode 13.2.1 
+If you have a xCode below version 13.2.1, you need to change the iOS target to iOS 15.0 because Swift's concurrency it is not available for versions below xCode 13.2.1 
 
 ## WebServives
 
