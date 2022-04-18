@@ -9,7 +9,7 @@ import Foundation
 
 extension URLSession {
 
-    // iOS 13 and 14 doens't support async mehtod and to skip this problem we create a wrapper around URLSession.
+    // iOS 13 and 14 doesn't support async mehtod and to skip this problem it was necessary t create a wrapper around URLSession to support async.
     public func getData(from url: URL) async throws -> (Data?, URLResponse, Error?){
         try await withCheckedContinuation { continuation in
             self.dataTask(with: url) { data, response, error in

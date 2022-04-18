@@ -31,6 +31,9 @@ class PokemonDetailsTopViewModel: NSObject {
     /// Bind to inform View to update details tableview
     var bindPokemonDetails: (([PokemonDetails]) -> ()) = {_ in}
 
+    /// Bind to inform View to update details tableview
+    var bindErrorToGetAbilities: (() -> ()) = {}
+
     /// Pokemon selected to show details
     public var pokemon: Pokemon!
 
@@ -46,57 +49,6 @@ class PokemonDetailsTopViewModel: NSObject {
     /// Init Pokemon service api  protocol.
     init (pokemonAPI: PokemonServiceProtocol = PokemonWebServices()) {
         self.pokemonServiceAPI = pokemonAPI
-    }
-
-    /// Get pokemons additional information
-    /// This method get all abilities of the pokemon and after that get the details of the abilities que devem ser apresentados
-    private func getPokemonAdditionalInformation() {
-        PokemonsUtils().showActivityView()
-
-        if self.pokemon.abilities?.count ?? 0 != 0, let abilityFetched = self.pokemon.abilities?.first?.isAbilityFetched, !abilityFetched {
-            Task { [weak self] in
-                guard let self = self else {
-                    PokemonsUtils().hideActivityView()
-
-                    return
-                }
-
-                do {
-                    if let abilities = self.pokemon.abilities {
-                        var index: Int = 0
-                        for ability in abilities {
-                            // Get abilities of the pokemon
-                            let newAbility: Ability!
-                            if let urlString = ability.ability?.url, index <= (self.pokemon.abilities?.count ?? 0) {
-                                newAbility = try await self.pokemonServiceAPI.getPokemonAbilities(withURLString: urlString)
-                                self.pokemon.abilities?[index].ability = newAbility
-                                self.pokemon.abilities?[index].isAbilityFetched = true
-                            }
-                            index += 1
-                        }
-
-                        PokemonsUtils().hideActivityView()
-                    }
-                } catch {
-                    let errorData: [String: Error] = [errorType: error]
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
-                }
-            }
-        }
-
-        self.getPokemonDetails()
-    }
-
-    /// Identifie and reate the detail object based of the segmented control
-    private func getPokemonDetails() {
-        switch self.pokemonDetailSegmentedSelected {
-        case .Abilities:
-            self.getAbilitiesDetails()
-        case .Stats:
-            self.getStatsDetails()
-        default:
-            self.getAbountDetails()
-        }
     }
 
     /// Create about information details of pokemon
@@ -130,8 +82,25 @@ class PokemonDetailsTopViewModel: NSObject {
         PokemonsUtils().hideActivityView()
     }
 
+    // Check pokemon object data
+    private func hasPokemonObject(withPokemon pokemon: Pokemon?) -> Bool {
+        return pokemon != nil && pokemon?.abilities != nil && pokemon?.abilities?.count ?? 0 != 0
+    }
+
+    /// Identifie and reate the detail object based of the segmented control
+    public func getPokemonDetails() {
+        switch self.pokemonDetailSegmentedSelected {
+        case .Abilities:
+            self.getAbilitiesDetails()
+        case .Stats:
+            self.getStatsDetails()
+        default:
+            self.getAbountDetails()
+        }
+    }
+
     /// Create abilities object information details of pokemon
-    private func getAbilitiesDetails() {
+    public func getAbilitiesDetails() {
         var pokemonDetails: [PokemonDetails] = []
 
         // For each ability will get the explanatory details of each one of them and construct the PokemonDetails object
@@ -150,6 +119,53 @@ class PokemonDetailsTopViewModel: NSObject {
         self.pokemonDetails = pokemonDetails
 
         PokemonsUtils().hideActivityView()
+    }
+    
+    /// Get pokemons additional information
+    /// This method get all abilities of the pokemon and after that get the details of the abilities que devem ser apresentados
+    public func getPokemonAdditionalInformation() {
+        PokemonsUtils().showActivityView()
+
+        if self.hasPokemonObject(withPokemon: self.pokemon), let abilityFetched = self.pokemon.abilities?.first?.isAbilityFetched, !abilityFetched {
+            Task { [weak self] in
+                guard let self = self else {
+                    PokemonsUtils().hideActivityView()
+
+                    return
+                }
+
+                do {
+                    if let abilities = self.pokemon.abilities {
+                        var index: Int = 0
+                        for ability in abilities {
+                            // Get abilities of the pokemon
+                            let newAbility: Ability!
+                            if let urlString = ability.ability?.url, index <= (self.pokemon.abilities?.count ?? 0) {
+                                newAbility = try await self.pokemonServiceAPI.getPokemonAbilities(withURLString: urlString)
+                                self.pokemon.abilities?[index].ability = newAbility
+                                self.pokemon.abilities?[index].isAbilityFetched = true
+                            }
+                            index += 1
+                        }
+
+                        PokemonsUtils().hideActivityView()
+                    }
+                } catch {
+                    let errorData: [String: Error] = [errorType: error]
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
+
+                    return
+                }
+            }
+        } else if self.pokemonDetailSegmentedSelected == .Abilities && !self.hasPokemonObject(withPokemon: self.pokemon) {
+            let errorData: [String: Error] = [errorType: PokemonsError.MissingData]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: PokemonErrorServiceNotification), object: errorData)
+
+            self.bindErrorToGetAbilities()
+            return
+        }
+
+        self.getPokemonDetails()
     }
 
     // Check if the language of the ability is equal to the default language

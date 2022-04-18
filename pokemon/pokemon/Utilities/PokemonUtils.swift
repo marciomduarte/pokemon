@@ -17,6 +17,13 @@ let errorType: String = "errorType"
 let PokemonErrorServiceNotification: String = "PokemonErrorServiceNotification"
 
 // Enums
+// Screen type to iphones with small screens
+enum ScreenType: String {
+    case iPhones_4_4S = "iPhone 4 or iPhone 4S"
+    case iPhones_5_5s_5c_SE = "iPhone 5, iPhone 5s, iPhone 5c or iPhone SE"
+    case unknown
+}
+
 /// Pokemons erros used to services error
 enum PokemonsError: Error {
     case ConnectionError
@@ -124,6 +131,17 @@ extension UIViewController {
     static var activityView: UIView?
     static var activityViewIndicator: UIActivityIndicatorView?
 
+    var screenType: ScreenType {
+        switch UIScreen.main.nativeBounds.height {
+        case 960:
+            return .iPhones_4_4S
+        case 1136:
+            return .iPhones_5_5s_5c_SE
+        default:
+            return .unknown
+        }
+    }
+    
     /// Method to set gesture recognizer to the view.
     /// This method is use to hide keyboard when view is tapped
     func hideKeyboardWhenTappedAround() {
@@ -170,7 +188,7 @@ extension UIViewController {
 
     /// Method used to receive the notification sended when the app needs to call a service and this service return a error/problem.
     /// Also, this method create the message to show on alert.
-    @objc func methodOfReceivedNotification(notification: NSNotification){
+    @objc func ErrorNotification(notification: NSNotification){
         DispatchQueue.main.async {
             self.topMostViewController().hideActivityIndicator()
             
@@ -178,6 +196,7 @@ extension UIViewController {
                 return
             }
 
+            NSLog("Receive error: \(errorType.localizedDescription)")
             var message: String = ""
             switch errorType {
             case .MissingData:
@@ -194,6 +213,7 @@ extension UIViewController {
                 // General error
                 message = NSLocalizedString("pokemon.alert.error.message.GeneralError", comment: "")
             }
+            
             self.showErrorAlert(withMessage: message)
         }
     }

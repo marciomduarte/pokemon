@@ -21,9 +21,6 @@ class PokemonDetailsTopView: UIView {
     /// User to create data source to show in details
     private var pokemonsDetailsDataSource: PokemonDetailsTopViewTableDataSource<PokemonDetailsCell, Any>!
 
-    /// pokemonDetailsTopViewModel is used in comunication of View and ViewModel.
-    private var pokemonDetailsTopViewModel: PokemonDetailsTopViewModel!
-
     // MARK: - Public vars
     /// Set pokemon selected to show the details
     /// When pokemon is setted, automatically the pokemon is setted on viewModel to get all the details.
@@ -38,6 +35,9 @@ class PokemonDetailsTopView: UIView {
             }
         }
     }
+
+    /// pokemonDetailsTopViewModel is used in comunication of View and ViewModel.
+    public var pokemonDetailsTopViewModel: PokemonDetailsTopViewModel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)

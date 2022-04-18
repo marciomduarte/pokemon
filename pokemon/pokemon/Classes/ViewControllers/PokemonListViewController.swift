@@ -20,7 +20,7 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(PokemonErrorServiceNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ErrorNotification(notification:)), name: Notification.Name(PokemonErrorServiceNotification), object: nil)
 
         self.hideKeyboardWhenTappedAround()
 

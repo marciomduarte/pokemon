@@ -39,6 +39,13 @@ struct Abilities: Decodable {
     var is_hidden: Bool?
     var isAbilityFetched: Bool? = false
 
+    // Needs this init for the tests
+    init(withAbility ability: Ability?, andIsHidden isHidden: Bool, andIsAbilityFetched isAbilityFetched: Bool) {
+        self.ability = ability
+        self.is_hidden = isHidden
+        self.isAbilityFetched = isAbilityFetched
+    }
+
     enum CodingKeys : String, CodingKey {
         case ability = "ability"
         case is_hidden = "is_hidden"
@@ -59,6 +66,13 @@ struct Ability: Decodable {
     var name: String?
     var url: String?
     var effect_entries: [EffectEntries]?
+
+    // Needs this init for the tests
+    init(withName name: String?, andUrl url: String?, withEffectsEntries effectEntries: [EffectEntries]? ) {
+        self.name = name
+        self.url = url
+        self.effect_entries = effectEntries
+    }
 
     enum CodingKeys : String, CodingKey {
         case name = "name"

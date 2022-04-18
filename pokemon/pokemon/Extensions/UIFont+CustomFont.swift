@@ -13,7 +13,6 @@ struct AppFontName {
   static let italic = "Ketchum-Italic"
 }
 
-
 extension UIFont {
     static func customRegularFont(withSize size: CGFloat) -> UIFont? {
         return UIFont(name: AppFontName.regular, size: size)

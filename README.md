@@ -9,6 +9,9 @@ An iOS application that retrieves and shows Pokémon information. This app use a
 - MVVM architecture
 - API used: PokeAPI (https://pokeapi.co/).
 
+## Notes:
+If you have a xCode below version 13.2.1, you need to change the iOS target to iOS 15.0 because Swift's concurrency because it is not available for versions below xCode 13.2.1 
+
 ## WebServives
 
 - PokemonEndpointString: Responsable to create the url with parameters received.

@@ -20,10 +20,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        window?.windowScene = windowScene
-        window?.makeKeyAndVisible()
-        window?.rootViewController = self.setRootViewController()
+        self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        self.window?.windowScene = windowScene
+        self.window?.makeKeyAndVisible()
+        self.window?.rootViewController = self.setRootViewController()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

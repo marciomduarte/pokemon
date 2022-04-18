@@ -33,4 +33,14 @@ class pokemonTests: XCTestCase {
         }
     }
 
+    func testCheckIfTextWriteOnSearchIsNumber() {
+        var text = "1234"
+        XCTAssertTrue(PokemonsUtils().isNumber(withString: text) == true, "Text is a number and the method should be return true")
+
+        text = "pikachu"
+        XCTAssertTrue(PokemonsUtils().isNumber(withString: text) == false, "Text is not a number and the method should be return false")
+
+        text = "asdas22"
+        XCTAssertTrue(PokemonsUtils().isNumber(withString: text) == false, "Text have numbers and letters and the method should be return false")
+    }
 }

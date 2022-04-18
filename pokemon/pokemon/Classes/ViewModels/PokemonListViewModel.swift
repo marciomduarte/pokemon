@@ -86,6 +86,9 @@ class PokemonListViewModel: NSObject {
 
                 self.pokemons.append(contentsOf: newPokemons)
 
+                NSLog("Result => Number of pokemons fetched => \(self.pokemons.count)")
+                NSLog("Result => List of pokemons => \n \(self.pokemons.description)")
+
                 self.offSet += (pokemonsList?.results.count ?? 0)
                 self.hasNextPage = self.offSet < (pokemonsList?.count ?? 0)
 

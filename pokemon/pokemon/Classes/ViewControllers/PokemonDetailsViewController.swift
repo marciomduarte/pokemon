@@ -7,7 +7,7 @@
 //  Class to present the details of pokemons
 //  This class present:
 //      DetailsTopView: This view contains informations of pokemon (about pokemon, abilities, base stat)
-//      DetailsBottomView: This view contains the name of the pokemon and the front and back image.
+//      DetailsBottomView: This view contains the name of the pokemon and the front/back image.
 
 import UIKit
 
@@ -47,7 +47,7 @@ class PokemonDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(PokemonErrorServiceNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ErrorNotification(notification:)), name: Notification.Name(PokemonErrorServiceNotification), object: nil)
         self.navigationController?.navigationBar.tintColor = UIColor.pokemonRedColor
         self.navigationController?.navigationBar.topItem?.title = ""
 
@@ -90,8 +90,16 @@ class PokemonDetailsViewController: UIViewController {
             }
         }
 
+        self.pokemonDetailsTopView.pokemonDetailsTopViewModel.bindErrorToGetAbilities = {
+            self.navigationController?.popViewController(animated: true)
+        }
+
         self.changeLayoutWhenUserChangeOrientation()
         self.addSwipeLeftRightToChangePokemon()
+
+        if (self.screenType == .iPhones_5_5s_5c_SE || self.screenType == .iPhones_4_4S) {
+            self.hideDetailsBottomView()
+        }
     }
 
     // Get pokemon object on PokemonsFetched array or call service to get a new one.
@@ -144,12 +152,15 @@ class PokemonDetailsViewController: UIViewController {
     // Method to update layout after user change the device orientation
     private func changeLayoutWhenUserChangeOrientation() {
         if UIDevice.current.orientation.isLandscape {
-            self.pokemonDetailsBottomViewHeightConstraint.constant = 0.0
-            self.pokemonDetailsBottomView.isHidden = true
+            self.hideDetailsBottomView()
         } else {
             self.pokemonDetailsBottomViewHeightConstraint.constant = pokemonDetailsBottomView.bottomView.frame.maxY - self.pokemonDetailsBottomView.imageViewContainer.frame.minY
             self.pokemonDetailsBottomView.isHidden = false
         }
     }
 
+    private func hideDetailsBottomView() {
+        self.pokemonDetailsBottomViewHeightConstraint.constant = 0.0
+        self.pokemonDetailsBottomView.isHidden = true
+    }
 }

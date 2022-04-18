@@ -30,7 +30,8 @@ public class PokemonWebServices: PokemonServiceProtocol {
             throw PokemonsError.GeneralError
         }
 
-        print(url)
+        NSLog("\n\n Get pokemons list url: \(url.absoluteString)\n\n")
+
         let (data, _, serviceError) = try await PokemonWebServices.urlSession.getData(from: url)
         if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
             throw PokemonsError.ConnectionError
@@ -45,6 +46,8 @@ public class PokemonWebServices: PokemonServiceProtocol {
             throw PokemonsError.GeneralError
         }
 
+        NSLog("\n\n Result => Get list of pokemons => \n\n \(pokemonDecoded.debugDescription)\n\n")
+
         return pokemonDecoded
     }
 
@@ -57,6 +60,8 @@ public class PokemonWebServices: PokemonServiceProtocol {
         guard let url = URL(string: urlString) ?? URL(string: "") else {
             throw PokemonsError.GeneralError
         }
+
+        NSLog("\n\n Get pokemon additional informaiton url: \(url.absoluteString) \n\n")
 
         let (data, _, serviceError) = try await PokemonWebServices.urlSession.getData(from: url)
         if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
@@ -85,6 +90,8 @@ public class PokemonWebServices: PokemonServiceProtocol {
             throw PokemonsError.GeneralError
         }
 
+        NSLog("\n\n Search with url: \(url.absoluteString) \n\n")
+
         let (data, _, serviceError) = try await PokemonWebServices.urlSession.getData(from: url)
         if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
             throw PokemonsError.ConnectionError
@@ -98,7 +105,9 @@ public class PokemonWebServices: PokemonServiceProtocol {
         } catch {
             throw PokemonsError.GetPokemonError
         }
-        
+
+        NSLog("Result => Pokemon => \n\n \(pokemonDecoded.debugDescription) \n\n")
+
         return pokemonDecoded
     }
 
@@ -108,8 +117,10 @@ public class PokemonWebServices: PokemonServiceProtocol {
     /// - Return an optional Ability object
     func getPokemonAbilities(withURLString urlString: String) async throws -> Ability? {
         guard let url = URL(string: urlString) ?? URL(string: "") else {
-            return nil
+            throw PokemonsError.GeneralError
         }
+
+        NSLog("\n\n Get pokemons abilities with url: \(url.absoluteString) \n\n")
 
         let (data, _, serviceError) = try await PokemonWebServices.urlSession.getData(from: url)
         if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {
@@ -124,6 +135,8 @@ public class PokemonWebServices: PokemonServiceProtocol {
         } catch {
             throw PokemonsError.GeneralError
         }
+
+        NSLog("Result => Pokemon abilities information => \n\n \(abilityDecoded.debugDescription)")
 
         return abilityDecoded
     }
