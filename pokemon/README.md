@@ -2,7 +2,7 @@
 
 An iOS application that retrieves and shows Pokémon information. This app use an an external API to get the pokemons and your additional information.
 
-## Desenvolvimento
+## Development
 
 - Application developed using xCode 13.2.1
 - Application developed using Swift 5 
