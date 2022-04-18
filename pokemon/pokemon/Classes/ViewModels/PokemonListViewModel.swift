@@ -107,7 +107,7 @@ class PokemonListViewModel: NSObject {
         self.pokemons?.forEach({ pokemonFiltered in
             if PokemonsUtils().isNumber(withString: searchText), pokemonFiltered.id == Int(searchText) {
                 searchPokemon.append(pokemonFiltered)
-            } else if pokemonFiltered.name == searchText.lowercased() {
+            } else if pokemonFiltered.name == searchText {
                 searchPokemon.append(pokemonFiltered)
             }
 

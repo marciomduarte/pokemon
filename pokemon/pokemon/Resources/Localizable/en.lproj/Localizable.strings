@@ -33,7 +33,7 @@
 
 // MARK: - Error Messages
 "pokemon.alert.error.ok.button" = "Ok.";
-"pokemon.alert.error.title" = "ℹ️ \nSomething wrong happens.";
+"pokemon.alert.error.title" = "ℹ️ \nSomething wrong happen.";
 "pokemon.alert.error.message.MissingData" = "\nWe cannot carry out this operation right now.";
 "pokemon.alert.error.message.GeneralError" = "\nPlease, try again later.";
 "pokemon.alert.error.message.error.find.pokemon" = "\nCan't find the pokemon.";

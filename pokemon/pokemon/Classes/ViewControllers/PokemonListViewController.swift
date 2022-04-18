@@ -54,7 +54,7 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
 
     // Go to pokemons details after click on cell
     private func goToPokemonDetail(withPokemonId pokemonId: Int, andPokemons pokemons: [Pokemon]) {
-        if pokemonId == 0{
+        if pokemonId == 0 {
             return
         }
 
@@ -69,7 +69,7 @@ class PokemonListViewController: UIViewController, UISearchBarDelegate {
         self.pokemonSearchBar.endEditing(true)
 
         if (searchBar.searchTextField.text ?? "").count > 0 {
-            self.pokemonListView.pokemonsSearchText = searchBar.searchTextField.text ?? ""
+            self.pokemonListView.pokemonsSearchText = searchBar.searchTextField.text?.lowercased() ?? ""
         } else {
             self.resetSearchbarAndReloadData()
         }
