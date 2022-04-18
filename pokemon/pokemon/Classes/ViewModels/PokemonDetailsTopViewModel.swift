@@ -65,6 +65,7 @@ class PokemonDetailsTopViewModel: NSObject {
                     if let abilities = self.pokemon.abilities {
                         var index: Int = 0
                         for ability in abilities {
+                            // Get abilities of the pokemon
                             let newAbility: Ability!
                             if let urlString = ability.ability?.url, index <= (self.pokemon.abilities?.count ?? 0) {
                                 newAbility = try await self.pokemonServiceAPI.getPokemonAbilities(withURLString: urlString)
@@ -138,11 +139,9 @@ class PokemonDetailsTopViewModel: NSObject {
             if let hidden = ability.is_hidden, !hidden {
 
                 ability.ability?.effect_entries?.forEach({ effectEntries in
-                    if effectEntries.language?.name == Constants().kENLanguage {
+                    if self.isEffectEntriesInEnIdiom(withLanguageName: effectEntries.language?.name ?? "") {
                         // Ability cell
-                        let effect: String = "\(NSLocalizedString("pokemon.cell.effect", comment: "") + (effectEntries.effect ?? "-"))"
-                        let shortEffect: String = "\(NSLocalizedString("pokemon.cell.short.effect", comment: "") + (effectEntries.short_effect ?? "-"))"
-                        pokemonDetails.append(PokemonDetails(detailsTitle: PokemonAbilitiesDetail.Ability.description, detailsDescriptionTitle: ability.ability?.name?.capitalized ?? "-", detailsDescription: effect, detailsSubDescription: shortEffect))
+                        pokemonDetails.append(self.getAbilityDetailInformation(withAbility: ability.ability!, andEffectEntries: effectEntries))
                     }
                 })
             }
@@ -151,6 +150,19 @@ class PokemonDetailsTopViewModel: NSObject {
         self.pokemonDetails = pokemonDetails
 
         PokemonsUtils().hideActivityView()
+    }
+
+    // Check if the language of the ability is equal to the default language
+    public func isEffectEntriesInEnIdiom(withLanguageName languageName: String) -> Bool {
+        return languageName == Constants().kENLanguage
+    }
+
+    // Create the PokemonDetail to abilities
+    public func getAbilityDetailInformation(withAbility ability: Ability, andEffectEntries effectEntries: EffectEntries) -> PokemonDetails {
+        let effect: String = "\(NSLocalizedString("pokemon.cell.effect", comment: "") + (effectEntries.effect ?? "-"))"
+        let shortEffect: String = "\(NSLocalizedString("pokemon.cell.short.effect", comment: "") + (effectEntries.short_effect ?? "-"))"
+
+        return PokemonDetails(detailsTitle: PokemonAbilitiesDetail.Ability.description, detailsDescriptionTitle: ability.name?.capitalized ?? "-", detailsDescription: effect, detailsSubDescription: shortEffect)
     }
 
     /// Create stats object information details of pokemon
