@@ -42,6 +42,8 @@ class PokemonDetailsTopViewModel: NSObject {
     public var pokemonDetailSegmentedSelected: PokemonDetailSegmentedSelected = .About {
         didSet {
             self.getPokemonAdditionalInformation()
+
+            PokemonsUtils().hideActivityView()
         }
     }
 
@@ -147,8 +149,6 @@ class PokemonDetailsTopViewModel: NSObject {
                             }
                             index += 1
                         }
-
-                        PokemonsUtils().hideActivityView()
                     }
                 } catch {
                     let errorData: [String: Error] = [errorType: error]

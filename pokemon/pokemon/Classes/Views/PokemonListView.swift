@@ -219,6 +219,8 @@ class PokemonListView: UIView {
         imageViewFrame.size.width = UIScreen.main.bounds.width
         imageViewFrame.size.height = imageViewWidth + (paddingTop * 2) + errorLabel.frame.height
         self.pokemonEmptyListView.frame = imageViewFrame
+
+        self.pokemonEmptyListView.isHidden = true
     }
 
     /// Create a Custom Flow layout

@@ -104,6 +104,8 @@ class PokemonDetailsViewController: UIViewController {
 
     // Get pokemon object on PokemonsFetched array or call service to get a new one.
     private func getPokemonObject() {
+        PokemonsUtils().showActivityView()
+        
         if let pokemonFetched = self.pokemons.first(where: { $0.id == self.pokemonId}) {
             self.pokemon = pokemonFetched
         } else {
@@ -123,7 +125,6 @@ class PokemonDetailsViewController: UIViewController {
     }
 
     @objc func changeImageGesture(_ sender: UIGestureRecognizer) {
-        PokemonsUtils().showActivityView()
         if let swipeGesture = sender as? UISwipeGestureRecognizer {
             switch swipeGesture.direction {
             case .right:
