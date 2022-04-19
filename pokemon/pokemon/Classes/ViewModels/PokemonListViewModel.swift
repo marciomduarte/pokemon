@@ -5,7 +5,7 @@
 //  Created by Márcio Duarte on 13/04/2022.
 //
 //  PokemonListViewView it's the view model to get all necessary information to present the list of pokemons
-//  On this class we can found the methods to fetch the pokemons and to get the pokemon searched by the user
+//  On this class we can found the methods to fetch pokemons and to fetch the pokemons searched by user
 
 import UIKit
 

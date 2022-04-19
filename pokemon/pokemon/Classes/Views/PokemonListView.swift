@@ -5,7 +5,7 @@
 //  Created by Márcio Duarte on 13/04/2022.
 //
 //  PokemonListView is the UIView when the pokemons will be visible
-//  This clas receive the pokemon object and populate and construct the collectionViewDataSource
+//  This class receive the pokemon object and populate and construct the collectionViewDataSource
 
 import Foundation
 import UIKit
@@ -14,7 +14,7 @@ class PokemonListView: UIView {
 
     // MARK: - IBOutlets
     @IBOutlet weak var pokemonCollectionView: UICollectionView!
-    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var contentView: UIView!
 
     // MARK: - Private vars
     ///Empty list view

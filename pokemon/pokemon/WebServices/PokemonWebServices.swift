@@ -61,7 +61,7 @@ public class PokemonWebServices: PokemonServiceProtocol {
             throw PokemonsError.GeneralError
         }
 
-        NSLog("\n\n Get pokemon additional informaiton url: \(url.absoluteString) \n\n")
+        NSLog("\n\n Get pokemon additional information url: \(url.absoluteString) \n\n")
 
         let (data, _, serviceError) = try await PokemonWebServices.urlSession.getData(from: url)
         if let urlError = serviceError as? URLError, urlError.code == .notConnectedToInternet {

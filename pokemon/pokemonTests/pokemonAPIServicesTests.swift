@@ -77,26 +77,6 @@ class pokemonAPIServicesTests: XCTestCase {
         waitForExpectations(timeout: 5.0, handler: nil)
     }
 
-    func testGetAbilities() {
-        let effectEntriesEn: EffectEntries = EffectEntries(effect: "Effect tests", language: Language(name: "en"), short_effect: "shor effect test")
-        let effectEntriesDe: EffectEntries = EffectEntries(effect: "Effect tests", language: Language(name: "pt"), short_effect: "shor effect test")
-
-        let ability: Ability = Ability(withName: "static", andUrl: nil, withEffectsEntries: [effectEntriesEn, effectEntriesDe])
-        let abilities: Abilities = Abilities(withAbility: ability, andIsHidden: false, andIsAbilityFetched: false)
-
-        let pokemon: Pokemon = Pokemon(id: 25, name: "pikachu", url: nil, weight: 60, height: 4, sprites: nil, types: nil, abilities: [abilities], stats: nil)
-
-        self.pokemonDetailsTopViewModel.pokemon = pokemon
-        self.pokemonDetailsTopViewModel.pokemonDetailSegmentedSelected = .Abilities
-        self.pokemonDetailsTopViewModel.getAbilitiesDetails()
-        self.pokemonDetailsTopViewModel.bindPokemonDetails = { pokemonDetails in
-
-            XCTAssertNotNil(pokemonDetails, "Pokemon details cannot be nil")
-            XCTAssertTrue(pokemonDetails.count >= 1, "Pokemon have at least 1 ability")
-            XCTAssertTrue((pokemonDetails.first?.detailsDescription.count ?? 0) >= 0, "Pokemon should be have ability description")
-        }
-    }
-
     func testGetAbilitiesWithGeneralError() async {
         do {
             _ = try await self.pokemonWebService.getPokemonAbilities(withURLString: "test_Test_test")
